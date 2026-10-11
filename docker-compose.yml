@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fourfrontlab-agency
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:./dev.db
+      - JWT_SECRET=four-front-lab-production-secret-key-2026
+    volumes:
+      - ./prisma:/app/prisma
+      - ./public/uploads:/app/public/uploads

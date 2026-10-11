@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getCurrentAdmin } from '@/lib/auth'
+import { sendLeadNotification } from '@/lib/email'
 
 export const dynamic = 'force-dynamic'
 
@@ -70,6 +71,18 @@ export async function POST(req: Request) {
         priority: budget && String(budget).includes('50,000') ? 'urgent' : 'normal',
       },
     })
+
+    // Dispatch background notification without blocking the response
+    sendLeadNotification({
+      name: inquiry.name,
+      email: inquiry.email,
+      phone: inquiry.phone,
+      company: inquiry.company,
+      service: inquiry.service,
+      budget: inquiry.budget,
+      timeline: inquiry.timeline,
+      message: inquiry.message,
+    }).catch((err) => console.error('[Notification dispatch error]:', err))
 
     return NextResponse.json({ success: true, inquiry }, { status: 201 })
   } catch (error: any) {
