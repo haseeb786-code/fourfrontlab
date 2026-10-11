@@ -6,6 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes = [
     '',
+    '/about',
     '/services',
     '/services/website-development',
     '/services/business-automation',
@@ -13,7 +14,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/services/digital-marketing',
     '/services/custom-software',
     '/portfolio',
+    '/insights',
     '/contact',
+    '/privacy',
+    '/terms',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -22,8 +26,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   let projectRoutes: MetadataRoute.Sitemap = []
+  let postRoutes: MetadataRoute.Sitemap = []
   try {
     const projects = await prisma.project.findMany({
+      where: { published: true },
       select: { slug: true, updatedAt: true },
     })
     projectRoutes = projects.map((p) => ({
@@ -32,7 +38,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }))
+
+    const posts = await prisma.blogPost.findMany({
+      where: { published: true },
+      select: { slug: true, updatedAt: true },
+    })
+    postRoutes = posts.map((p) => ({
+      url: `${baseUrl}/insights/${p.slug}`,
+      lastModified: p.updatedAt,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }))
   } catch (e) {}
 
-  return [...staticRoutes, ...projectRoutes]
+  return [...staticRoutes, ...projectRoutes, ...postRoutes]
 }

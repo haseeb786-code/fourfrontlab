@@ -154,17 +154,21 @@ export default function Navbar() {
             </Link>
 
             <Link 
-              href="/#process" 
-              className="text-slate-300 hover:text-brand-cyan transition-colors"
+              href="/about" 
+              className={`transition-colors hover:text-brand-cyan ${
+                pathname === '/about' ? 'text-brand-cyan font-semibold' : 'text-slate-300'
+              }`}
             >
-              Our Process
+              About
             </Link>
 
             <Link 
-              href="/#testimonials" 
-              className="text-slate-300 hover:text-brand-cyan transition-colors"
+              href="/insights" 
+              className={`transition-colors hover:text-brand-cyan ${
+                pathname.startsWith('/insights') ? 'text-brand-cyan font-semibold' : 'text-slate-300'
+              }`}
             >
-              Client Proof
+              Insights
             </Link>
 
             <Link 
@@ -251,18 +255,18 @@ export default function Navbar() {
               Work & Case Studies
             </a>
             <a 
-              href="/#process" 
+              href="/about" 
               className="text-slate-200 hover:text-brand-cyan py-1"
               onClick={() => setIsOpen(false)}
             >
-              Our Process
+              About Agency
             </a>
             <a 
-              href="/#testimonials" 
+              href="/insights" 
               className="text-slate-200 hover:text-brand-cyan py-1"
               onClick={() => setIsOpen(false)}
             >
-              Client Proof
+              Insights & Blog
             </a>
             <a 
               href="/contact" 

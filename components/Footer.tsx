@@ -100,8 +100,18 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2.5">
               <li>
+                <a href="/about" className="hover:text-brand-cyan transition-colors">
+                  About the Agency
+                </a>
+              </li>
+              <li>
                 <a href="/portfolio" className="hover:text-brand-cyan transition-colors">
                   Featured Case Studies
+                </a>
+              </li>
+              <li>
+                <a href="/insights" className="hover:text-brand-cyan transition-colors">
+                  Insights & Research
                 </a>
               </li>
               <li>
@@ -110,18 +120,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/#testimonials" className="hover:text-brand-cyan transition-colors">
-                  Client Reviews & Results
-                </a>
-              </li>
-              <li>
                 <a href="/contact" className="hover:text-brand-cyan transition-colors">
                   Book a Discovery Call
-                </a>
-              </li>
-              <li>
-                <a href="/sitemap.xml" className="hover:text-brand-cyan transition-colors">
-                  Sitemap
                 </a>
               </li>
             </ul>
@@ -162,11 +162,16 @@ export default function Footer() {
         {/* Bottom divider and copyright */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <p>© {currentYear} Four Front Lab. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5 text-slate-400">
-              <span className="w-2 h-2 rounded-full bg-brand-cyan"></span>
-              99.98% Service Uptime
-            </span>
+          <div className="flex flex-wrap items-center gap-6">
+            <a href="/privacy" className="text-slate-400 hover:text-white transition-colors">
+              Privacy Policy
+            </a>
+            <a href="/terms" className="text-slate-400 hover:text-white transition-colors">
+              Terms of Service
+            </a>
+            <a href="/sitemap.xml" className="text-slate-400 hover:text-white transition-colors">
+              Sitemap
+            </a>
             <a href="/admin" className="text-slate-400 hover:text-brand-cyan font-mono transition-colors">
               Admin Portal
             </a>

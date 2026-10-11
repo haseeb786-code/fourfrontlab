@@ -15,13 +15,15 @@ import {
   ExternalLink,
   Menu,
   X,
-  ShieldCheck
+  ShieldCheck,
+  BookOpen
 } from 'lucide-react'
 
 const navItems = [
   { name: 'Overview', href: '/admin', icon: LayoutDashboard },
   { name: 'Portfolio CMS', href: '/admin/portfolio', icon: Briefcase },
   { name: 'Services CMS', href: '/admin/services', icon: Cpu },
+  { name: 'Insights & Blog', href: '/admin/insights', icon: BookOpen },
   { name: 'Inquiries & CRM', href: '/admin/inquiries', icon: Inbox },
   { name: 'Testimonials', href: '/admin/testimonials', icon: Star },
   { name: 'Media Library', href: '/admin/media', icon: ImageIcon },
