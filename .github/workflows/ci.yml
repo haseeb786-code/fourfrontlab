@@ -1,0 +1,41 @@
+name: Four Front Lab CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  verify:
+    name: Build, Lint & E2E Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client & Run Seed
+        run: |
+          npx prisma db push
+          npm run db:seed
+
+      - name: Build Next.js Production Application
+        run: npm run build
+
+      - name: Start Production Server in Background
+        run: |
+          npx next start -p 3000 &
+          sleep 5
+
+      - name: Run Comprehensive 49-Point E2E Verification Suite
+        run: node scripts/verify-e2e.js

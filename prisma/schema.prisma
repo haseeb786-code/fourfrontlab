@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?   @default("")
+  projects    Project[]
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  client      String
+  industry    String
+  overview    String
+  problem     String
+  solution    String
+  techStack   String
+  results     String
+  coverImage  String
+  gallery     String?  @default("[]")
+  liveUrl     String?  @default("")
+  videoUrl    String?  @default("")
+  featured    Boolean  @default(false)
+  published   Boolean  @default(true)
+  order       Int      @default(0)
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  shortDesc    String
+  fullDesc     String
+  icon         String
+  deliverables String
+  benefits     String
+  techStack    String
+  faqs         String
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?  @default("")
+  company   String?  @default("")
+  service   String?  @default("")
+  budget    String?  @default("")
+  timeline  String?  @default("")
+  message   String
+  status    String   @default("new")
+  notes     String?  @default("")
+  priority  String   @default("normal")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id            String   @id @default(cuid())
+  clientName    String
+  clientRole    String
+  clientCompany String
+  avatarUrl     String?  @default("")
+  quote         String
+  rating        Int      @default(5)
+  featured      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  fileName  String
+  fileUrl   String
+  mimeType  String?  @default("image/png")
+  sizeBytes Int?     @default(0)
+  altText   String?  @default("")
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  coverImage  String?  @default("/logo.jpeg")
+  category    String   @default("Engineering")
+  author      String   @default("Four Front Lab Engineering")
+  readTime    String   @default("5 min read")
+  featured    Boolean  @default(false)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
