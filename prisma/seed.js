@@ -20,9 +20,9 @@ async function main() {
   const passwordHash = await bcrypt.hash('admin123456', 10)
   const admin = await prisma.adminUser.create({
     data: {
-      email: 'admin@fourfrontlab.com',
+      email: 'haseebsays123@gmail.com',
       passwordHash,
-      name: 'Director of Technology',
+      name: 'Abdul Haseeb',
       role: 'superadmin',
     },
   })
@@ -508,11 +508,11 @@ async function main() {
     { key: 'site_tagline', value: 'Engineering Next-Generation Digital Experiences, Intelligent Automation & Scalable Software' },
     { key: 'whatsapp_number', value: '+1 (800) 436-8736' },
     { key: 'whatsapp_raw', value: '+18004368736' },
-    { key: 'contact_email', value: 'contact@fourfrontlab.com' },
+    { key: 'contact_email', value: 'haseebsays123@gmail.com' },
     { key: 'office_address', value: 'Four Front Lab, Tech Quarter Innovation Tower, Suite 400' },
     { key: 'social_twitter', value: 'https://x.com/fourfrontlab' },
     { key: 'social_linkedin', value: 'https://linkedin.com/company/fourfrontlab' },
-    { key: 'social_github', value: 'https://github.com/fourfrontlab' },
+    { key: 'social_github', value: 'https://github.com/haseeb786-code/fourfrontlab' },
     { key: 'meta_title', value: 'Four Front Lab | Premium Digital Agency & Software Engineering' },
     { key: 'meta_description', value: 'Four Front Lab is an elite digital engineering agency specializing in bespoke web development, business process automation, AI integration, and high-performance custom software.' },
   ]

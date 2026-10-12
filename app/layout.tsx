@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://fourfrontlab.tech'),
   title: 'Four Front Lab | Elite Digital Agency, 3D Web & AI Engineering',
   description:
     'Four Front Lab engineers high-performance web applications, 3D digital experiences, autonomous business automation workflows, and domain-specific AI solutions.',

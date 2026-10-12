@@ -20,7 +20,7 @@ export async function sendLeadNotification(lead: LeadNotificationPayload): Promi
 }> {
   const notificationWebhook = process.env.LEAD_NOTIFICATION_WEBHOOK
   const resendApiKey = process.env.RESEND_API_KEY
-  const notifyEmail = process.env.NOTIFICATION_RECIPIENT_EMAIL || 'leads@fourfrontlab.com'
+  const notifyEmail = process.env.NOTIFICATION_RECIPIENT_EMAIL || 'haseebsays123@gmail.com'
 
   // 1. Webhook Notification (e.g. Slack / Discord / Zapier)
   if (notificationWebhook) {
@@ -52,7 +52,7 @@ export async function sendLeadNotification(lead: LeadNotificationPayload): Promi
           Authorization: `Bearer ${resendApiKey}`,
         },
         body: JSON.stringify({
-          from: 'Four Front Lab <notifications@fourfrontlab.com>',
+          from: 'Four Front Lab <notifications@fourfrontlab.tech>',
           to: [notifyEmail],
           subject: `⚡ New Project Inquiry: ${lead.name} (${lead.service || 'General'})`,
           html: `
