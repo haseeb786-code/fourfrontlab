@@ -1,39 +1,43 @@
 import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowUpRight, Github, Linkedin, Twitter, Mail, Phone, MapPin, Sparkles } from 'lucide-react'
 
 export default function Footer() {
   const currentYear = 2026
 
   return (
-    <footer className="border-t border-white/10 bg-[#06080d] text-slate-400 text-sm relative overflow-hidden">
+    <footer className="border-t border-[#D7E2EA]/15 bg-[#0C0C0C] text-[#D7E2EA]/70 text-xs font-mono relative overflow-hidden select-none">
       {/* Top subtle glow line */}
-      <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-brand-cyan/50 to-transparent"></div>
+      <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#B600A8]/60 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand info */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <a href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl overflow-hidden border border-brand-cyan/40 p-0.5 bg-black/60 shadow-glow-cyan">
-                <img 
-                  src="/logo.jpeg" 
-                  alt="Four Front Lab Logo" 
-                  className="w-full h-full object-cover rounded-lg"
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-[#D7E2EA]/20 bg-white/5 p-1 group-hover:scale-105 transition-transform">
+                <Image
+                  src="/logo.webp"
+                  alt="Four Front Lab Logo"
+                  fill
+                  sizes="40px"
+                  className="object-contain p-0.5"
                 />
               </div>
-              <span className="font-extrabold tracking-wider text-xl text-white group-hover:text-brand-cyan transition-colors">
+              <span className="font-black tracking-wider text-xl text-white group-hover:text-[#D7E2EA] transition-colors uppercase">
                 FOUR FRONT LAB
               </span>
-            </a>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm mt-1">
-              Engineering high-performance digital experiences, autonomous business automation, and custom AI systems for ambitious enterprises worldwide.
+            </Link>
+            <p className="text-[#D7E2EA]/60 text-xs leading-relaxed max-w-sm mt-1 font-sans">
+              Engineering Awwwards-caliber digital experiences, kinetic web architectures, autonomous workflows, and domain-specific AI integrations for ambitious enterprises globally.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
                 href="https://x.com/fourfrontlab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
+                className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#D7E2EA] hover:text-white hover:border-[#D7E2EA]/50 transition-colors"
                 aria-label="Follow Four Front Lab on X"
               >
                 <Twitter className="w-4 h-4" />
@@ -42,7 +46,7 @@ export default function Footer() {
                 href="https://linkedin.com/company/fourfrontlab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
+                className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#D7E2EA] hover:text-white hover:border-[#D7E2EA]/50 transition-colors"
                 aria-label="Connect on LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
@@ -51,7 +55,7 @@ export default function Footer() {
                 href="https://github.com/fourfrontlab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
+                className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#D7E2EA] hover:text-white hover:border-[#D7E2EA]/50 transition-colors"
                 aria-label="GitHub Repository"
               >
                 <Github className="w-4 h-4" />
@@ -59,122 +63,118 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Core Services */}
+          {/* Specializations */}
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-white font-semibold mb-4">
-              Services
+            <h4 className="text-xs uppercase tracking-wider text-white font-bold mb-4 font-mono">
+              [ Specializations ]
             </h4>
-            <ul className="flex flex-col gap-2.5">
+            <ul className="flex flex-col gap-2.5 font-sans text-xs">
               <li>
-                <a href="/services/website-development" className="hover:text-brand-cyan transition-colors">
-                  Website Development
-                </a>
+                <Link href="/services/website-development" className="hover:text-white transition-colors">
+                  Kinetic Website Development
+                </Link>
               </li>
               <li>
-                <a href="/services/business-automation" className="hover:text-brand-cyan transition-colors">
-                  Business Automation
-                </a>
+                <Link href="/services/business-automation" className="hover:text-white transition-colors">
+                  Autonomous Business Automation
+                </Link>
               </li>
               <li>
-                <a href="/services/ai-solutions" className="hover:text-brand-cyan transition-colors">
-                  AI Solutions & RAG
-                </a>
+                <Link href="/services/ai-solutions" className="hover:text-white transition-colors">
+                  Enterprise AI Solutions &amp; RAG
+                </Link>
               </li>
               <li>
-                <a href="/services/digital-marketing" className="hover:text-brand-cyan transition-colors">
-                  Digital Marketing & CRO
-                </a>
+                <Link href="/services/digital-marketing" className="hover:text-white transition-colors">
+                  Algorithmic Marketing &amp; CRO
+                </Link>
               </li>
               <li>
-                <a href="/services/custom-software" className="hover:text-brand-cyan transition-colors">
-                  Custom Software & Portals
-                </a>
+                <Link href="/services/custom-software" className="hover:text-white transition-colors">
+                  Bespoke Software Portals
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Quick Navigation */}
+          {/* Navigation */}
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-white font-semibold mb-4">
-              Company & Work
+            <h4 className="text-xs uppercase tracking-wider text-white font-bold mb-4 font-mono">
+              [ Navigation ]
             </h4>
-            <ul className="flex flex-col gap-2.5">
+            <ul className="flex flex-col gap-2.5 font-sans text-xs">
               <li>
-                <a href="/about" className="hover:text-brand-cyan transition-colors">
-                  About the Agency
-                </a>
+                <Link href="/about" className="hover:text-white transition-colors">
+                  The Four Fronts Framework
+                </Link>
               </li>
               <li>
-                <a href="/portfolio" className="hover:text-brand-cyan transition-colors">
-                  Featured Case Studies
-                </a>
+                <Link href="/portfolio" className="hover:text-white transition-colors">
+                  Selected Case Studies
+                </Link>
               </li>
               <li>
-                <a href="/insights" className="hover:text-brand-cyan transition-colors">
-                  Insights & Research
-                </a>
+                <Link href="/insights" className="hover:text-white transition-colors">
+                  Insights &amp; Architecture
+                </Link>
               </li>
               <li>
-                <a href="/#process" className="hover:text-brand-cyan transition-colors">
-                  6-Step Methodology
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className="hover:text-brand-cyan transition-colors">
+                <Link href="/contact" className="hover:text-white transition-colors">
                   Book a Discovery Call
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin/login" className="hover:text-white transition-colors text-emerald-400 font-mono">
+                  Admin CMS Portal
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Contact Details & Direct Hotline */}
+          {/* Direct Office Contacts */}
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-white font-semibold mb-4">
-              Direct Contact
+            <h4 className="text-xs uppercase tracking-wider text-white font-bold mb-4 font-mono">
+              [ Direct Reach ]
             </h4>
-            <ul className="flex flex-col gap-3">
-              <li className="flex items-center gap-2.5 text-xs">
-                <Mail className="w-4 h-4 text-brand-cyan shrink-0" />
+            <ul className="flex flex-col gap-3 font-sans text-xs">
+              <li className="flex items-center gap-2.5">
+                <Mail className="w-3.5 h-3.5 text-[#B600A8] shrink-0" />
                 <a href="mailto:contact@fourfrontlab.com" className="hover:text-white transition-colors">
                   contact@fourfrontlab.com
                 </a>
               </li>
-              <li className="flex items-center gap-2.5 text-xs">
-                <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a href="https://wa.me/18004368736" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              <li className="flex items-center gap-2.5">
+                <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <a
+                  href="https://wa.me/18004368736"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
                   +1 (800) 436-8736 (WhatsApp)
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-xs">
-                <MapPin className="w-4 h-4 text-brand-violet shrink-0 mt-0.5" />
+              <li className="flex items-start gap-2.5">
+                <MapPin className="w-3.5 h-3.5 text-[#BE4C00] shrink-0 mt-0.5" />
                 <span>Tech Quarter Innovation Tower, Suite 400</span>
               </li>
             </ul>
-            <div className="mt-4 pt-3 border-t border-white/5">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                Accepting New Q4 Projects
-              </span>
-            </div>
           </div>
         </div>
 
-        {/* Bottom divider and copyright */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        {/* Bottom Legal & Copyright */}
+        <div className="pt-8 border-t border-[#D7E2EA]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#D7E2EA]/50">
           <p>© {currentYear} Four Front Lab. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-6">
-            <a href="/privacy" className="text-slate-400 hover:text-white transition-colors">
+            <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
-            </a>
-            <a href="/terms" className="text-slate-400 hover:text-white transition-colors">
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Service
-            </a>
-            <a href="/sitemap.xml" className="text-slate-400 hover:text-white transition-colors">
+            </Link>
+            <Link href="/sitemap.xml" className="hover:text-white transition-colors">
               Sitemap
-            </a>
-            <a href="/admin" className="text-slate-400 hover:text-brand-cyan font-mono transition-colors">
-              Admin Portal
-            </a>
+            </Link>
           </div>
         </div>
       </div>
