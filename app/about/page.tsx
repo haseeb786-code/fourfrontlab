@@ -11,7 +11,8 @@ import {
   ShieldCheck, 
   Terminal, 
   Users, 
-  Sparkles 
+  Sparkles,
+  GraduationCap
 } from 'lucide-react'
 
 export const metadata = {
@@ -63,6 +64,37 @@ export default function AboutPage() {
     {
       title: 'Enterprise Data Isolation',
       desc: 'Your business intelligence and customer records remain strictly isolated. We enforce zero-data-retention inference APIs and self-hosted vector infrastructure.',
+    },
+  ]
+
+  const teamMembers = [
+    {
+      name: 'Principal Systems Architect',
+      role: 'Full-Stack & Distributed Architecture',
+      university: 'CUST — Capital University of Science and Technology',
+      bio: 'Leading high-performance Next.js App Router engineering, sub-second API pipelines, and interactive 3D WebGL experiences.',
+      initials: 'PSA',
+    },
+    {
+      name: 'AI & Automation Lead',
+      role: 'Autonomous Workflows & RAG Systems',
+      university: 'CUST — Capital University of Science and Technology',
+      bio: 'Architecting fault-tolerant event queues, ERP/CRM webhooks, and private vector database intelligence on corporate data.',
+      initials: 'AAL',
+    },
+    {
+      name: 'Senior Frontend Engineer',
+      role: 'Kinetic Interfaces & Web Performance',
+      university: 'CUST — Capital University of Science and Technology',
+      bio: 'Engineering sub-second Core Web Vitals, conversion-driven fluid interfaces, and accessible design system components.',
+      initials: 'SFE',
+    },
+    {
+      name: 'DevOps & Reliability Engineer',
+      role: 'Cloud Infrastructure & Security',
+      university: 'CUST — Capital University of Science and Technology',
+      bio: 'Managing automated edge deployment networks, Dockerized services, database schema migrations, and enterprise data isolation.',
+      initials: 'DRE',
     },
   ]
 
@@ -160,6 +192,46 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Engineering Team Section */}
+        <section className="max-w-6xl mx-auto px-6 py-16">
+          <div className="mb-12">
+            <span className="text-xs font-mono text-[#22D3EE] tracking-widest uppercase">The Engineering Team</span>
+            <h2 className="text-3xl font-bold text-white mt-2">Built by Engineers, Grounded in Academia</h2>
+            <p className="text-[#94A3B8] text-sm md:text-base mt-2 max-w-2xl">
+              Four Front Lab was founded by software engineers from <strong className="text-white">CUST (Capital University of Science and Technology, Islamabad)</strong>. We bridge formal computational theory with battle-tested production engineering.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {teamMembers.map((member, idx) => (
+              <div
+                key={idx}
+                className="p-6 rounded-2xl bg-[#0D111A] border border-[#1E293B] hover:border-[#22D3EE]/40 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-xl bg-[#22D3EE]/10 border border-[#22D3EE]/25 flex items-center justify-center text-[#22D3EE] font-mono font-bold text-sm mb-5 group-hover:scale-105 group-hover:bg-[#22D3EE] group-hover:text-black transition-all">
+                    {member.initials}
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#22D3EE] transition-colors">
+                    {member.name}
+                  </h3>
+                  <p className="text-xs font-mono text-[#22D3EE] mb-3">
+                    {member.role}
+                  </p>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed mb-6">
+                    {member.bio}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-[#1E293B] flex items-center gap-2 text-[11px] font-mono text-slate-400">
+                  <GraduationCap className="w-4 h-4 text-[#22D3EE] shrink-0" />
+                  <span className="truncate" title={member.university}>CUST Islamabad</span>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

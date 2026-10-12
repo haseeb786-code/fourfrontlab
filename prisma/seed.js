@@ -506,10 +506,10 @@ async function main() {
   const settings = [
     { key: 'site_name', value: 'Four Front Lab' },
     { key: 'site_tagline', value: 'Engineering Next-Generation Digital Experiences, Intelligent Automation & Scalable Software' },
-    { key: 'whatsapp_number', value: '+1 (800) 436-8736' },
-    { key: 'whatsapp_raw', value: '+18004368736' },
+    { key: 'whatsapp_number', value: '+92 344 474 1603' },
+    { key: 'whatsapp_raw', value: '+923444741603' },
     { key: 'contact_email', value: 'haseebsays123@gmail.com' },
-    { key: 'office_address', value: 'Four Front Lab, Tech Quarter Innovation Tower, Suite 400' },
+    { key: 'office_address', value: 'Islamabad, Pakistan' },
     { key: 'social_twitter', value: 'https://x.com/fourfrontlab' },
     { key: 'social_linkedin', value: 'https://linkedin.com/company/fourfrontlab' },
     { key: 'social_github', value: 'https://github.com/haseeb786-code/fourfrontlab' },

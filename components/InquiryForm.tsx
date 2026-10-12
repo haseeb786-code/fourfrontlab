@@ -33,7 +33,7 @@ const timelineOptions = [
 
 export default function InquiryForm({
   initialService = 'Website Development',
-  whatsappNumber = '+18004368736',
+  whatsappNumber = '+923444741603',
 }: InquiryFormProps) {
   const [formData, setFormData] = useState({
     name: '',
@@ -166,7 +166,7 @@ export default function InquiryForm({
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            placeholder="e.g. Marcus Vance"
+            placeholder="e.g. Alex Turner"
             className="w-full px-4 py-3 rounded-xl bg-[#090d15] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all text-sm"
           />
         </div>
@@ -179,7 +179,7 @@ export default function InquiryForm({
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            placeholder="marcus@company.com"
+            placeholder="alex@company.com"
             className="w-full px-4 py-3 rounded-xl bg-[#090d15] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all text-sm"
           />
         </div>
@@ -195,7 +195,7 @@ export default function InquiryForm({
             type="tel"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            placeholder="+1 (555) 000-0000"
+            placeholder="+92 300 0000000"
             className="w-full px-4 py-3 rounded-xl bg-[#090d15] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all text-sm"
           />
         </div>
@@ -207,7 +207,7 @@ export default function InquiryForm({
             type="text"
             value={formData.company}
             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-            placeholder="Aetheris Capital"
+            placeholder="e.g. Acme Corp"
             className="w-full px-4 py-3 rounded-xl bg-[#090d15] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan transition-all text-sm"
           />
         </div>

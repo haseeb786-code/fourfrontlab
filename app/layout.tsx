@@ -1,36 +1,37 @@
 import type { Metadata } from 'next'
-import { Kanit } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
-import WhatsAppButton from '@/components/WhatsAppButton'
+import CustomCursor from '@/components/CustomCursor'
 
-const kanit = Kanit({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-kanit',
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://fourfrontlab.tech'),
-  title: 'Four Front Lab | Elite Digital Agency & Kinetic Software Engineering',
+  title: 'Four Front Lab — Digital Products for Ambitious Companies',
   description:
-    'Four Front Lab engineers high-performance web applications, Awwwards-caliber digital experiences, autonomous automation workflows, and high-impact AI systems.',
+    'A collective of four software engineering students crafting high-impact digital products, modern software systems, and bespoke web platforms.',
   keywords: [
-    'Digital Agency',
-    '3D Web Development',
-    'Creative Development',
+    'Software Engineering',
     'Next.js 14',
-    'Awwwards',
-    'Kinetic Brutalism',
-    'Business Process Automation',
-    'AI Solutions',
+    'Digital Products',
     'Custom Software',
+    'Four Front Lab',
   ],
   authors: [{ name: 'Four Front Lab' }],
   openGraph: {
-    title: 'Four Front Lab | Elite Digital Agency & Kinetic Software Engineering',
+    title: 'Four Front Lab — Digital Products for Ambitious Companies',
     description:
-      'Engineering next-generation digital experiences, intelligent automation, and scalable software.',
+      'We build digital products for ambitious companies. Fast, clean, minimal.',
     siteName: 'Four Front Lab',
     type: 'website',
   },
@@ -42,9 +43,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`dark scroll-smooth ${kanit.variable}`}>
-      <body className="bg-[#0C0C0C] text-[#D7E2EA] font-sans antialiased min-h-screen flex flex-col selection:bg-[#B600A8] selection:text-white">
-        <WhatsAppButton phoneNumber="+18004368736" />
+    <html
+      lang="en"
+      className={`dark scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}
+    >
+      <body className="bg-[#080808] text-[#f5f5f0] font-sans antialiased min-h-screen flex flex-col selection:bg-[#f5f5f0] selection:text-[#080808]">
+        {/* Editorial Inverting Difference Cursor */}
+        <CustomCursor />
         <div className="flex-1 flex flex-col">
           {children}
         </div>

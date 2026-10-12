@@ -201,10 +201,10 @@ export default function GlassContactSection() {
     {
       id: 'whatsapp',
       title: 'Priority WhatsApp Hotline',
-      handle: '+1 (800) 436-8736',
-      copyValue: '+18004368736',
+      handle: '+92 344 474 1603',
+      copyValue: '+923444741603',
       badge: 'Fastest Reply',
-      href: 'https://wa.me/18004368736?text=Hi%20Four%20Front%20Lab%2C%20I%20would%20like%20to%20discuss%20a%20new%20project.',
+      href: 'https://wa.me/923444741603?text=Hi%20Four%20Front%20Lab%2C%20I%20would%20like%20to%20discuss%20a%20new%20project.',
       actionLabel: 'Start Chat',
       glow: 'group-hover:shadow-[0_0_35px_rgba(37,211,102,0.35)]',
       borderGlow: 'hover:border-emerald-500/60',
@@ -363,10 +363,10 @@ export default function GlassContactSection() {
                     Studio Engineering Hub
                   </p>
                   <p className="text-xs font-semibold text-white mt-0.5">
-                    Tech Quarter Innovation Tower
+                    Islamabad, Pakistan
                   </p>
                   <p className="text-[11px] text-[#D7E2EA]/60 font-mono mt-0.5">
-                    Global Distributed Delivery
+                    Remote-first team serving clients worldwide
                   </p>
                 </div>
               </div>

@@ -17,7 +17,6 @@ const projects = [
     metrics: ['+240% Mobile Conversion Rate', '840ms Average Load Time', 'Zero Downtime Architecture'],
     image: '/projects/hanaz_main.webp',
     tech: ['Next.js 14', 'Tailwind CSS', 'Shopify Storefront API', 'Vercel Edge'],
-    liveUrl: 'https://fourfrontlab.tech/portfolio/hanaz-luxury-skincare',
   },
   {
     index: 1,
@@ -30,7 +29,6 @@ const projects = [
     metrics: ['14,000+ Daily Active Users', '99.99% Uptime SLA', 'Sub-200ms API Response'],
     image: '/projects/nexus_main.jpg',
     tech: ['Next.js App Router', 'TypeScript', 'Prisma ORM', 'PostgreSQL', 'Docker'],
-    liveUrl: 'https://fourfrontlab.tech/portfolio/nexus-enterprise-os',
   },
   {
     index: 2,
@@ -43,7 +41,6 @@ const projects = [
     metrics: ['+185% Repeat Booking Volume', '4.9/5 User Satisfaction', 'Global CDN Distribution'],
     image: '/projects/roamease_main.webp',
     tech: ['Next.js 14', 'Framer Motion', 'Stripe API', 'Mapbox GL'],
-    liveUrl: 'https://fourfrontlab.tech/portfolio/roamease-booking',
   },
   {
     index: 3,
@@ -56,7 +53,6 @@ const projects = [
     metrics: ['50,000+ Enrolled Students', '42% Lower Server Costs', 'Zero Lag Streaming'],
     image: '/projects/edutrack_main.webp',
     tech: ['React 18', 'WebSockets', 'Tailwind CSS', 'Serverless Functions'],
-    liveUrl: 'https://fourfrontlab.tech/portfolio/edutrack-learning-hub',
   },
 ]
 

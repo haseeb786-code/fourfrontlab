@@ -8,6 +8,8 @@ interface TestimonialItem {
   clientCompany: string
   quote: string
   rating: number
+  avatarUrl?: string
+  linkedinUrl?: string
 }
 
 interface TestimonialsSectionProps {
@@ -17,38 +19,20 @@ interface TestimonialsSectionProps {
 const defaultTestimonials: TestimonialItem[] = [
   {
     id: '1',
-    clientName: 'Marcus Vance',
-    clientRole: 'Chief Technology Officer',
-    clientCompany: 'Aetheris Capital',
+    clientName: 'Client Partner',
+    clientRole: 'Operations Lead',
+    clientCompany: 'Enterprise Client',
     quote:
-      'Four Front Lab engineered our market intelligence platform in record time. Their fusion of high-performance Next.js interfaces with kinetic physics and secure AI models delivered an immediate 78% reduction in research turnaround. Unmatched technical caliber.',
+      'We are currently documenting official testimonials from our recent enterprise and startup deployments. Real feedback and case study reviews from verified partners will be featured here.',
     rating: 5,
   },
   {
     id: '2',
-    clientName: 'Elena Rostova',
-    clientRole: 'VP of Brand & Innovation',
-    clientCompany: 'Veloce Motors',
+    clientName: 'Startup Founder',
+    clientRole: 'Managing Director',
+    clientCompany: 'E-Commerce Brand',
     quote:
-      'The interactive digital showroom they built exceeded every expectation. It won accolades across the design community and drove a 320% surge in qualified private viewings. They are truly in a league of their own.',
-    rating: 5,
-  },
-  {
-    id: '3',
-    clientName: 'David Chen',
-    clientRole: 'Head of Global Operations',
-    clientCompany: 'OmniLogistics',
-    quote:
-      'Before Four Front Lab, our team spent half their day manually reconciling freight manifests. Their custom automation workflows saved us over 1,200 hours monthly and paid for themselves in under seven weeks.',
-    rating: 5,
-  },
-  {
-    id: '4',
-    clientName: 'Sarah Jenkins',
-    clientRole: 'Chief Commercial Officer',
-    clientCompany: 'Novus Paris',
-    quote:
-      'Our international conversion rate jumped by 185% after Four Front Lab rebuilt our digital flagship. Sub-second page loads, effortless admin controls, and seamless lead routing. Simply exceptional.',
+      'Verified client reviews and endorsements are being assembled. In the meantime, explore our verified production builds and performance metrics in the case studies archive.',
     rating: 5,
   },
 ]
@@ -68,7 +52,7 @@ export default function TestimonialsSection({
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D7E2EA]/15 bg-[#D7E2EA]/5 text-[11px] font-mono uppercase tracking-[0.25em] text-[#D7E2EA]/80 mb-3">
               <Sparkles className="w-3.5 h-3.5 text-[#B600A8]" />
-              [ Executive Endorsements • 06 ]
+              [ Client Endorsements • 06 ]
             </div>
             <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-none">
               Client Trust. <br />
@@ -76,7 +60,7 @@ export default function TestimonialsSection({
             </h2>
           </div>
           <p className="max-w-md text-xs sm:text-sm text-[#D7E2EA]/60 font-light leading-relaxed">
-            Direct feedback from corporate partners who scaled their digital presence, streamlined operations, and multiplied conversion rates with Four Front Lab.
+            Feedback and engagement reviews from businesses scaling their digital presence, streamlining operations, and deploying modern systems with Four Front Lab.
           </p>
         </div>
 
@@ -109,8 +93,8 @@ export default function TestimonialsSection({
                     {item.clientRole} • {item.clientCompany}
                   </p>
                 </div>
-                <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-400">
-                  Verified Partner
+                <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-brand-accent/70">
+                  Client Review
                 </span>
               </div>
             </div>

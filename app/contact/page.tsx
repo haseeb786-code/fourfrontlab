@@ -77,7 +77,7 @@ export default function ContactPage() {
                   Skip the contact form and chat directly with our engineering team on WhatsApp. Average first response time is under 15 minutes.
                 </p>
                 <a
-                  href="https://wa.me/18004368736?text=Hi%20Four%20Front%20Lab%2C%20I'm%20ready%20to%20discuss%20a%20project%20for%20my%20business."
+                  href="https://wa.me/923444741603?text=Hi%20Four%20Front%20Lab%2C%20I'm%20ready%20to%20discuss%20a%20project%20for%20my%20business."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-6 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-400 text-black shadow-lg shadow-emerald-500/20 transition-all"
@@ -152,8 +152,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="text-xs font-mono text-slate-400 block">WhatsApp Hotline</span>
-                    <a href="https://wa.me/18004368736" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-emerald-400 transition-colors">
-                      +1 (800) 436-8736
+                    <a href="https://wa.me/923444741603" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-emerald-400 transition-colors">
+                      +92 344 474 1603
                     </a>
                   </div>
                 </div>
@@ -164,9 +164,9 @@ export default function ContactPage() {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-xs font-mono text-slate-400 block">Engineering Headquarters</span>
+                    <span className="text-xs font-mono text-slate-400 block">Location</span>
                     <span className="text-white font-medium">
-                      Tech Quarter Innovation Tower, Suite 400
+                      Islamabad, Pakistan
                     </span>
                   </div>
                 </div>

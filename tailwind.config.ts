@@ -10,35 +10,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#0C0C0C',
-        jet: '#0C0C0C',
-        platinum: '#D7E2EA',
-        surface: {
-          50: '#141414',
-          100: '#111111',
-          200: '#0C0C0C',
-          DEFAULT: '#0C0C0C',
-          border: 'rgba(215, 226, 234, 0.12)',
-        },
-        brand: {
-          cyan: '#00f2fe',
-          magenta: '#B600A8',
-          purple: '#7621B0',
-          amber: '#BE4C00',
-          accent: '#D7E2EA',
-        },
+        background: '#080808',
+        surface: '#111111',
+        border: '#1f1f1f',
+        'text-primary': '#f5f5f0',
+        'text-muted': '#6b6b6b',
+        'text-dim': '#3a3a3a',
+        accent: '#c8f542', // Acid green: only for 1 hero word, active dot, CTA hover border, section numbers
+        white: '#fafaf8',
       },
       fontFamily: {
-        sans: ['var(--font-kanit)', 'sans-serif'],
-        kanit: ['var(--font-kanit)', 'sans-serif'],
+        serif: ['"Editorial New"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+        sans: ['var(--font-sans)', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['var(--font-mono)', '"JetBrains Mono"', 'monospace'],
+      },
+      letterSpacing: {
+        tighter: '-0.03em',
+        widest: '0.15em',
       },
       backgroundImage: {
-        'hero-gradient': 'linear-gradient(#646973 0%, #bbccd7 100%)',
-        'cta-gradient': 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
+        'dot-grid': 'radial-gradient(circle, #1f1f1f 1px, transparent 1px)',
       },
-      boxShadow: {
-        'cta-glow': '0px 4px 4px rgba(181, 1, 167, 0.25), inset 4px 4px 12px #7721B1',
-        'card-stack': '0 -10px 40px rgba(0, 0, 0, 0.5)',
+      backgroundSize: {
+        'grid-size': '32px 32px',
       },
     },
   },

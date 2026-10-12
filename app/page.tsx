@@ -1,42 +1,42 @@
 import React from 'react'
 import Navbar from '@/components/Navbar'
+import HeroEditorial from '@/components/HeroEditorial'
+import MarqueeEditorial from '@/components/MarqueeEditorial'
+import ManifestoEditorial from '@/components/ManifestoEditorial'
+import ServicesEditorial from '@/components/ServicesEditorial'
+import PortfolioEditorial from '@/components/PortfolioEditorial'
+import TestimonialsEditorial from '@/components/TestimonialsEditorial'
+import ContactEditorial from '@/components/ContactEditorial'
 import Footer from '@/components/Footer'
-import KineticHero from '@/components/KineticHero'
-import DualScrollMarquee from '@/components/DualScrollMarquee'
-import ScrollScrubReveal from '@/components/ScrollScrubReveal'
-import InvertedServices from '@/components/InvertedServices'
-import StackingProjectCards from '@/components/StackingProjectCards'
-import TestimonialsSection from '@/components/TestimonialsSection'
-import GlassContactSection from '@/components/GlassContactSection'
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#0C0C0C] text-[#D7E2EA] font-sans antialiased overflow-x-hidden selection:bg-[#B600A8] selection:text-white">
-      {/* 01. Kinetic Navigation */}
+    <main className="min-h-screen bg-[#080808] text-[#f5f5f0] font-sans antialiased overflow-x-hidden selection:bg-[#f5f5f0] selection:text-[#080808]">
+      {/* 01. Flat Pure Black Navigation */}
       <Navbar />
 
-      {/* 02. Feature A: Magnetic Face / Subject Follower & 2.5D Metallic Hero */}
-      <KineticHero />
+      {/* 02. Cold, Minimalist Editorial Hero (Massive Serif H1 + Noise + Split Canvas) */}
+      <HeroEditorial />
 
-      {/* 03. Feature B: Dual-Opposing Velocity Scroll Marquee */}
-      <DualScrollMarquee />
+      {/* 03. Smooth Monospace Tech Stack Marquee */}
+      <MarqueeEditorial />
 
-      {/* 04. Feature C: Character-by-Character Scroll-Scrub Text Reveal */}
-      <ScrollScrubReveal />
+      {/* 04. Founding Manifesto & 4 Pillars (The Four Fronts Collective) */}
+      <ManifestoEditorial />
 
-      {/* 05. Feature D: Inverted Crisp White Services Section */}
-      <InvertedServices />
+      {/* 05. Sharp Bordered Services Cards (Acid Green Knife-Edge Hover) */}
+      <ServicesEditorial />
 
-      {/* 06. Feature E: Stacking Sticky Project Cards */}
-      <StackingProjectCards />
+      {/* 06. Real Photography Portfolio (Grayscale to Color on Hover) */}
+      <PortfolioEditorial />
 
-      {/* 07. Executive Endorsements & Trust */}
-      <TestimonialsSection />
+      {/* 07. Executive Endorsements (Large Acid Green Quotes & Headshots) */}
+      <TestimonialsEditorial />
 
-      {/* 08. Feature F: Glassmorphic Contact Section & Live Lead CRM */}
-      <GlassContactSection />
+      {/* 08. Omnichannel Contact & Direct Minimalist CTA */}
+      <ContactEditorial />
 
-      {/* 09. Brutalist Dark Footer */}
+      {/* 09. Massive Full-Bleed Editorial Typography Footer */}
       <Footer />
     </main>
   )

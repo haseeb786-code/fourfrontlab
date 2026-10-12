@@ -9,7 +9,7 @@ interface WhatsAppButtonProps {
 }
 
 export default function WhatsAppButton({
-  phoneNumber = '+18004368736',
+  phoneNumber = '+923444741603',
   defaultMessage = "Hi Four Front Lab! I'm interested in discussing a project for my business.",
 }: WhatsAppButtonProps) {
   const [activeNumber, setActiveNumber] = useState(phoneNumber)

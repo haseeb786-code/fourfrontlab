@@ -7,10 +7,10 @@ export default function SiteSettingsManagerPage() {
   const [settings, setSettings] = useState({
     site_name: 'Four Front Lab',
     site_tagline: 'Engineering Next-Generation Digital Experiences, Intelligent Automation & Scalable Software',
-    whatsapp_number: '+1 (800) 436-8736',
-    whatsapp_raw: '+18004368736',
+    whatsapp_number: '+92 344 474 1603',
+    whatsapp_raw: '+923444741603',
     contact_email: 'contact@fourfrontlab.com',
-    office_address: 'Tech Quarter Innovation Tower, Suite 400',
+    office_address: 'Islamabad, Pakistan',
     social_twitter: 'https://x.com/fourfrontlab',
     social_linkedin: 'https://linkedin.com/company/fourfrontlab',
     social_github: 'https://github.com/fourfrontlab',
@@ -99,7 +99,7 @@ export default function SiteSettingsManagerPage() {
                 type="text"
                 value={settings.whatsapp_raw}
                 onChange={(e) => setSettings({ ...settings, whatsapp_raw: e.target.value })}
-                placeholder="+18004368736"
+                placeholder="+923444741603"
                 className="w-full px-4 py-2.5 rounded-xl bg-[#090d15] border border-white/10 text-white text-xs focus:outline-none focus:border-brand-cyan"
               />
             </div>
@@ -126,7 +126,7 @@ export default function SiteSettingsManagerPage() {
                 type="text"
                 value={settings.office_address}
                 onChange={(e) => setSettings({ ...settings, office_address: e.target.value })}
-                placeholder="Tech Quarter Innovation Tower, Suite 400"
+                placeholder="Islamabad, Pakistan"
                 className="w-full px-4 py-2.5 rounded-xl bg-[#090d15] border border-white/10 text-white text-xs focus:outline-none focus:border-brand-cyan"
               />
             </div>
