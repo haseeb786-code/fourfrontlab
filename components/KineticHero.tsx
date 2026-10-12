@@ -76,7 +76,7 @@ export default function KineticHero() {
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#D7E2EA]/15 bg-[#D7E2EA]/5 backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
           <span className="text-[11px] font-mono tracking-wider uppercase text-[#D7E2EA]/90">
-            Available for Q4 Production • Four Front Lab
+            4 Software Engineering Students • Next-Gen Tech Partners
           </span>
         </div>
 
@@ -136,21 +136,21 @@ export default function KineticHero() {
         </div>
 
         {/* Foreground Depth Elements */}
-        <div className="absolute bottom-6 sm:bottom-10 left-4 sm:left-12 z-20 hidden sm:block max-w-[260px] p-4 rounded-2xl bg-[#0C0C0C]/80 border border-[#D7E2EA]/15 backdrop-blur-xl">
-          <p className="text-[11px] font-mono text-[#D7E2EA]/50 uppercase tracking-widest mb-1">
-            01 / Identity
+        <div className="absolute bottom-6 sm:bottom-10 left-4 sm:left-12 z-20 hidden sm:block max-w-[280px] p-4.5 rounded-2xl bg-[#0C0C0C]/85 border border-[#D7E2EA]/15 backdrop-blur-xl shadow-2xl">
+          <p className="text-[10px] font-mono text-[#B600A8] uppercase tracking-widest mb-1 font-bold">
+            01 / The Team
           </p>
           <p className="text-xs text-[#D7E2EA] font-medium leading-relaxed">
-            We architect bespoke digital universes with kinetic physics, custom software, and unmatched precision.
+            Four passionate Software Engineering students turning ideas into powerful digital experiences. We build, launch, and maintain.
           </p>
         </div>
 
-        <div className="absolute bottom-6 sm:bottom-10 right-4 sm:right-12 z-20 hidden sm:block max-w-[260px] p-4 rounded-2xl bg-[#0C0C0C]/80 border border-[#D7E2EA]/15 backdrop-blur-xl text-right">
-          <p className="text-[11px] font-mono text-[#D7E2EA]/50 uppercase tracking-widest mb-1">
-            02 / Kinetic Edge
+        <div className="absolute bottom-6 sm:bottom-10 right-4 sm:right-12 z-20 hidden sm:block max-w-[280px] p-4.5 rounded-2xl bg-[#0C0C0C]/85 border border-[#D7E2EA]/15 backdrop-blur-xl text-right shadow-2xl">
+          <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest mb-1 font-bold">
+            02 / Fresh Execution
           </p>
           <p className="text-xs text-[#D7E2EA] font-medium leading-relaxed">
-            Move your cursor across the arena to experience radial magnetic velocity tracking in real time.
+            Every project gets our full attention, fresh thinking, and clean execution. Young, skilled, and hungry to deliver.
           </p>
         </div>
       </div>
@@ -159,14 +159,14 @@ export default function KineticHero() {
       <div className="relative z-20 max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-6 pt-4 border-t border-[#D7E2EA]/10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full border border-[#D7E2EA]/20 flex items-center justify-center bg-white/5">
-            <Sparkles className="w-4 h-4 text-[#D7E2EA]" />
+            <Sparkles className="w-4 h-4 text-[#B600A8]" />
           </div>
           <div>
-            <p className="text-xs uppercase tracking-widest font-mono text-[#D7E2EA]/80 font-bold">
-              Engineering Awwwards-Caliber Experiences
+            <p className="text-xs uppercase tracking-widest font-mono text-white font-bold">
+              We Craft Tools That Help Your Business Grow
             </p>
-            <p className="text-[11px] text-[#D7E2EA]/50">
-              Web Design • Business Automation • AI Integrations
+            <p className="text-[11px] text-[#D7E2EA]/60 font-sans">
+              From stunning web designs to full-scale business solutions
             </p>
           </div>
         </div>

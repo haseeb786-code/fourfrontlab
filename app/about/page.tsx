@@ -82,7 +82,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-lg md:text-xl text-[#94A3B8] max-w-3xl leading-relaxed mb-10">
-            Four Front Lab was founded on a simple conviction: modern businesses do not need another bloated agency delivering superficial designs. They need senior technical partners who understand their actual commercial problems and engineer practical, scalable software solutions.
+            We are a team of four passionate Software Engineering students turning ideas into powerful digital experiences. From stunning web designs to full-scale business solutions — we build, we launch, we maintain. We don’t just develop websites, we craft tools that help your business grow. Every project gets our full attention, fresh thinking, and clean execution. Young, skilled, and hungry to deliver — we are your next tech partners.
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
