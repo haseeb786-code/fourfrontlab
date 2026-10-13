@@ -40,12 +40,12 @@ export default function Footer() {
                 fourfrontlab@gmail.com
               </a>
               <a
-                href="https://wa.me/18004368736"
+                href="https://wa.me/923444741603"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-mono text-xs text-[#6b6b6b] hover:text-[#f5f5f0] transition-colors block mt-1"
               >
-                +1 (800) 436-8736 (WhatsApp)
+                +92 344 474 1603 (WhatsApp)
               </a>
             </div>
           </div>
@@ -138,8 +138,8 @@ export default function Footer() {
               HEADQUARTERS
             </span>
             <p className="font-mono text-xs text-[#6b6b6b]">
-              Tech Quarter Innovation Tower<br />
-              Distributed Engineering<br />
+              Islamabad, Pakistan<br />
+              Remote-First Engineering<br />
               100% Client IP Ownership
             </p>
             <div className="pt-2">

@@ -5,6 +5,8 @@ import Footer from '@/components/Footer'
 import { prisma } from '@/lib/prisma'
 import { ArrowLeft, Clock, Calendar, User, Share2, Sparkles, ArrowRight } from 'lucide-react'
 
+import { BreadcrumbJsonLd, ArticleJsonLd } from '@/components/JsonLd'
+
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
@@ -16,7 +18,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   return {
     title: `${post.title} | Four Front Lab Insights`,
-    description: post.excerpt,
+    description: post.excerpt.slice(0, 150),
+    alternates: {
+      canonical: `https://fourfrontlab.tech/insights/${params.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt.slice(0, 150),
+      url: `https://fourfrontlab.tech/insights/${params.slug}`,
+      images: [{ url: '/og-image.png', width: 1200, height: 630, alt: post.title }],
+    },
   }
 }
 
@@ -41,6 +52,20 @@ export default async function InsightDetailPage({ params }: { params: { slug: st
 
   return (
     <div className="min-h-screen bg-[#080A10] text-[#E2E8F0]">
+      <ArticleJsonLd
+        title={post.title}
+        description={post.excerpt}
+        url={`/insights/${post.slug}`}
+        datePublished={post.createdAt.toISOString()}
+        authorName={post.author || 'Four Front Lab'}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Insights', url: '/insights' },
+          { name: post.title, url: `/insights/${post.slug}` },
+        ]}
+      />
       <Navbar />
 
       <main className="max-w-4xl mx-auto px-6 pt-28 pb-20">

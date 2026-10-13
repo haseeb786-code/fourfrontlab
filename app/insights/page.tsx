@@ -4,11 +4,24 @@ import Footer from '@/components/Footer'
 import { prisma } from '@/lib/prisma'
 import { Sparkles, ArrowRight, Clock, Calendar, User, Tag } from 'lucide-react'
 
+import { BreadcrumbJsonLd } from '@/components/JsonLd'
+
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Insights & Technical Blog | Four Front Lab',
-  description: 'In-depth perspectives on modern web architecture, autonomous business automation, domain-specific AI, and high-performance digital systems.',
+  title: 'Insights & Tech Blog | Four Front Lab Pakistan',
+  description:
+    'Engineering guides, Next.js architecture insights, and business automation strategies from our software agency team in Islamabad.',
+  alternates: {
+    canonical: 'https://fourfrontlab.tech/insights',
+  },
+  openGraph: {
+    title: 'Insights & Tech Blog | Four Front Lab Pakistan',
+    description:
+      'Engineering guides, Next.js architecture insights, and business automation strategies from our software agency team in Islamabad.',
+    url: 'https://fourfrontlab.tech/insights',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Four Front Lab Insights' }],
+  },
 }
 
 export default async function InsightsPage() {
@@ -22,6 +35,12 @@ export default async function InsightsPage() {
 
   return (
     <div className="min-h-screen bg-[#080A10] text-[#E2E8F0]">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Insights', url: '/insights' },
+        ]}
+      />
       <Navbar />
 
       <main className="pt-28 pb-20">

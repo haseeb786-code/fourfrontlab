@@ -40,9 +40,34 @@ function FacebookIcon({ className }: { className?: string }) {
   )
 }
 
+import type { Metadata } from 'next'
+import { BreadcrumbJsonLd } from '@/components/JsonLd'
+
+export const metadata: Metadata = {
+  title: 'Contact Us | Four Front Lab Web Agency Islamabad',
+  description:
+    'Get in touch with Four Front Lab, an affordable web agency in Pakistan. Chat on WhatsApp or book a consultation for your Next.js project.',
+  alternates: {
+    canonical: 'https://fourfrontlab.tech/contact',
+  },
+  openGraph: {
+    title: 'Contact Us | Four Front Lab Web Agency Islamabad',
+    description:
+      'Get in touch with Four Front Lab, an affordable web agency in Pakistan. Chat on WhatsApp or book a consultation for your Next.js project.',
+    url: 'https://fourfrontlab.tech/contact',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Contact Four Front Lab' }],
+  },
+}
+
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Contact', url: '/contact' },
+        ]}
+      />
       <Navbar />
 
       <main className="flex-1 pt-32 pb-24 bg-[#07090e]">

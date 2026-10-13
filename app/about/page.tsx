@@ -14,10 +14,22 @@ import {
   Sparkles,
   GraduationCap
 } from 'lucide-react'
+import { BreadcrumbJsonLd } from '@/components/JsonLd'
 
 export const metadata = {
-  title: 'About Four Front Lab | Digital Solutions & Engineering Agency',
-  description: 'Understand how Four Front Lab deconstructs complex business challenges into resilient digital flagships, intelligent automation, and bespoke software.',
+  title: 'About Us | Next.js Web Development Agency Islamabad',
+  description:
+    'Learn about Four Front Lab, an affordable web development agency in Pakistan founded by CUST engineers building fast Next.js applications.',
+  alternates: {
+    canonical: 'https://fourfrontlab.tech/about',
+  },
+  openGraph: {
+    title: 'About Four Front Lab | Next.js Agency Islamabad',
+    description:
+      'Learn about Four Front Lab, an affordable web development agency in Pakistan founded by CUST engineers building fast Next.js applications.',
+    url: 'https://fourfrontlab.tech/about',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'About Four Front Lab' }],
+  },
 }
 
 export default function AboutPage() {
@@ -100,6 +112,12 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-[#080A10] text-[#E2E8F0]">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'About', url: '/about' },
+        ]}
+      />
       <Navbar />
 
       <main className="pt-28 pb-20">

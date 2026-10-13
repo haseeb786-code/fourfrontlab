@@ -25,30 +25,67 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === '' ? 1.0 : route.startsWith('/services') ? 0.9 : 0.8,
   }))
 
-  let projectRoutes: MetadataRoute.Sitemap = []
-  let postRoutes: MetadataRoute.Sitemap = []
+  const defaultProjectSlugs = [
+    'hanaz-luxury-skincare',
+    'nexus-enterprise-os',
+    'roamease-booking',
+    'edutrack-learning-hub',
+  ]
+
+  const defaultPostSlugs = [
+    'why-pakistani-startups-need-custom-web-apps-2025',
+    'how-business-automation-saves-1000-hours-per-year',
+    'nextjs-vs-wordpress-whats-better-for-business',
+  ]
+
+  let projectRoutes: MetadataRoute.Sitemap = defaultProjectSlugs.map((slug) => ({
+    url: `${baseUrl}/portfolio/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  let postRoutes: MetadataRoute.Sitemap = defaultPostSlugs.map((slug) => ({
+    url: `${baseUrl}/insights/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
+
   try {
     const projects = await prisma.project.findMany({
       where: { published: true },
       select: { slug: true, updatedAt: true },
     })
-    projectRoutes = projects.map((p) => ({
-      url: `${baseUrl}/portfolio/${p.slug}`,
-      lastModified: p.updatedAt,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }))
+    if (projects.length > 0) {
+      const dbSlugs = new Set(projects.map((p) => p.slug))
+      projectRoutes = [
+        ...projectRoutes.filter((p) => !dbSlugs.has(p.url.split('/').pop() || '')),
+        ...projects.map((p) => ({
+          url: `${baseUrl}/portfolio/${p.slug}`,
+          lastModified: p.updatedAt,
+          changeFrequency: 'monthly' as const,
+          priority: 0.7,
+        })),
+      ]
+    }
 
     const posts = await prisma.blogPost.findMany({
       where: { published: true },
       select: { slug: true, updatedAt: true },
     })
-    postRoutes = posts.map((p) => ({
-      url: `${baseUrl}/insights/${p.slug}`,
-      lastModified: p.updatedAt,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }))
+    if (posts.length > 0) {
+      const dbSlugs = new Set(posts.map((p) => p.slug))
+      postRoutes = [
+        ...postRoutes.filter((p) => !dbSlugs.has(p.url.split('/').pop() || '')),
+        ...posts.map((p) => ({
+          url: `${baseUrl}/insights/${p.slug}`,
+          lastModified: p.updatedAt,
+          changeFrequency: 'weekly' as const,
+          priority: 0.7,
+        })),
+      ]
+    }
   } catch (e) {}
 
   return [...staticRoutes, ...projectRoutes, ...postRoutes]

@@ -14,8 +14,10 @@ import {
   ShieldCheck,
   TrendingUp,
   Cpu,
-  Layers
+  Layers,
 } from 'lucide-react'
+import type { Metadata } from 'next'
+import { BreadcrumbJsonLd } from '@/components/JsonLd'
 
 const fallbackCaseStudies: Record<string, any> = {
   'hanaz-luxury-skincare': {
@@ -88,6 +90,35 @@ const fallbackCaseStudies: Record<string, any> = {
   },
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const { slug } = params
+  let project = fallbackCaseStudies[slug]
+  try {
+    const dbProj = await prisma.project.findUnique({ where: { slug } })
+    if (dbProj) project = dbProj
+  } catch (e) {}
+
+  if (!project) return { title: 'Case Study | Four Front Lab' }
+
+  return {
+    title: `${project.title} | Four Front Lab Case Study`,
+    description: project.overview.slice(0, 150),
+    alternates: {
+      canonical: `https://fourfrontlab.tech/portfolio/${slug}`,
+    },
+    openGraph: {
+      title: `${project.title} | Four Front Lab`,
+      description: project.overview.slice(0, 150),
+      url: `https://fourfrontlab.tech/portfolio/${slug}`,
+      images: [{ url: '/og-image.png', width: 1200, height: 630, alt: project.title }],
+    },
+  }
+}
+
 export default async function CaseStudyDetailPage({
   params,
 }: {
@@ -130,6 +161,13 @@ export default async function CaseStudyDetailPage({
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Portfolio', url: '/portfolio' },
+          { name: project.title, url: `/portfolio/${slug}` },
+        ]}
+      />
       <Navbar />
 
       <main className="flex-1 pt-32 pb-24 bg-[#07090e]">

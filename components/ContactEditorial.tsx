@@ -135,9 +135,9 @@ export default function ContactEditorial() {
     {
       id: 'whatsapp',
       label: 'WhatsApp',
-      handle: '+1 (800) 436-8736',
-      copyValue: '+18004368736',
-      href: 'https://wa.me/18004368736?text=Hi%20Four%20Front%20Lab%2C%20let%27s%20talk%20about%20a%20project.',
+      handle: '+92 344 474 1603',
+      copyValue: '+923444741603',
+      href: 'https://wa.me/923444741603?text=Hi%20Four%20Front%20Lab%2C%20let%27s%20talk%20about%20a%20project.',
       icon: <PhoneLineIcon />,
     },
   ]

@@ -3,14 +3,26 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { FileCode2, ArrowLeft, CheckCircle2 } from 'lucide-react'
 
+import { BreadcrumbJsonLd } from '@/components/JsonLd'
+
 export const metadata = {
   title: 'Terms of Service | Four Front Lab',
-  description: 'Terms and conditions governing consulting, development, and digital agency services by Four Front Lab.',
+  description:
+    'Terms and conditions for engineering and web development agency services by Four Front Lab in Islamabad, Pakistan.',
+  alternates: {
+    canonical: 'https://fourfrontlab.tech/terms',
+  },
 }
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-[#080A10] text-[#E2E8F0]">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Terms of Service', url: '/terms' },
+        ]}
+      />
       <Navbar />
 
       <main className="max-w-4xl mx-auto px-6 py-24 md:py-32">

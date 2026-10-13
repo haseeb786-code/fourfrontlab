@@ -110,6 +110,25 @@ const defaultServices = [
   },
 ]
 
+import type { Metadata } from 'next'
+import { ServiceJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd'
+
+export const metadata: Metadata = {
+  title: 'Services | Next.js Agency & AI Automation Pakistan',
+  description:
+    'Next.js development agency in Islamabad offering custom web apps, autonomous business automation, and AI integrations for startups.',
+  alternates: {
+    canonical: 'https://fourfrontlab.tech/services',
+  },
+  openGraph: {
+    title: 'Services | Next.js Agency & AI Automation Pakistan',
+    description:
+      'Next.js development agency in Islamabad offering custom web apps, autonomous business automation, and AI integrations for startups.',
+    url: 'https://fourfrontlab.tech/services',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Four Front Lab Services' }],
+  },
+}
+
 export default async function ServicesPage() {
   let services = defaultServices
 
@@ -124,6 +143,13 @@ export default async function ServicesPage() {
 
   return (
     <>
+      <ServiceJsonLd />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Services', url: '/services' },
+        ]}
+      />
       <Navbar />
 
       <main className="flex-1 pt-32 pb-24 bg-[#07090e]">

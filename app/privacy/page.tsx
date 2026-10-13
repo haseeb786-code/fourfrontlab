@@ -3,14 +3,26 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Shield, ArrowLeft, Lock, Eye, FileText } from 'lucide-react'
 
+import { BreadcrumbJsonLd } from '@/components/JsonLd'
+
 export const metadata = {
   title: 'Privacy Policy | Four Front Lab',
-  description: 'How Four Front Lab collects, safeguards, and respects enterprise client data and website visitor information.',
+  description:
+    'Privacy Policy for Four Front Lab, an affordable web development agency in Pakistan protecting client data and intellectual property.',
+  alternates: {
+    canonical: 'https://fourfrontlab.tech/privacy',
+  },
 }
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-[#080A10] text-[#E2E8F0]">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Privacy Policy', url: '/privacy' },
+        ]}
+      />
       <Navbar />
 
       <main className="max-w-4xl mx-auto px-6 py-24 md:py-32">

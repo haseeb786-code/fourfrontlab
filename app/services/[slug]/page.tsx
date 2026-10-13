@@ -15,8 +15,10 @@ import {
   Sparkles, 
   ShieldCheck, 
   HelpCircle,
-  ArrowRight
+  ArrowRight,
 } from 'lucide-react'
+import type { Metadata } from 'next'
+import { ServiceJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd'
 
 const iconMap: Record<string, any> = {
   Code,
@@ -193,6 +195,37 @@ const fallbackServices: Record<string, any> = {
   },
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const { slug } = params
+  let service = fallbackServices[slug]
+  try {
+    const dbService = await prisma.service.findUnique({
+      where: { slug },
+    })
+    if (dbService) service = dbService
+  } catch (e) {}
+
+  if (!service) return { title: 'Service | Four Front Lab' }
+
+  return {
+    title: `${service.title} | Four Front Lab Pakistan`,
+    description: service.shortDesc.slice(0, 150),
+    alternates: {
+      canonical: `https://fourfrontlab.tech/services/${slug}`,
+    },
+    openGraph: {
+      title: `${service.title} | Four Front Lab`,
+      description: service.shortDesc.slice(0, 150),
+      url: `https://fourfrontlab.tech/services/${slug}`,
+      images: [{ url: '/og-image.png', width: 1200, height: 630, alt: service.title }],
+    },
+  }
+}
+
 export default async function ServiceDetailPage({
   params,
 }: {
@@ -239,6 +272,14 @@ export default async function ServiceDetailPage({
 
   return (
     <>
+      <ServiceJsonLd name={service.title} description={service.shortDesc} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Services', url: '/services' },
+          { name: service.title, url: `/services/${slug}` },
+        ]}
+      />
       <Navbar />
 
       <main className="flex-1 pt-32 pb-24 bg-[#07090e]">
