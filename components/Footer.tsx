@@ -67,8 +67,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#manifesto" className="text-[#6b6b6b] hover:text-[#f5f5f0] transition-colors">
-                  Founding Manifesto
+                <Link href="#about" className="text-[#6b6b6b] hover:text-[#f5f5f0] transition-colors">
+                  Collective Specification
                 </Link>
               </li>
               <li>

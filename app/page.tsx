@@ -2,7 +2,6 @@ import React from 'react'
 import Navbar from '@/components/Navbar'
 import HeroEditorial from '@/components/HeroEditorial'
 import MarqueeEditorial from '@/components/MarqueeEditorial'
-import ManifestoEditorial from '@/components/ManifestoEditorial'
 import ServicesEditorial from '@/components/ServicesEditorial'
 import PortfolioEditorial from '@/components/PortfolioEditorial'
 import TestimonialsEditorial from '@/components/TestimonialsEditorial'
@@ -44,10 +43,7 @@ export default function HomePage() {
       {/* 03. Smooth Monospace Tech Stack Marquee */}
       <MarqueeEditorial />
 
-      {/* 04. Founding Manifesto & 4 Pillars (The Four Fronts Collective) */}
-      <ManifestoEditorial />
-
-      {/* 05. Sharp Bordered Services Cards (Acid Green Knife-Edge Hover) */}
+      {/* 04. Sharp Bordered Services Cards (Acid Green Knife-Edge Hover) */}
       <ServicesEditorial />
 
       {/* 06. Real Photography Portfolio (Grayscale to Color on Hover) */}
