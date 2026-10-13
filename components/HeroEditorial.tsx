@@ -125,11 +125,32 @@ export default function HeroEditorial() {
       ref={heroRef}
       className="relative w-full bg-[#080808] text-[#f5f5f0] pt-28 sm:pt-36 pb-24 sm:pb-32 px-6 lg:px-10 border-b border-[#1f1f1f] overflow-hidden"
     >
+      {/* Background Coding / Web Design Visual Canvas */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+        <Image
+          src="/images/hero-code-bg.jpg"
+          alt="Web Architecture and Code Canvas"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center grayscale contrast-125 brightness-[0.24] opacity-40"
+        />
+        {/* Multi-directional Luxury Vignette Masks to preserve high-contrast typography */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080808] via-transparent to-[#080808]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-transparent to-[#080808]/85" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at 45% 45%, transparent 25%, #080808 88%)',
+          }}
+        />
+      </div>
+
       {/* Subtle Dot Grid Background Pattern */}
-      <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none z-[1]" />
 
       {/* Animated Horizontal Rule Line Drawing Across */}
-      <div className="absolute top-20 left-0 right-0 h-[1px] bg-[#1f1f1f] animate-draw-line" />
+      <div className="absolute top-20 left-0 right-0 h-[1px] bg-[#1f1f1f] animate-draw-line z-[2]" />
 
       <div className="max-w-[1200px] mx-auto relative z-10">
         {/* Top Section Metadata Label */}
