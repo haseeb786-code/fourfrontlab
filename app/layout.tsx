@@ -97,7 +97,7 @@ export default function RootLayout({
       </head>
       <body className="bg-[#080808] text-[#f5f5f0] font-sans antialiased min-h-screen flex flex-col selection:bg-[#f5f5f0] selection:text-[#080808]">
         {/* Floating WhatsApp Hotline */}
-        <WhatsAppButton phoneNumber="+923444741603" />
+        <WhatsAppButton />
         {/* Editorial Inverting Difference Cursor */}
         <CustomCursor />
         <div className="flex-1 flex flex-col">

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Send, CheckCircle2, MessageSquare, AlertCircle, Sparkles, ArrowRight } from 'lucide-react'
 
 interface InquiryFormProps {
@@ -49,6 +49,14 @@ export default function InquiryForm({
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const isMountedRef = useRef(true)
+
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -69,11 +77,17 @@ export default function InquiryForm({
         throw new Error(data.error || 'Failed to submit inquiry')
       }
 
-      setSubmitted(true)
+      if (isMountedRef.current) {
+        setSubmitted(true)
+      }
     } catch (err: any) {
-      setError(err.message || 'An unexpected error occurred. Please try again or reach out on WhatsApp.')
+      if (isMountedRef.current) {
+        setError(err.message || 'An unexpected error occurred. Please try again or reach out on WhatsApp.')
+      }
     } finally {
-      setLoading(false)
+      if (isMountedRef.current) {
+        setLoading(false)
+      }
     }
   }
 

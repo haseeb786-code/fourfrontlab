@@ -124,11 +124,15 @@ export default function PortfolioPage() {
 
   // Fetch latest projects and categories from API
   useEffect(() => {
+    let isMounted = true
+    const controller = new AbortController()
+
     Promise.all([
-      fetch('/api/projects').then((res) => (res.ok ? res.json() : null)),
-      fetch('/api/categories').then((res) => (res.ok ? res.json() : null)),
+      fetch('/api/projects', { signal: controller.signal }).then((res) => (res.ok ? res.json() : null)),
+      fetch('/api/categories', { signal: controller.signal }).then((res) => (res.ok ? res.json() : null)),
     ])
       .then(([projData, catData]) => {
+        if (!isMounted) return
         if (projData && Array.isArray(projData) && projData.length > 0) {
           setProjects(projData)
         }
@@ -139,7 +143,14 @@ export default function PortfolioPage() {
           ])
         }
       })
-      .catch(() => {})
+      .catch((err) => {
+        if (err.name === 'AbortError') return
+      })
+
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
   }, [])
 
   // Filtered projects

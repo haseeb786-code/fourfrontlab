@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Save, Check, Sparkles, Phone, Mail, MapPin, Globe, Share2 } from 'lucide-react'
 
 export default function SiteSettingsManagerPage() {
@@ -21,17 +21,33 @@ export default function SiteSettingsManagerPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
-    fetch('/api/settings')
+    let isMounted = true
+    const controller = new AbortController()
+
+    fetch('/api/settings', { signal: controller.signal })
       .then((res) => res.json())
       .then((data) => {
+        if (!isMounted) return
         if (data && typeof data === 'object') {
           setSettings((prev) => ({ ...prev, ...data }))
         }
       })
-      .catch((e) => console.error(e))
-      .finally(() => setLoading(false))
+      .catch((e) => {
+        if (e?.name === 'AbortError') return
+        console.error(e)
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false)
+      })
+
+    return () => {
+      isMounted = false
+      controller.abort()
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,7 +63,8 @@ export default function SiteSettingsManagerPage() {
       })
       if (res.ok) {
         setSaved(true)
-        setTimeout(() => setSaved(false), 3000)
+        if (timeoutRef.current) clearTimeout(timeoutRef.current)
+        timeoutRef.current = setTimeout(() => setSaved(false), 3000)
       } else {
         alert('Failed to save settings')
       }

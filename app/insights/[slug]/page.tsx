@@ -1,3 +1,4 @@
+import React, { cache } from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
@@ -7,12 +8,32 @@ import { ArrowLeft, Clock, Calendar, User, Share2, Sparkles, ArrowRight } from '
 
 import { BreadcrumbJsonLd, ArticleJsonLd } from '@/components/JsonLd'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
+
+const getPost = cache(async (slug: string) => {
+  try {
+    return await prisma.blogPost.findUnique({
+      where: { slug },
+    })
+  } catch {
+    return null
+  }
+})
+
+export async function generateStaticParams() {
+  try {
+    const posts = await prisma.blogPost.findMany({
+      where: { published: true },
+      select: { slug: true },
+    })
+    return posts.map((post) => ({ slug: post.slug }))
+  } catch {
+    return []
+  }
+}
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await prisma.blogPost.findUnique({
-    where: { slug: params.slug },
-  })
+  const post = await getPost(params.slug)
 
   if (!post) return { title: 'Insight Not Found | Four Front Lab' }
 
@@ -32,23 +53,26 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function InsightDetailPage({ params }: { params: { slug: string } }) {
-  const post = await prisma.blogPost.findUnique({
-    where: { slug: params.slug },
-  })
+  const post = await getPost(params.slug)
 
   if (!post) {
     notFound()
   }
 
   // Related posts
-  const relatedPosts = await prisma.blogPost.findMany({
-    where: {
-      published: true,
-      NOT: { id: post.id },
-    },
-    take: 2,
-    orderBy: { createdAt: 'desc' },
-  })
+  let relatedPosts: any[] = []
+  try {
+    relatedPosts = await prisma.blogPost.findMany({
+      where: {
+        published: true,
+        NOT: { id: post.id },
+      },
+      take: 2,
+      orderBy: { createdAt: 'desc' },
+    })
+  } catch {
+    relatedPosts = []
+  }
 
   return (
     <div className="min-h-screen bg-[#080A10] text-[#E2E8F0]">

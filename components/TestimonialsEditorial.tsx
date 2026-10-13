@@ -121,18 +121,8 @@ export default function TestimonialsEditorial() {
         {/* Tactile 32px Dot Grid Texture */}
         <div className="absolute inset-0 bg-dot-grid opacity-25" />
 
-        {/* SVG Fine Paper / Carbon Noise Texture */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.035] mix-blend-overlay">
-          <filter id="feedback-noise">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.75"
-              numOctaves="3"
-              stitchTiles="stitch"
-            />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#feedback-noise)" />
-        </svg>
+        {/* Subtle Static Carbon Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.015] via-transparent to-white/[0.01] pointer-events-none" />
 
         {/* Lateral & Edge Vignettes */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
@@ -230,21 +220,18 @@ export default function TestimonialsEditorial() {
                 animate={{
                   opacity: 1,
                   scale: 1,
-                  y: [0, idx % 2 === 0 ? -7 : -5, 0],
+                  y: 0,
                 }}
                 exit={{ opacity: 0, scale: 0.96, y: 20 }}
                 transition={{
                   layout: { duration: 0.35, ease: 'easeInOut' },
-                  y: {
-                    duration: 5.5 + idx * 0.9,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  },
+                  opacity: { duration: 0.25 },
+                  scale: { duration: 0.25 },
                 }}
                 whileHover={{
-                  y: -12,
-                  scale: 1.015,
-                  transition: { duration: 0.25 },
+                  y: -8,
+                  scale: 1.01,
+                  transition: { duration: 0.2 },
                 }}
                 className="relative p-8 sm:p-12 bg-[#0c0c0c]/90 border border-[#1f1f1f] hover:border-[#333333] transition-all duration-300 flex flex-col justify-between group shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden"
                 style={{

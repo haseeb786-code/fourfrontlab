@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import {
@@ -80,12 +80,28 @@ export default function ContactEditorial() {
   // Subtle parallax depth translation for the workstation background image
   const bgY = useTransform(scrollYProgress, [0, 1], ['-6%', '6%'])
 
+  const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const isMountedRef = useRef(true)
+
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current)
+      }
+    }
+  }, [])
+
   const handleCopy = (text: string, key: string, e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
     navigator.clipboard.writeText(text)
     setCopiedKey(key)
-    setTimeout(() => {
+    if (copyTimeoutRef.current) {
+      clearTimeout(copyTimeoutRef.current)
+    }
+    copyTimeoutRef.current = setTimeout(() => {
       setCopiedKey((prev) => (prev === key ? null : prev))
     }, 2000)
   }
@@ -100,17 +116,23 @@ export default function ContactEditorial() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
+      if (!isMountedRef.current) return
       if (res.ok) {
         setSuccess(true)
         setFormData({ name: '', email: '', company: '', message: '' })
       } else {
         const data = await res.json()
+        if (!isMountedRef.current) return
         setError(data.error || 'Failed to submit inquiry.')
       }
     } catch {
-      setError('A network error occurred. Please reach us via Gmail or WhatsApp.')
+      if (isMountedRef.current) {
+        setError('A network error occurred. Please reach us via Gmail or WhatsApp.')
+      }
     } finally {
-      setLoading(false)
+      if (isMountedRef.current) {
+        setLoading(false)
+      }
     }
   }
 

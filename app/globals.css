@@ -31,12 +31,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hide native cursor on desktop to support the inverting difference cursor */
-@media (pointer: fine) {
-  body, a, button, input, textarea, select, [role="button"] {
-    cursor: none !important;
-  }
-}
 
 /* Editorial Serif Typography */
 .font-editorial {

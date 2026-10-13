@@ -52,16 +52,18 @@ export default function PortfolioManagerPage() {
     order: 0,
   })
 
-  const loadData = async () => {
+  const loadData = async (signal?: AbortSignal, checkMounted?: () => boolean) => {
     try {
       setLoading(true)
       const [projRes, catRes] = await Promise.all([
-        fetch('/api/projects?all=true'),
-        fetch('/api/categories'),
+        fetch('/api/projects?all=true', { signal }),
+        fetch('/api/categories', { signal }),
       ])
+      if (checkMounted && !checkMounted()) return
       
       const projData = await projRes.json()
       const catData = await catRes.json()
+      if (checkMounted && !checkMounted()) return
 
       if (Array.isArray(projData)) {
         setProjects(projData)
@@ -72,15 +74,24 @@ export default function PortfolioManagerPage() {
           setFormData((prev) => ({ ...prev, categoryId: catData[0].id }))
         }
       }
-    } catch (e) {
+    } catch (e: any) {
+      if (e?.name === 'AbortError') return
       console.error(e)
     } finally {
-      setLoading(false)
+      if (!checkMounted || checkMounted()) {
+        setLoading(false)
+      }
     }
   }
 
   useEffect(() => {
-    loadData()
+    let isMounted = true
+    const controller = new AbortController()
+    loadData(controller.signal, () => isMounted)
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
   }, [])
 
   const handleOpenCreate = () => {

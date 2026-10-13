@@ -32,23 +32,34 @@ export default function ServicesManagerPage() {
     faqs: [] as { question: string; answer: string }[],
   })
 
-  const loadServices = async () => {
+  const loadServices = async (signal?: AbortSignal, checkMounted?: () => boolean) => {
     try {
       setLoading(true)
-      const res = await fetch('/api/services')
+      const res = await fetch('/api/services', { signal })
+      if (checkMounted && !checkMounted()) return
       const data = await res.json()
+      if (checkMounted && !checkMounted()) return
       if (Array.isArray(data)) {
         setServices(data)
       }
-    } catch (e) {
+    } catch (e: any) {
+      if (e?.name === 'AbortError') return
       console.error(e)
     } finally {
-      setLoading(false)
+      if (!checkMounted || checkMounted()) {
+        setLoading(false)
+      }
     }
   }
 
   useEffect(() => {
-    loadServices()
+    let isMounted = true
+    const controller = new AbortController()
+    loadServices(controller.signal, () => isMounted)
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
   }, [])
 
   const handleOpenEdit = (srv: any) => {

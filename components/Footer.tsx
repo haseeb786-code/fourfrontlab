@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -68,31 +68,96 @@ function PhoneLineIcon() {
   )
 }
 
-export default function Footer() {
-  const currentYear = 2026
-  const [copiedKey, setCopiedKey] = useState<string | null>(null)
-  const [timeStr, setTimeStr] = useState<string>('')
+const pktTimeFormatter = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Asia/Karachi',
+  hour12: true,
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+})
 
-  // Live Islamabad Studio Clock
+function StudioClock() {
+  const [timeStr, setTimeStr] = useState<string>('')
+  const clockRef = useRef<HTMLSpanElement>(null)
+
   useEffect(() => {
+    const el = clockRef.current
+    if (!el) return
+
+    let interval: NodeJS.Timeout | null = null
+
     const updateTime = () => {
       try {
         const now = new Date()
-        const formatted = now.toLocaleTimeString('en-US', {
-          timeZone: 'Asia/Karachi',
-          hour12: true,
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-        })
-        setTimeStr(`${formatted} PKT`)
+        setTimeStr(`${pktTimeFormatter.format(now)} PKT`)
       } catch {
         setTimeStr('08:30:00 PKT')
       }
     }
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
+
+    const startTimer = () => {
+      if (interval) return
+      updateTime()
+      interval = setInterval(updateTime, 1000)
+    }
+
+    const stopTimer = () => {
+      if (interval) {
+        clearInterval(interval)
+        interval = null
+      }
+    }
+
+    let isVisible = false
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopTimer()
+      } else if (isVisible) {
+        startTimer()
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting
+        if (isVisible && !document.hidden) {
+          startTimer()
+        } else {
+          stopTimer()
+        }
+      },
+      { threshold: 0 }
+    )
+
+    observer.observe(el)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      stopTimer()
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
+
+  return (
+    <span ref={clockRef} className="text-white font-bold">
+      {timeStr || 'LIVE PKT'}
+    </span>
+  )
+}
+
+export default function Footer() {
+  const currentYear = 2026
+  const [copiedKey, setCopiedKey] = useState<string | null>(null)
+  const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current)
+      }
+    }
   }, [])
 
   const handleCopy = (text: string, key: string, e: React.MouseEvent) => {
@@ -100,7 +165,10 @@ export default function Footer() {
     e.stopPropagation()
     navigator.clipboard.writeText(text)
     setCopiedKey(key)
-    setTimeout(() => {
+    if (copyTimeoutRef.current) {
+      clearTimeout(copyTimeoutRef.current)
+    }
+    copyTimeoutRef.current = setTimeout(() => {
       setCopiedKey((prev) => (prev === key ? null : prev))
     }, 2000)
   }
@@ -372,7 +440,7 @@ export default function Footer() {
                     <Clock className="w-3 h-3 text-[#c8f542]" />
                     STUDIO TIME:
                   </span>
-                  <span className="text-white font-bold">{timeStr || 'LIVE PKT'}</span>
+                  <StudioClock />
                 </div>
 
                 {/* Geolocation Coordinates */}

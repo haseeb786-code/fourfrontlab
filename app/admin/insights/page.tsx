@@ -38,20 +38,31 @@ export default function AdminInsightsPage() {
   })
 
   useEffect(() => {
-    fetchPosts()
+    let isMounted = true
+    const controller = new AbortController()
+    fetchPosts(controller.signal, () => isMounted)
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
   }, [])
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (signal?: AbortSignal, checkMounted?: () => boolean) => {
     try {
-      const res = await fetch('/api/posts?all=true')
+      const res = await fetch('/api/posts?all=true', { signal })
+      if (checkMounted && !checkMounted()) return
       if (res.ok) {
         const data = await res.json()
+        if (checkMounted && !checkMounted()) return
         setPosts(data)
       }
-    } catch (err) {
+    } catch (err: any) {
+      if (err?.name === 'AbortError') return
       console.error('Error fetching posts:', err)
     } finally {
-      setLoading(false)
+      if (!checkMounted || checkMounted()) {
+        setLoading(false)
+      }
     }
   }
 

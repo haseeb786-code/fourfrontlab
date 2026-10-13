@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cache } from 'react'
 import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -19,6 +19,8 @@ import {
 } from 'lucide-react'
 import type { Metadata } from 'next'
 import { ServiceJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd'
+
+export const revalidate = 60
 
 const iconMap: Record<string, any> = {
   Code,
@@ -195,19 +197,35 @@ const fallbackServices: Record<string, any> = {
   },
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string }
-}): Promise<Metadata> {
-  const { slug } = params
-  let service = fallbackServices[slug]
+const getService = cache(async (slug: string) => {
+  let service = fallbackServices[slug] || null
   try {
     const dbService = await prisma.service.findUnique({
       where: { slug },
     })
     if (dbService) service = dbService
   } catch (e) {}
+  return service
+})
+
+export async function generateStaticParams() {
+  const fallbackSlugs = Object.keys(fallbackServices).map((slug) => ({ slug }))
+  try {
+    const dbServices = await prisma.service.findMany({ select: { slug: true } })
+    const allSlugs = new Set([...fallbackSlugs.map((s) => s.slug), ...dbServices.map((s) => s.slug)])
+    return Array.from(allSlugs).map((slug) => ({ slug }))
+  } catch {
+    return fallbackSlugs
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const { slug } = params
+  const service = await getService(slug)
 
   if (!service) return { title: 'Service | Four Front Lab' }
 
@@ -232,17 +250,7 @@ export default async function ServiceDetailPage({
   params: { slug: string }
 }) {
   const { slug } = params
-
-  let service = fallbackServices[slug]
-
-  try {
-    const dbService = await prisma.service.findUnique({
-      where: { slug },
-    })
-    if (dbService) {
-      service = dbService
-    }
-  } catch (e) {}
+  const service = await getService(slug)
 
   if (!service) {
     notFound()

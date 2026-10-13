@@ -18,23 +18,34 @@ export default function TestimonialsManagerPage() {
     featured: true,
   })
 
-  const loadTestimonials = async () => {
+  const loadTestimonials = async (signal?: AbortSignal, checkMounted?: () => boolean) => {
     try {
       setLoading(true)
-      const res = await fetch('/api/testimonials')
+      const res = await fetch('/api/testimonials', { signal })
+      if (checkMounted && !checkMounted()) return
       const data = await res.json()
+      if (checkMounted && !checkMounted()) return
       if (Array.isArray(data)) {
         setTestimonials(data)
       }
-    } catch (e) {
+    } catch (e: any) {
+      if (e?.name === 'AbortError') return
       console.error(e)
     } finally {
-      setLoading(false)
+      if (!checkMounted || checkMounted()) {
+        setLoading(false)
+      }
     }
   }
 
   useEffect(() => {
-    loadTestimonials()
+    let isMounted = true
+    const controller = new AbortController()
+    loadTestimonials(controller.signal, () => isMounted)
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
   }, [])
 
   const handleOpenCreate = () => {

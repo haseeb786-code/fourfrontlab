@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { 
   Download, 
   Search, 
@@ -24,11 +24,15 @@ export default function InquiriesCrmPage() {
   const [notesState, setNotesState] = useState<Record<string, string>>({})
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null)
 
-  const loadInquiries = async () => {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const loadInquiries = async (signal?: AbortSignal, checkMounted?: () => boolean) => {
     try {
       setLoading(true)
-      const res = await fetch('/api/inquiries')
+      const res = await fetch('/api/inquiries', { signal })
+      if (checkMounted && !checkMounted()) return
       const data = await res.json()
+      if (checkMounted && !checkMounted()) return
       if (Array.isArray(data)) {
         setInquiries(data)
         const notesMap: Record<string, string> = {}
@@ -37,15 +41,25 @@ export default function InquiriesCrmPage() {
         })
         setNotesState(notesMap)
       }
-    } catch (e) {
+    } catch (e: any) {
+      if (e?.name === 'AbortError') return
       console.error(e)
     } finally {
-      setLoading(false)
+      if (!checkMounted || checkMounted()) {
+        setLoading(false)
+      }
     }
   }
 
   useEffect(() => {
-    loadInquiries()
+    let isMounted = true
+    const controller = new AbortController()
+    loadInquiries(controller.signal, () => isMounted)
+    return () => {
+      isMounted = false
+      controller.abort()
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
   }, [])
 
   const handleStatusChange = async (id: string, newStatus: string) => {
@@ -75,7 +89,8 @@ export default function InquiriesCrmPage() {
       })
       if (res.ok) {
         setSaveSuccess(id)
-        setTimeout(() => setSaveSuccess(null), 3000)
+        if (timeoutRef.current) clearTimeout(timeoutRef.current)
+        timeoutRef.current = setTimeout(() => setSaveSuccess(null), 3000)
       }
     } catch (e) {
       alert('Failed to save notes')

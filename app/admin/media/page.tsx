@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { 
   Upload, 
   Trash2, 
@@ -16,24 +16,37 @@ export default function MediaLibraryPage() {
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
   const [copiedId, setCopiedId] = useState<string | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const loadMedia = async () => {
+  const loadMedia = async (signal?: AbortSignal, checkMounted?: () => boolean) => {
     try {
       setLoading(true)
-      const res = await fetch('/api/media')
+      const res = await fetch('/api/media', { signal })
+      if (checkMounted && !checkMounted()) return
       const data = await res.json()
+      if (checkMounted && !checkMounted()) return
       if (Array.isArray(data)) {
         setMedia(data)
       }
-    } catch (e) {
+    } catch (e: any) {
+      if (e?.name === 'AbortError') return
       console.error(e)
     } finally {
-      setLoading(false)
+      if (!checkMounted || checkMounted()) {
+        setLoading(false)
+      }
     }
   }
 
   useEffect(() => {
-    loadMedia()
+    let isMounted = true
+    const controller = new AbortController()
+    loadMedia(controller.signal, () => isMounted)
+    return () => {
+      isMounted = false
+      controller.abort()
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
   }, [])
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +79,8 @@ export default function MediaLibraryPage() {
   const handleCopy = (url: string, id: string) => {
     navigator.clipboard.writeText(url)
     setCopiedId(id)
-    setTimeout(() => setCopiedId(null), 2000)
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    timeoutRef.current = setTimeout(() => setCopiedId(null), 2000)
   }
 
   const handleDelete = async (id: string) => {

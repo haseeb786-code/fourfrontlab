@@ -45,9 +45,12 @@ export default function AdminLayout({
 
   useEffect(() => {
     if (isLoginPage) return
+    let isMounted = true
+    const controller = new AbortController()
 
-    fetch('/api/auth/me')
+    fetch('/api/auth/me', { signal: controller.signal })
       .then((res) => {
+        if (!isMounted) return null
         if (!res.ok) {
           router.push('/admin/login')
           return null
@@ -55,13 +58,20 @@ export default function AdminLayout({
         return res.json()
       })
       .then((data) => {
+        if (!isMounted) return
         if (data?.user) {
           setAdminUser(data.user)
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        if (!isMounted || err?.name === 'AbortError') return
         router.push('/admin/login')
       })
+
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
   }, [pathname, isLoginPage, router])
 
   const handleLogout = async () => {

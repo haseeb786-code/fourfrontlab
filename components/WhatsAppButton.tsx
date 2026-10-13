@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { MessageSquare, X, Send, Sparkles } from 'lucide-react'
 
 interface WhatsAppButtonProps {
@@ -9,26 +9,12 @@ interface WhatsAppButtonProps {
 }
 
 export default function WhatsAppButton({
-  phoneNumber = '+923444741603',
+  phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+923444741603',
   defaultMessage = "Hi Four Front Lab! I'm interested in discussing a project for my business.",
 }: WhatsAppButtonProps) {
-  const [activeNumber, setActiveNumber] = useState(phoneNumber)
   const [showTooltip, setShowTooltip] = useState(false)
 
-  useEffect(() => {
-    fetch('/api/settings')
-      .then((res) => {
-        if (res.ok) return res.json()
-        return null
-      })
-      .then((data) => {
-        if (data?.whatsapp_raw || data?.whatsapp_number) {
-          setActiveNumber(data.whatsapp_raw || data.whatsapp_number)
-        }
-      })
-      .catch(() => {})
-  }, [])
-
+  const activeNumber = phoneNumber || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+923444741603'
   // Clean phone number for wa.me URL (remove spaces, parentheses, dashes)
   const cleanPhone = activeNumber.replace(/[^0-9]/g, '')
   const encodedMsg = encodeURIComponent(defaultMessage)

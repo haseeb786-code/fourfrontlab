@@ -3,103 +3,8 @@
 import React, { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-
-interface ScrubWordProps {
-  word: string
-  progress: MotionValue<number>
-  range: [number, number]
-  isFirstPhrase?: boolean
-}
-
-function HeroScrubWord({
-  word,
-  progress,
-  range,
-  isFirstPhrase = false,
-}: ScrubWordProps) {
-  // Smooth scrub: unread words start subdued, illuminating into bold stark white as user scrolls
-  const activeOpacity = useTransform(
-    progress,
-    range,
-    [isFirstPhrase ? 0.85 : 0.25, 1]
-  )
-  const dimOpacity = useTransform(
-    progress,
-    range,
-    [isFirstPhrase ? 0.15 : 0.75, 0]
-  )
-
-  return (
-    <span className="relative inline-block mr-[0.26em] my-[0.02em] select-none">
-      {/* Ghost word to permanently reserve bold width, guaranteeing zero layout jitter */}
-      <span
-        className="opacity-0 font-bold select-none pointer-events-none"
-        aria-hidden="true"
-      >
-        {word}
-      </span>
-
-      {/* Dimmed unread state: thin subdued text */}
-      <motion.span
-        style={{ opacity: dimOpacity }}
-        className="absolute inset-0 text-[#6b6b6b] font-normal transition-colors"
-      >
-        {word}
-      </motion.span>
-
-      {/* Illuminated active state: stark bold white with editorial clarity */}
-      <motion.span
-        style={{ opacity: activeOpacity }}
-        className="absolute inset-0 text-[#f5f5f0] font-bold drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]"
-      >
-        {word}
-      </motion.span>
-    </span>
-  )
-}
-
-interface ScrubParagraphProps {
-  paragraph: string
-  progress: MotionValue<number>
-  startProgress: number
-  endProgress: number
-  isFirstParagraph?: boolean
-  className?: string
-}
-
-function ScrubParagraph({
-  paragraph,
-  progress,
-  startProgress,
-  endProgress,
-  isFirstParagraph = false,
-  className = '',
-}: ScrubParagraphProps) {
-  const words = paragraph.split(/\s+/)
-  const totalWords = words.length
-  const span = endProgress - startProgress
-
-  return (
-    <p className={`select-none ${className}`}>
-      {words.map((word, index) => {
-        const wordStart = startProgress + (index / totalWords) * span
-        const wordEnd = Math.min(1, wordStart + (1 / totalWords) * span * 1.5)
-        const isFirstPhrase = isFirstParagraph && index < 6 // Initial phrase visible on load
-        return (
-          <HeroScrubWord
-            key={index}
-            word={word}
-            progress={progress}
-            range={[wordStart, wordEnd]}
-            isFirstPhrase={isFirstPhrase}
-          />
-        )
-      })}
-    </p>
-  )
-}
 
 export default function HeroEditorial() {
   const heroRef = useRef<HTMLDivElement>(null)
@@ -111,6 +16,26 @@ export default function HeroEditorial() {
   })
 
   const progressBarWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+  const paragraphOneColor = useTransform(
+    scrollYProgress,
+    [0, 0.45],
+    ['#8a8a86', '#f5f5f0']
+  )
+  const paragraphOneOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.45],
+    [0.75, 1]
+  )
+  const paragraphTwoColor = useTransform(
+    scrollYProgress,
+    [0.35, 0.85],
+    ['#555555', '#f5f5f0']
+  )
+  const paragraphTwoOpacity = useTransform(
+    scrollYProgress,
+    [0.35, 0.85],
+    [0.4, 1]
+  )
 
   // Exact intro copy as requested
   const paragraphOne =
@@ -134,7 +59,6 @@ export default function HeroEditorial() {
           src="/images/react-code-sharp.jpg"
           alt="Razor-Sharp Next.js Code Canvas"
           fill
-          priority
           sizes="100vw"
           className="object-cover object-right-top lg:object-right opacity-65 contrast-125 brightness-105"
         />
@@ -192,27 +116,22 @@ export default function HeroEditorial() {
                   - Width preserved at max-w-xl (no increase)
                   - Typography size maintained (text-base sm:text-lg & text-sm sm:text-base)
                   - "Your next tech partner" as opening line
-                  - Words illuminate into bold stark white as user scrolls
-                  - Pauses exactly when scrolling stops
+                  - Illuminates smoothly as user scrolls with zero per-word overhead
               ───────────────────────────────────────────────────────────── */}
               <div className="max-w-xl space-y-4">
-                <ScrubParagraph
-                  paragraph={paragraphOne}
-                  progress={scrollYProgress}
-                  startProgress={0.0}
-                  endProgress={0.48}
-                  isFirstParagraph={true}
-                  className="text-base sm:text-lg leading-[1.8] font-normal"
-                />
+                <motion.p
+                  style={{ color: paragraphOneColor, opacity: paragraphOneOpacity }}
+                  className="text-base sm:text-lg leading-[1.8] font-normal select-none"
+                >
+                  {paragraphOne}
+                </motion.p>
 
-                <ScrubParagraph
-                  paragraph={paragraphTwo}
-                  progress={scrollYProgress}
-                  startProgress={0.48}
-                  endProgress={0.95}
-                  isFirstParagraph={false}
-                  className="text-sm sm:text-base leading-[1.8] font-normal"
-                />
+                <motion.p
+                  style={{ color: paragraphTwoColor, opacity: paragraphTwoOpacity }}
+                  className="text-sm sm:text-base leading-[1.8] font-normal select-none"
+                >
+                  {paragraphTwo}
+                </motion.p>
               </div>
             </div>
 

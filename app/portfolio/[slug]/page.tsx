@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cache } from 'react'
 import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -18,6 +18,8 @@ import {
 } from 'lucide-react'
 import type { Metadata } from 'next'
 import { BreadcrumbJsonLd } from '@/components/JsonLd'
+
+export const revalidate = 60
 
 const fallbackCaseStudies: Record<string, any> = {
   'hanaz-luxury-skincare': {
@@ -90,17 +92,41 @@ const fallbackCaseStudies: Record<string, any> = {
   },
 }
 
+const getProject = cache(async (slug: string) => {
+  let project = fallbackCaseStudies[slug] || null
+  try {
+    const dbProj = await prisma.project.findUnique({
+      where: { slug },
+      include: { category: true },
+    })
+    if (dbProj) {
+      project = dbProj
+    }
+  } catch (e) {}
+  return project
+})
+
+export async function generateStaticParams() {
+  const fallbackSlugs = Object.keys(fallbackCaseStudies).map((slug) => ({ slug }))
+  try {
+    const dbProjects = await prisma.project.findMany({
+      where: { published: true },
+      select: { slug: true },
+    })
+    const allSlugs = new Set([...fallbackSlugs.map((s) => s.slug), ...dbProjects.map((p) => p.slug)])
+    return Array.from(allSlugs).map((slug) => ({ slug }))
+  } catch {
+    return fallbackSlugs
+  }
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string }
 }): Promise<Metadata> {
   const { slug } = params
-  let project = fallbackCaseStudies[slug]
-  try {
-    const dbProj = await prisma.project.findUnique({ where: { slug } })
-    if (dbProj) project = dbProj
-  } catch (e) {}
+  const project = await getProject(slug)
 
   if (!project) return { title: 'Case Study | Four Front Lab' }
 
@@ -125,18 +151,7 @@ export default async function CaseStudyDetailPage({
   params: { slug: string }
 }) {
   const { slug } = params
-
-  let project = fallbackCaseStudies[slug]
-
-  try {
-    const dbProj = await prisma.project.findUnique({
-      where: { slug },
-      include: { category: true },
-    })
-    if (dbProj) {
-      project = dbProj
-    }
-  } catch (e) {}
+  const project = await getProject(slug)
 
   if (!project) {
     notFound()

@@ -33,6 +33,7 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
     if (!ctx) return
 
     let animationFrameId: number
+    let isVisible = false
     let width = (canvas.width = canvas.offsetWidth)
     let height = (canvas.height = canvas.offsetHeight)
 
@@ -42,21 +43,20 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
       width = canvas.width = canvas.offsetWidth
       height = canvas.height = canvas.offsetHeight
     }
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize, { passive: true })
 
     // Mouse coordinates for interactive repulsion
     let mouse = { x: -1000, y: -1000, radius: 140 }
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect()
-      mouse.x = e.clientX - rect.left
-      mouse.y = e.clientY - rect.top
+      mouse.x = e.offsetX
+      mouse.y = e.offsetY
     }
     const handleMouseLeave = () => {
       mouse.x = -1000
       mouse.y = -1000
     }
-    canvas.addEventListener('mousemove', handleMouseMove)
-    canvas.addEventListener('mouseleave', handleMouseLeave)
+    canvas.addEventListener('mousemove', handleMouseMove, { passive: true })
+    canvas.addEventListener('mouseleave', handleMouseLeave, { passive: true })
 
     // Particles system
     const isMobile = window.innerWidth < 768
@@ -85,8 +85,10 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
 
     // Render loop
     const render = () => {
+      if (!isVisible || document.hidden) return
+
       ctx.clearRect(0, 0, width, height)
-      waveOffset += 0.015
+      waveOffset = (waveOffset + 0.015) % 628
 
       // 1. Draw Subtle Cyber Grid Lines
       ctx.lineWidth = 0.5
@@ -185,13 +187,45 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
       animationFrameId = requestAnimationFrame(render)
     }
 
-    render()
+    // Visibility Observer to pause when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const wasVisible = isVisible
+        isVisible = entry.isIntersecting
+        if (isVisible && !document.hidden) {
+          if (!wasVisible) {
+            cancelAnimationFrame(animationFrameId)
+            animationFrameId = requestAnimationFrame(render)
+          }
+        } else {
+          cancelAnimationFrame(animationFrameId)
+        }
+      },
+      { threshold: 0 }
+    )
+
+    observer.observe(canvas)
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId)
+      } else if (isVisible) {
+        cancelAnimationFrame(animationFrameId)
+        animationFrameId = requestAnimationFrame(render)
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
 
     return () => {
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
       cancelAnimationFrame(animationFrameId)
       window.removeEventListener('resize', handleResize)
       canvas.removeEventListener('mousemove', handleMouseMove)
       canvas.removeEventListener('mouseleave', handleMouseLeave)
+      // Release GPU/canvas backing store memory
+      canvas.width = 0
+      canvas.height = 0
     }
   }, [])
 

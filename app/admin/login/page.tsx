@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { ShieldCheck, Lock, Mail, ArrowRight, AlertCircle, Sparkles } from 'lucide-react'
 
@@ -10,6 +10,14 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('admin123456')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const isMountedRef = useRef(true)
+
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,9 +39,13 @@ export default function AdminLoginPage() {
       router.push('/admin')
       router.refresh()
     } catch (err: any) {
-      setError(err.message || 'Invalid credentials. Please try again.')
+      if (isMountedRef.current) {
+        setError(err.message || 'Invalid credentials. Please try again.')
+      }
     } finally {
-      setLoading(false)
+      if (isMountedRef.current) {
+        setLoading(false)
+      }
     }
   }
 

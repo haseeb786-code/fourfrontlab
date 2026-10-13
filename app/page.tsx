@@ -4,6 +4,7 @@ import HeroEditorial from '@/components/HeroEditorial'
 import MarqueeEditorial from '@/components/MarqueeEditorial'
 import ServicesEditorial from '@/components/ServicesEditorial'
 import PortfolioEditorial from '@/components/PortfolioEditorial'
+import TeamEditorial from '@/components/TeamEditorial'
 import TestimonialsEditorial from '@/components/TestimonialsEditorial'
 import ContactEditorial from '@/components/ContactEditorial'
 import Footer from '@/components/Footer'
@@ -48,6 +49,9 @@ export default function HomePage() {
 
       {/* 06. Real Photography Portfolio (Grayscale to Color on Hover) */}
       <PortfolioEditorial />
+
+      {/* 06.5. Architectural Editorial Team (Staggered Grid & Custom Wireframe Art) */}
+      <TeamEditorial />
 
       {/* 07. Executive Endorsements (Large Acid Green Quotes & Headshots) */}
       <TestimonialsEditorial />
