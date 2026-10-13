@@ -86,7 +86,7 @@ function ScrubParagraph({
       {words.map((word, index) => {
         const wordStart = startProgress + (index / totalWords) * span
         const wordEnd = Math.min(1, wordStart + (1 / totalWords) * span * 1.5)
-        const isFirstPhrase = isFirstParagraph && index < 4 // "Your next tech partner" is visible on initial load
+        const isFirstPhrase = isFirstParagraph && index < 6 // Initial phrase visible on load
         return (
           <HeroScrubWord
             key={index}
@@ -112,9 +112,9 @@ export default function HeroEditorial() {
 
   const progressBarWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
 
-  // Updated intro copy with "Your next tech partner" replacing the previous phrase
+  // Exact intro copy as requested
   const paragraphOne =
-    'Your next tech partner turning ideas into powerful digital experiences. From stunning web designs to full-scale business solutions — we build, we launch, we maintain.'
+    'We are a team of four passionate Software Engineering students turning ideas into powerful digital experiences. From stunning web designs to full-scale business solutions — we build, we launch, we maintain.'
 
   const paragraphTwo =
     'We don’t just develop websites; we craft tools that help your business grow. Every project gets our full attention, fresh thinking, and clean execution. Young, skilled, and hungry to deliver — we are your next tech partners.'
@@ -125,23 +125,23 @@ export default function HeroEditorial() {
       ref={heroRef}
       className="relative w-full bg-[#080808] text-[#f5f5f0] pt-28 sm:pt-36 pb-24 sm:pb-32 px-6 lg:px-10 border-b border-[#1f1f1f] overflow-hidden"
     >
-      {/* Background Coding / Web Design Visual Canvas */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+      {/* Subtle Dot Grid Background Pattern */}
+      <div className="absolute inset-0 bg-dot-grid opacity-20 pointer-events-none z-0" />
+
+      {/* Razor-Sharp Crystal-Clear Next.js & Web Engineering Background Canvas */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-[1]">
         <Image
-          src="/images/hero-code-bg.jpg"
-          alt="Web Architecture and Code Canvas"
+          src="/images/react-code-sharp.jpg"
+          alt="Razor-Sharp Next.js Code Canvas"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-right lg:object-center opacity-85 contrast-110 brightness-100"
+          className="object-cover object-right-top lg:object-right opacity-65 contrast-125 brightness-105"
         />
-        {/* Soft Cinematic Overlays: preserves 100% legibility of foreground typography while keeping the coding IDE prominently visible */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/90 via-[#080808]/65 to-[#080808]/25" />
+        {/* Cinematic Translucent Overlays: keeps typography 100% crisp while code syntax shines through without blur */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/95 via-[#080808]/75 to-[#080808]/20" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/85 via-transparent to-[#080808]" />
       </div>
-
-      {/* Subtle Dot Grid Background Pattern */}
-      <div className="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none z-[1]" />
 
       {/* Animated Horizontal Rule Line Drawing Across */}
       <div className="absolute top-20 left-0 right-0 h-[1px] bg-[#1f1f1f] animate-draw-line z-[2]" />
@@ -242,17 +242,17 @@ export default function HeroEditorial() {
           {/* Right Column (5 cols): Editorial Real Photo Canvas with Grayscale-to-Color Reveal */}
           <div className="lg:col-span-5 relative w-full h-[380px] sm:h-[480px] lg:h-[580px] bg-[#111111] border border-[#1f1f1f] overflow-hidden group">
             <Image
-              src="/images/web-design-preview.jpg"
-              alt="Web Design and Architecture Showcase"
+              src="/images/react-code-sharp.jpg"
+              alt="Next.js Full-Stack Architecture Showcase"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 42vw"
-              className="object-cover img-editorial group-hover:scale-105"
+              className="object-cover object-left-top img-editorial group-hover:scale-105"
             />
             {/* Minimal Corner Monospace Overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-[#080808]/90 border-t border-[#1f1f1f] flex items-center justify-between font-mono text-[10px] tracking-widest uppercase text-[#6b6b6b]">
-              <span>SYS_WEB_DESIGN</span>
-              <span>FOUR FRONT LAB / DEV</span>
+              <span>SYS_ARCHITECTURE</span>
+              <span>NEXT.JS & FULL-STACK ENG</span>
             </div>
           </div>
         </div>
