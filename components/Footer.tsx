@@ -12,7 +12,7 @@ export default function Footer() {
       <div className="max-w-[1200px] mx-auto">
         {/* Massive Full-Bleed Thin Typography */}
         <div className="border-b border-[#1f1f1f] pb-12 sm:pb-16 mb-16 sm:mb-20">
-          <h2 className="font-editorial text-[clamp(44px,11vw,160px)] font-light leading-[0.88] tracking-[-0.04em] text-[#f5f5f0] uppercase whitespace-nowrap overflow-hidden">
+          <h2 className="font-editorial text-[clamp(36px,7.5vw,118px)] font-light leading-[0.92] tracking-[-0.02em] text-[#f5f5f0] uppercase">
             FOUR FRONT LAB
           </h2>
           <div className="flex items-center justify-between font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#3a3a3a] mt-4 sm:mt-6">
