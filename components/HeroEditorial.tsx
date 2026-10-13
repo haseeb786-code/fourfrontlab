@@ -133,17 +133,11 @@ export default function HeroEditorial() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center grayscale contrast-125 brightness-[0.24] opacity-40"
+          className="object-cover object-right lg:object-center opacity-85 contrast-110 brightness-100"
         />
-        {/* Multi-directional Luxury Vignette Masks to preserve high-contrast typography */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080808] via-transparent to-[#080808]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-transparent to-[#080808]/85" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at 45% 45%, transparent 25%, #080808 88%)',
-          }}
-        />
+        {/* Soft Cinematic Overlays: preserves 100% legibility of foreground typography while keeping the coding IDE prominently visible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/90 via-[#080808]/65 to-[#080808]/25" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/85 via-transparent to-[#080808]" />
       </div>
 
       {/* Subtle Dot Grid Background Pattern */}
@@ -248,8 +242,8 @@ export default function HeroEditorial() {
           {/* Right Column (5 cols): Editorial Real Photo Canvas with Grayscale-to-Color Reveal */}
           <div className="lg:col-span-5 relative w-full h-[380px] sm:h-[480px] lg:h-[580px] bg-[#111111] border border-[#1f1f1f] overflow-hidden group">
             <Image
-              src="/images/manifesto-bg.jpg"
-              alt="Four Front Lab Engineering Foundation"
+              src="/images/web-design-preview.jpg"
+              alt="Web Design and Architecture Showcase"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 42vw"
@@ -257,8 +251,8 @@ export default function HeroEditorial() {
             />
             {/* Minimal Corner Monospace Overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-[#080808]/90 border-t border-[#1f1f1f] flex items-center justify-between font-mono text-[10px] tracking-widest uppercase text-[#6b6b6b]">
-              <span>LAB_HEADQUARTERS</span>
-              <span>4 CO-FOUNDERS / DEV</span>
+              <span>SYS_WEB_DESIGN</span>
+              <span>FOUR FRONT LAB / DEV</span>
             </div>
           </div>
         </div>
