@@ -182,7 +182,7 @@ export default function Footer() {
       ───────────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
         <Image
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=85&auto=format"
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1080&q=70&auto=format"
           alt="Four Front Lab Architectural Studio Foundation"
           fill
           sizes="100vw"

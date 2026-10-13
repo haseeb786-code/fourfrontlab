@@ -11,7 +11,7 @@ const projects = [
     client: 'Vance Logistics Global',
     scope: 'Cloud ERP & Telemetry Architecture',
     year: '2026',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=75&auto=format',
     tags: ['Next.js 14', 'PostgreSQL', 'Docker', 'Prisma'],
   },
   {
@@ -20,7 +20,7 @@ const projects = [
     client: 'Aetheris Autonomous Systems',
     scope: 'Domain LLM Orchestration & RAG Pipeline',
     year: '2026',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&q=80&auto=format',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=75&auto=format',
     tags: ['Python', 'FastAPI', 'Vector Embeddings', 'Next.js'],
   },
   {
@@ -29,7 +29,7 @@ const projects = [
     client: 'Hanaz Atelier London',
     scope: 'Kinetic WebGL Storefront & Checkout Engine',
     year: '2025',
-    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1600&q=80&auto=format',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=75&auto=format',
     tags: ['Three.js', 'Next.js 14', 'Stripe API', 'Tailwind'],
   },
   {
@@ -38,7 +38,7 @@ const projects = [
     client: 'OmniFlow Infrastructure',
     scope: 'Event-Driven Webhook Queues & CRM Bridge',
     year: '2025',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80&auto=format',
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=75&auto=format',
     tags: ['Redis', 'Microservices', 'Webhooks', 'Cloud SLA'],
   },
 ]

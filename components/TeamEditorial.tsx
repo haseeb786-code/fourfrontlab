@@ -378,13 +378,12 @@ function TiltCard({ children, className = '', isDark }: TiltCardProps) {
   })
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return
-    const rect = cardRef.current.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
+    const el = e.currentTarget
+    const width = el.offsetWidth || 300
+    const height = el.offsetHeight || 400
 
-    const clientX = e.clientX - rect.left
-    const clientY = e.clientY - rect.top
+    const clientX = e.nativeEvent.offsetX
+    const clientY = e.nativeEvent.offsetY
 
     x.set(clientX / width - 0.5)
     y.set(clientY / height - 0.5)
