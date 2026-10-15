@@ -7,9 +7,36 @@ export const dynamic = 'force-dynamic'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+// In-memory rate limiting map for inquiry submissions (max 5 per 10 mins per IP)
+const inquirySubmissions = new Map<string, number[]>()
+const MAX_INQUIRIES_PER_WINDOW = 5
+const INQUIRY_WINDOW_MS = 10 * 60 * 1000
+
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    const now = Date.now()
+
+    // Rate limiting check
+    const timestamps = inquirySubmissions.get(ip) || []
+    const recent = timestamps.filter((t) => now - t < INQUIRY_WINDOW_MS)
+    if (recent.length >= MAX_INQUIRIES_PER_WINDOW) {
+      return NextResponse.json(
+        { error: 'Too many submissions. Please wait a few minutes before trying again.' },
+        { status: 429 }
+      )
+    }
+
     const body = await req.json()
+
+    // Honeypot bot protection: silent rejection if hidden field is filled
+    if (body.hp_website || body.bot_check || body.website_url) {
+      return NextResponse.json({ success: true, message: 'Inquiry received' }, { status: 201 })
+    }
+
+    recent.push(now)
+    inquirySubmissions.set(ip, recent)
+
     const { name, email, phone, company, service, budget, timeline, message } = body
 
     if (!name || typeof name !== 'string' || !name.trim()) {

@@ -1,10 +1,29 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { verifyPassword, signSession, getSessionCookieOptions } from '@/lib/auth'
-import bcrypt from 'bcryptjs'
+
+// In-memory rate limiter for login attempts (IP / email based)
+const failedAttempts = new Map<string, { count: number; lastAttempt: number }>()
+const MAX_ATTEMPTS = 5
+const LOCKOUT_WINDOW_MS = 15 * 60 * 1000 // 15 minutes
 
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    const now = Date.now()
+    const attemptRecord = failedAttempts.get(ip)
+
+    if (attemptRecord && attemptRecord.count >= MAX_ATTEMPTS) {
+      if (now - attemptRecord.lastAttempt < LOCKOUT_WINDOW_MS) {
+        return NextResponse.json(
+          { error: 'Too many failed login attempts. Please wait 15 minutes.' },
+          { status: 429 }
+        )
+      } else {
+        failedAttempts.delete(ip)
+      }
+    }
+
     const { email, password } = await req.json()
 
     if (!email || !password) {
@@ -25,31 +44,11 @@ export async function POST(req: Request) {
       // Prisma error fallback
     }
 
-    // Default bootstrap admin if DB is empty or during first setup
-    if (!user && cleanEmail === 'admin@fourfrontlab.com' && password === 'admin123456') {
-      const token = await signSession({
-        userId: 'admin_default',
-        email: 'admin@fourfrontlab.com',
-        name: 'Director of Technology',
-        role: 'superadmin',
-      })
-
-      const res = NextResponse.json({
-        success: true,
-        user: {
-          id: 'admin_default',
-          email: 'admin@fourfrontlab.com',
-          name: 'Director of Technology',
-          role: 'superadmin',
-        },
-      })
-
-      const cookieOpts = getSessionCookieOptions()
-      res.cookies.set(cookieOpts.name, token, cookieOpts)
-      return res
-    }
-
     if (!user) {
+      await new Promise((r) => setTimeout(r, 600))
+      const current = failedAttempts.get(ip) || { count: 0, lastAttempt: now }
+      failedAttempts.set(ip, { count: current.count + 1, lastAttempt: now })
+
       return NextResponse.json(
         { error: 'Invalid email or password credentials' },
         { status: 401 }
@@ -58,11 +57,18 @@ export async function POST(req: Request) {
 
     const isValid = await verifyPassword(password, user.passwordHash)
     if (!isValid) {
+      await new Promise((r) => setTimeout(r, 600))
+      const current = failedAttempts.get(ip) || { count: 0, lastAttempt: now }
+      failedAttempts.set(ip, { count: current.count + 1, lastAttempt: now })
+
       return NextResponse.json(
         { error: 'Invalid email or password credentials' },
         { status: 401 }
       )
     }
+
+    // Reset failed attempts on success
+    failedAttempts.delete(ip)
 
     const token = await signSession({
       userId: user.id,

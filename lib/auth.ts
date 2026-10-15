@@ -2,8 +2,18 @@ import { SignJWT, jwtVerify } from "jose"
 import bcrypt from "bcryptjs"
 import { cookies } from "next/headers"
 
-const JWT_SECRET_STRING = process.env.JWT_SECRET || "four-front-lab-super-secure-production-jwt-key-2026-xyz-987"
-const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STRING)
+function getJwtSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('FATAL SECURITY ERROR: JWT_SECRET environment variable is missing in production environment.')
+    }
+    // Development-only fallback with clear prefix
+    return new TextEncoder().encode('ffl_dev_only_local_fallback_secret_not_for_prod_2026')
+  }
+  return new TextEncoder().encode(secret)
+}
+
 const COOKIE_NAME = "ffl_admin_session"
 
 export interface SessionPayload {
@@ -26,12 +36,12 @@ export async function signSession(payload: SessionPayload): Promise<string> {
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
-    .sign(JWT_SECRET)
+    .sign(getJwtSecret())
 }
 
 export async function verifySession(token: string): Promise<SessionPayload | null> {
   try {
-    const { payload } = await jwtVerify(token, JWT_SECRET)
+    const { payload } = await jwtVerify(token, getJwtSecret())
     return payload as unknown as SessionPayload
   } catch (err) {
     return null

@@ -362,6 +362,20 @@ export default function ContactEditorial() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Anti-spam honeypot (hidden from human visitors) */}
+                  <div className="hidden" aria-hidden="true">
+                    <input
+                      type="text"
+                      name="hp_website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={(formData as any).hp_website || ''}
+                      onChange={(e) =>
+                        setFormData({ ...formData, hp_website: e.target.value } as any)
+                      }
+                    />
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block font-mono text-[10px] uppercase tracking-widest text-[#444444] mb-2">

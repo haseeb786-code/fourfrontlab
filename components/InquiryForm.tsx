@@ -162,6 +162,20 @@ export default function InquiryForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Anti-spam honeypot (hidden from human visitors) */}
+      <div className="hidden" aria-hidden="true">
+        <input
+          type="text"
+          name="hp_website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={(formData as any).hp_website || ''}
+          onChange={(e) =>
+            setFormData({ ...formData, hp_website: e.target.value } as any)
+          }
+        />
+      </div>
+
       {error && (
         <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm flex items-start gap-3">
           <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />

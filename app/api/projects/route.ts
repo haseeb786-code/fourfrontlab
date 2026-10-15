@@ -7,7 +7,15 @@ export const dynamic = 'force-dynamic'
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
-    const includeDrafts = searchParams.get('all') === 'true'
+    const wantsDrafts = searchParams.get('all') === 'true'
+    let includeDrafts = false
+
+    if (wantsDrafts) {
+      const admin = await getCurrentAdmin()
+      if (admin) {
+        includeDrafts = true
+      }
+    }
 
     const where: any = {}
     if (!includeDrafts) {

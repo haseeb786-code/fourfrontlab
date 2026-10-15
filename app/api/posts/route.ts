@@ -7,11 +7,20 @@ export const dynamic = 'force-dynamic'
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
-    const all = searchParams.get('all') === 'true'
+    const wantsDrafts = searchParams.get('all') === 'true'
+    let includeDrafts = false
+
+    if (wantsDrafts) {
+      const admin = await getCurrentAdmin()
+      if (admin) {
+        includeDrafts = true
+      }
+    }
+
     const category = searchParams.get('category')
 
     const where: any = {}
-    if (!all) {
+    if (!includeDrafts) {
       where.published = true
     }
     if (category && category !== 'all') {

@@ -2,8 +2,17 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { jwtVerify } from 'jose'
 
-const JWT_SECRET_STRING = process.env.JWT_SECRET || 'four-front-lab-super-secure-production-jwt-key-2026-xyz-987'
-const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STRING)
+function getJwtSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('FATAL SECURITY ERROR: JWT_SECRET environment variable is missing in production environment.')
+    }
+    return new TextEncoder().encode('ffl_dev_only_local_fallback_secret_not_for_prod_2026')
+  }
+  return new TextEncoder().encode(secret)
+}
+
 const COOKIE_NAME = 'ffl_admin_session'
 
 export async function middleware(request: NextRequest) {
@@ -19,7 +28,7 @@ export async function middleware(request: NextRequest) {
 
   if (token) {
     try {
-      await jwtVerify(token, JWT_SECRET)
+      await jwtVerify(token, getJwtSecret())
       isAuthenticated = true
     } catch {
       isAuthenticated = false

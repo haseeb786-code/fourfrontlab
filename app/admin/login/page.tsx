@@ -6,8 +6,8 @@ import { ShieldCheck, Lock, Mail, ArrowRight, AlertCircle, Sparkles } from 'luci
 
 export default function AdminLoginPage() {
   const router = useRouter()
-  const [email, setEmail] = useState('admin@fourfrontlab.com')
-  const [password, setPassword] = useState('admin123456')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const isMountedRef = useRef(true)
@@ -130,13 +130,8 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Development credentials reminder */}
           <div className="mt-8 pt-6 border-t border-white/5 text-center">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 text-slate-400">
-              <Sparkles className="w-3 h-3 text-brand-cyan" />
-              <span>Default: admin@fourfrontlab.com / admin123456</span>
-            </div>
-            <div className="mt-3">
+            <div>
               <a
                 href="/"
                 className="text-xs text-slate-400 hover:text-brand-cyan transition-colors"
