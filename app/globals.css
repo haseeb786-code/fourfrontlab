@@ -34,7 +34,7 @@ body {
 
 /* Editorial Serif Typography */
 .font-editorial {
-  font-family: "Editorial New", Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: var(--font-serif), "Editorial New", Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 /* Clean 32px Dot Grid Utility */

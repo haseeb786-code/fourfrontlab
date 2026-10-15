@@ -90,13 +90,19 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🔐 Default Admin Credentials
+## 🔐 Admin Authentication Setup
 
-* **Login URL**: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
-* **Email**: `admin@fourfrontlab.com`
-* **Password**: `admin123456`
-
-*(You can update this password or add additional admin users directly in the database or via the admin settings).*
+* **Login URL**: `/admin/login`
+* **Configuration**: Set your initial admin credentials in `.env` before seeding:
+  ```bash
+  ADMIN_EMAIL="admin@yourdomain.com"
+  ADMIN_PASSWORD="your-strong-password"
+  ```
+* Seed your admin user and site data:
+  ```bash
+  npm run db:seed
+  ```
+*(Never commit `.env` or production passwords to version control).*
 
 ---
 

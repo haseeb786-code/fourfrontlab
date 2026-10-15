@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import Link from 'next/link'
 import { 
   Search, 
   ExternalLink, 
   ArrowRight, 
   Sparkles, 
   Filter,
-  CheckCircle2
+  CheckCircle2,
+  ArrowUpRight
 } from 'lucide-react'
 
 interface ProjectItem {
@@ -32,77 +34,73 @@ interface ProjectItem {
 const initialProjects: ProjectItem[] = [
   {
     id: 'p1',
-    title: 'Hanaz Luxury Skincare',
-    slug: 'hanaz-luxury-skincare',
-    client: 'Hanaz Skincare',
-    industry: 'E-Commerce / Direct-to-Consumer',
-    overview: 'Engineered an ultra-fast headless storefront with custom dynamic bundles, sub-second product pages, and an automated inventory management bridge.',
-    coverImage: '/projects/hanaz_main.webp',
+    title: 'Aetheris AI - Autonomous Financial Intelligence',
+    slug: 'aetheris-ai',
+    client: 'Aetheris Capital Group',
+    industry: 'Fintech & Asset Management',
+    overview: 'An enterprise intelligence platform ingesting real-time SEC filings and market telemetry to generate predictive macro-risk models.',
+    coverImage: '/images/portfolio-aetheris.jpg',
     results: {
-      'Mobile Conversion': '+240% increase',
-      'Average Load Time': '840ms LCP',
-      'Reliability': 'Zero downtime architecture',
+      'Turnaround Time': '78% faster brief generation',
+      'Extraction Precision': '99.4% entity accuracy',
     },
-    techStack: ['Next.js 14', 'Tailwind CSS', 'Shopify Storefront API', 'Vercel Edge'],
+    techStack: ['Next.js 14', 'Python', 'FastAPI', 'pgvector'],
     category: {
-      name: 'E-Commerce',
-      slug: 'ecommerce',
+      name: 'AI & Intelligent Systems',
+      slug: 'ai-solutions',
     },
   },
   {
     id: 'p2',
+    title: 'Veloce Motors - 3D Luxury Hypercar Configurator',
+    slug: 'veloce-motors',
+    client: 'Veloce Bespoke Automotive',
+    industry: 'Luxury Automotive & Retail',
+    overview: 'Immersive WebGL digital showroom allowing ultra-high-net-worth clients to customize bespoke hypercars in real time with dynamic lighting shaders.',
+    coverImage: '/images/portfolio-veloce.jpg',
+    results: {
+      'Inquiry Surge': '+320% bookings',
+      'Dwell Time': '4.2x increase',
+    },
+    techStack: ['Three.js', 'React Three Fiber', 'Next.js 14', 'GLSL'],
+    category: {
+      name: 'Websites & Experiences',
+      slug: 'websites',
+    },
+  },
+  {
+    id: 'p3',
+    title: 'OmniFlow - Autonomous Supply Chain Orchestration',
+    slug: 'omniflow-automation',
+    client: 'OmniLogistics Global',
+    industry: 'Freight & Supply Chain',
+    overview: 'Automated dispatching, customs clearance OCR parsing, carrier invoice reconciliation, and proactive exception handling across 12 countries.',
+    coverImage: '/images/portfolio-omniflow.jpg',
+    results: {
+      'Hours Saved': '1,200 hrs/month',
+      'Clerical Error Rate': 'Cut to 0.04%',
+    },
+    techStack: ['Next.js', 'TypeScript', 'Prisma', 'BullMQ', 'Redis'],
+    category: {
+      name: 'Business Automation',
+      slug: 'automation',
+    },
+  },
+  {
+    id: 'p4',
     title: 'Nexus Operations OS',
     slug: 'nexus-enterprise-os',
     client: 'Nexus Enterprise Solutions',
     industry: 'SaaS / ERP / Cloud Architecture',
     overview: 'A multi-tenant enterprise operating system unifying procurement, workforce scheduling, live asset telemetry, and real-time ledger accounting.',
-    coverImage: '/projects/nexus_main.jpg',
+    coverImage: '/images/portfolio-aetheris.jpg',
     results: {
       'Active Users': '14,000+ daily active',
-      'Uptime SLA': '99.99% availability',
-      'Response Time': 'Sub-200ms API latency',
+      'API Latency': 'Sub-200ms average',
     },
-    techStack: ['Next.js App Router', 'TypeScript', 'Prisma ORM', 'PostgreSQL', 'Docker'],
+    techStack: ['Next.js App Router', 'TypeScript', 'Prisma ORM', 'PostgreSQL'],
     category: {
-      name: 'Web Apps & SaaS',
-      slug: 'web-apps',
-    },
-  },
-  {
-    id: 'p3',
-    title: 'RoamEase Kinetic Booking',
-    slug: 'roamease-booking',
-    client: 'RoamEase Experiences',
-    industry: 'Travel & Interactive Maps',
-    overview: 'Curated experiential travel platform featuring interactive geospatial routing, offline itineraries, and frictionless one-tap payment processing.',
-    coverImage: '/projects/roamease_main.webp',
-    results: {
-      'Booking Volume': '+185% repeat bookings',
-      'Satisfaction': '4.9/5 user rating',
-      'CDN Speed': 'Global edge acceleration',
-    },
-    techStack: ['Next.js 14', 'Framer Motion', 'Stripe API', 'Mapbox GL'],
-    category: {
-      name: 'Websites & Digital Experiences',
-      slug: 'websites',
-    },
-  },
-  {
-    id: 'p4',
-    title: 'EduTrack Global Learning',
-    slug: 'edutrack-learning-hub',
-    client: 'EduTrack International',
-    industry: 'EdTech / Web Platform',
-    overview: 'Cloud-scale educational platform supporting live synchronous classrooms, adaptive AI assessment quizzes, and comprehensive student metrics.',
-    coverImage: '/projects/edutrack_main.webp',
-    results: {
-      'Student Enrollment': '50,000+ active students',
-      'Infrastructure Cost': '42% lower server costs',
-      'Streaming': 'Zero lag live delivery',
-    },
-    techStack: ['React 18', 'WebSockets', 'Tailwind CSS', 'Serverless Functions'],
-    category: {
-      name: 'Web Apps & SaaS',
+      name: 'Web Applications & SaaS',
       slug: 'web-apps',
     },
   },
@@ -110,9 +108,10 @@ const initialProjects: ProjectItem[] = [
 
 const categories = [
   { name: 'All Work', slug: 'all' },
-  { name: 'E-Commerce', slug: 'ecommerce' },
-  { name: 'Web Apps & SaaS', slug: 'web-apps' },
-  { name: 'Websites & Digital Experiences', slug: 'websites' },
+  { name: 'AI & Intelligent Systems', slug: 'ai-solutions' },
+  { name: 'Websites & Experiences', slug: 'websites' },
+  { name: 'Business Automation', slug: 'automation' },
+  { name: 'Web Applications & SaaS', slug: 'web-apps' },
 ]
 
 export default function PortfolioPage() {
@@ -120,9 +119,7 @@ export default function PortfolioPage() {
   const [categoriesList, setCategoriesList] = useState(categories)
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [loading, setLoading] = useState(false)
 
-  // Fetch latest projects and categories from API
   useEffect(() => {
     let isMounted = true
     const controller = new AbortController()
@@ -153,12 +150,10 @@ export default function PortfolioPage() {
     }
   }, [])
 
-  // Filtered projects
   const filteredProjects = projects.filter((p) => {
     const matchesCat =
       selectedCategory === 'all' ||
-      p.category?.slug === selectedCategory ||
-      (selectedCategory === 'websites' && p.category?.slug === 'websites')
+      p.category?.slug === selectedCategory
 
     const q = searchQuery.toLowerCase().trim()
     const matchesQuery =
@@ -175,66 +170,74 @@ export default function PortfolioPage() {
     <>
       <Navbar />
 
-      <main className="flex-1 pt-32 pb-24 bg-[#07090e]">
+      <main className="flex-1 pt-32 pb-24 bg-[#080808] text-[#f5f5f0] min-h-screen">
         {/* Header Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20 mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Case Studies & Production Implementations</span>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-10 mb-16">
+          <div className="flex items-center gap-2 mb-6">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#c8f542]">
+              INDEX
+            </span>
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#8e8e93]">
+              / CASE STUDIES &amp; PRODUCTION PLATFORMS
+            </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">
-            Engineered For <span className="text-gradient-cyan">Measurable Impact</span>
+
+          <h1 className="font-editorial text-[clamp(40px,6vw,84px)] font-normal text-[#f5f5f0] tracking-[-0.02em] leading-[1.05] mb-6">
+            Engineered for <span className="text-[#c8f542] italic">measurable</span> business leverage.
           </h1>
-          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-[#a1a1aa] max-w-2xl leading-[1.8]">
             Explore our portfolio of high-performance web platforms, autonomous automation pipelines, and custom AI systems delivered for forward-thinking enterprises.
           </p>
         </div>
 
         {/* Filter Controls & Search */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-white/10">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-10 mb-12">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-[#1f1f1f]">
             {/* Category Pills */}
-            <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-              {categoriesList.map((cat) => (
-                <button
-                  key={cat.slug}
-                  onClick={() => setSelectedCategory(cat.slug)}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                    selectedCategory === cat.slug
-                      ? 'bg-brand-cyan text-black shadow-glow-cyan'
-                      : 'bg-[#0d121c] text-slate-400 hover:text-white border border-white/10'
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              ))}
+            <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+              {categoriesList.map((cat) => {
+                const isSelected = selectedCategory === cat.slug
+                return (
+                  <button
+                    key={cat.slug}
+                    onClick={() => setSelectedCategory(cat.slug)}
+                    className={`px-4 py-2 text-xs font-mono uppercase tracking-wider transition-all border ${
+                      isSelected
+                        ? 'bg-[#f5f5f0] text-[#080808] font-bold border-[#f5f5f0]'
+                        : 'bg-[#111111] text-[#a1a1aa] hover:text-[#f5f5f0] border-[#1f1f1f] hover:border-[#333333]'
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                )
+              })}
             </div>
 
             {/* Search Input */}
-            <div className="relative w-full md:w-72">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <div className="relative w-full md:w-80">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8e8e93]" />
               <input
                 type="text"
-                placeholder="Search projects, client, tech..."
+                placeholder="Search platforms, tech, client..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0d121c] border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-brand-cyan transition-all"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#111111] border border-[#1f1f1f] text-[#f5f5f0] placeholder-[#6b7280] text-xs font-mono focus:outline-none focus:border-[#c8f542] transition-colors"
               />
             </div>
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
           {filteredProjects.length === 0 ? (
-            <div className="text-center py-20 bg-[#0b0f19] rounded-3xl border border-white/5">
-              <p className="text-base text-slate-400">No case studies found matching your criteria.</p>
+            <div className="text-center py-20 bg-[#111111] border border-[#1f1f1f]">
+              <p className="text-base text-[#a1a1aa] mb-4">No case studies found matching your criteria.</p>
               <button
                 onClick={() => {
                   setSelectedCategory('all')
                   setSearchQuery('')
                 }}
-                className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-brand-cyan text-black"
+                className="px-5 py-2.5 font-mono text-xs uppercase tracking-wider bg-[#f5f5f0] text-[#080808] font-semibold hover:bg-[#c8f542] transition-colors"
               >
                 Reset Filters
               </button>
@@ -255,52 +258,54 @@ export default function PortfolioPage() {
                 return (
                   <div
                     key={proj.slug}
-                    className="group rounded-3xl bg-[#0b0f19] border border-white/10 hover:border-brand-cyan/40 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10 flex flex-col justify-between"
+                    className="group border border-[#1f1f1f] bg-[#111111] hover:border-[#c8f542] transition-all duration-300 flex flex-col justify-between overflow-hidden"
                   >
                     <div>
-                      {/* Image Preview Banner */}
-                      <div className="relative h-56 bg-gradient-to-tr from-[#0a101d] via-[#101b2f] to-[#15233e] flex items-center justify-center p-6 border-b border-white/5 overflow-hidden">
-                        <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
-                        <div className="relative z-10 text-center">
-                          <span className="text-xs font-mono uppercase tracking-widest text-brand-cyan block mb-1">
+                      {/* Banner */}
+                      <div className="relative h-52 bg-[#0c0c0c] border-b border-[#1f1f1f] flex flex-col justify-between p-6 overflow-hidden">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[11px] uppercase tracking-widest text-[#c8f542]">
                             {proj.industry}
                           </span>
-                          <span className="text-xl font-bold text-white group-hover:text-brand-cyan transition-colors">
+                          {proj.liveUrl && (
+                            <a
+                              href={proj.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-1.5 border border-[#1f1f1f] bg-[#141414] text-[#8e8e93] hover:text-[#c8f542] hover:border-[#c8f542] transition-colors"
+                              aria-label="View live platform"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                          )}
+                        </div>
+
+                        <div>
+                          <span className="font-editorial text-2xl font-normal text-[#f5f5f0] group-hover:text-white transition-colors block">
                             {proj.client}
                           </span>
                         </div>
-                        {proj.liveUrl && (
-                          <a
-                            href={proj.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="absolute top-4 right-4 p-2 rounded-xl bg-black/60 backdrop-blur-md text-slate-300 hover:text-brand-cyan border border-white/10 transition-colors"
-                            aria-label="View live deployment"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        )}
                       </div>
 
                       {/* Content Body */}
                       <div className="p-6">
-                        <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block mb-1">
+                        <span className="font-mono text-xs text-[#8e8e93] uppercase tracking-wider block mb-2">
                           {proj.category?.name || 'Case Study'}
                         </span>
-                        <h2 className="text-xl font-bold text-white mb-3 group-hover:text-brand-cyan transition-colors">
+                        <h2 className="font-editorial text-xl font-normal text-[#f5f5f0] mb-3 group-hover:text-white transition-colors">
                           {proj.title}
                         </h2>
-                        <p className="text-sm text-slate-400 line-clamp-3 leading-relaxed mb-6">
+                        <p className="text-sm text-[#a1a1aa] line-clamp-3 leading-relaxed mb-6">
                           {proj.overview}
                         </p>
 
                         {/* Results Strip */}
                         {Object.entries(parsedResults).length > 0 && (
-                          <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 mb-6 space-y-1.5">
+                          <div className="p-3.5 bg-[#0c0c0c] border border-[#1f1f1f] mb-6 space-y-1.5">
                             {Object.entries(parsedResults).slice(0, 2).map(([k, v]) => (
-                              <div key={k} className="flex items-center justify-between text-xs">
-                                <span className="text-slate-400">{k}:</span>
-                                <span className="font-bold text-brand-cyan font-mono">{v}</span>
+                              <div key={k} className="flex items-center justify-between font-mono text-xs">
+                                <span className="text-[#8e8e93]">{k}:</span>
+                                <span className="font-bold text-[#c8f542]">{v}</span>
                               </div>
                             ))}
                           </div>
@@ -311,7 +316,7 @@ export default function PortfolioPage() {
                           {parsedTech.slice(0, 4).map((tech) => (
                             <span
                               key={tech}
-                              className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-[#090d15] text-slate-300 border border-white/5"
+                              className="px-2 py-0.5 text-[10px] font-mono uppercase bg-[#141414] text-[#8e8e93] border border-[#1f1f1f]"
                             >
                               {tech}
                             </span>
@@ -321,13 +326,13 @@ export default function PortfolioPage() {
                     </div>
 
                     <div className="p-6 pt-0">
-                      <a
+                      <Link
                         href={`/portfolio/${proj.slug}`}
-                        className="inline-flex items-center justify-between w-full py-3 px-4 rounded-xl text-xs font-bold bg-white/5 hover:bg-brand-cyan hover:text-black text-slate-200 border border-white/10 transition-all"
+                        className="inline-flex items-center justify-between w-full py-3.5 px-4 font-mono text-xs uppercase tracking-wider bg-[#141414] hover:bg-[#c8f542] hover:text-[#080808] text-[#f5f5f0] border border-[#1f1f1f] hover:border-[#c8f542] font-semibold transition-all group/btn"
                       >
-                        <span>Read In-Depth Case Study</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </a>
+                        <span>Inspect Full Case Study</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                      </Link>
                     </div>
                   </div>
                 )

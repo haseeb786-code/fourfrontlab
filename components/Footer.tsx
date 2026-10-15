@@ -147,10 +147,22 @@ function StudioClock() {
   )
 }
 
-export default function Footer() {
+export default function Footer({
+  settings,
+}: {
+  settings?: Record<string, string>
+}) {
   const currentYear = 2026
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
   const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const email = settings?.contact_email || 'fourfrontlab@gmail.com'
+  const whatsappNumber = settings?.whatsapp_number || '+92 344 474 1603'
+  const whatsappRaw = settings?.whatsapp_raw || whatsappNumber.replace(/[^0-9]/g, '')
+  const twitterUrl = settings?.social_twitter || 'https://x.com/FourFrontLab'
+  const twitterHandle = twitterUrl.split('/').filter(Boolean).pop() || '@FourFrontLab'
+  const githubUrl = settings?.social_github || 'https://github.com/haseeb786-code/fourfrontlab'
+  const studioLocation = settings?.office_address || 'Islamabad, PK'
 
   useEffect(() => {
     return () => {
@@ -255,32 +267,32 @@ export default function Footer() {
             {/* ─── Column 1: DIRECT DISPATCH (Interactive Live Hub) ─── */}
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-[#1f1f1f]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444]">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#9ca3af]">
                   DIRECT DISPATCH
                 </span>
-                <span className="flex items-center gap-1.5 font-mono text-[9px] text-[#c8f542] bg-[#c8f542]/10 px-2 py-0.5 rounded border border-[#c8f542]/30">
+                <span className="flex items-center gap-1.5 font-mono text-[10px] text-[#c8f542] bg-[#c8f542]/10 px-2 py-0.5 rounded border border-[#c8f542]/30">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#c8f542] animate-ping" />
                   ONLINE
                 </span>
               </div>
 
-              <p className="text-xs text-[#6b6b6b] leading-relaxed">
+              <p className="text-sm text-[#a1a1aa] leading-relaxed">
                 We engineer digital flagships and autonomous software for ambitious teams worldwide.
               </p>
 
               {/* Visual Interactive Contact Pill: Gmail */}
               <div className="p-3 border border-[#1f1f1f] bg-[#0c0c0c]/90 backdrop-blur-sm hover:border-[#c8f542] transition-colors flex items-center justify-between group">
                 <a
-                  href="mailto:fourfrontlab@gmail.com"
+                  href={`mailto:${email}`}
                   className="flex items-center gap-2 text-xs font-mono text-[#f5f5f0] group-hover:text-white transition-colors truncate mr-2"
                 >
                   <MailLineIcon />
-                  <span className="truncate">fourfrontlab@gmail.com</span>
+                  <span className="truncate">{email}</span>
                 </a>
                 <button
                   type="button"
-                  onClick={(e) => handleCopy('fourfrontlab@gmail.com', 'mail', e)}
-                  className="font-mono text-[9px] uppercase px-2 py-1 border border-[#1f1f1f] text-[#6b6b6b] hover:text-[#f5f5f0] hover:border-white transition-colors"
+                  onClick={(e) => handleCopy(email, 'mail', e)}
+                  className="font-mono text-[10px] uppercase px-2 py-1 border border-[#1f1f1f] text-[#8e8e93] hover:text-[#f5f5f0] hover:border-white transition-colors"
                   title="Copy Gmail"
                 >
                   {copiedKey === 'mail' ? (
@@ -296,18 +308,18 @@ export default function Footer() {
               {/* Visual Interactive Contact Pill: WhatsApp */}
               <div className="p-3 border border-[#1f1f1f] bg-[#0c0c0c]/90 backdrop-blur-sm hover:border-[#c8f542] transition-colors flex items-center justify-between group">
                 <a
-                  href="https://wa.me/923444741603"
+                  href={`https://wa.me/${whatsappRaw}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-xs font-mono text-[#f5f5f0] group-hover:text-white transition-colors truncate mr-2"
                 >
                   <PhoneLineIcon />
-                  <span>+92 344 474 1603</span>
+                  <span>{whatsappNumber}</span>
                 </a>
                 <button
                   type="button"
-                  onClick={(e) => handleCopy('+923444741603', 'wa', e)}
-                  className="font-mono text-[9px] uppercase px-2 py-1 border border-[#1f1f1f] text-[#6b6b6b] hover:text-[#f5f5f0] hover:border-white transition-colors"
+                  onClick={(e) => handleCopy(whatsappRaw, 'wa', e)}
+                  className="font-mono text-[10px] uppercase px-2 py-1 border border-[#1f1f1f] text-[#8e8e93] hover:text-[#f5f5f0] hover:border-white transition-colors"
                   title="Copy WhatsApp"
                 >
                   {copiedKey === 'wa' ? (
@@ -324,10 +336,10 @@ export default function Footer() {
             {/* ─── Column 2: INDEX (Visual Numbered Route Cards) ─── */}
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-[#1f1f1f]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444]">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#9ca3af]">
                   SITE NAVIGATION
                 </span>
-                <span className="font-mono text-[9px] text-[#6b6b6b]">
+                <span className="font-mono text-[10px] text-[#a1a1aa]">
                   [ 04 ROUTES ]
                 </span>
               </div>
@@ -345,14 +357,14 @@ export default function Footer() {
                     className="p-2.5 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm hover:bg-[#141414] hover:border-[#c8f542] transition-colors flex items-center justify-between group"
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-[10px] text-[#444444] group-hover:text-[#c8f542] transition-colors">
+                      <span className="font-mono text-xs text-[#8e8e93] group-hover:text-[#c8f542] transition-colors">
                         [{route.num}]
                       </span>
-                      <span className="font-mono text-xs text-[#a0a0a0] group-hover:text-white transition-colors">
+                      <span className="font-mono text-xs text-[#d4d4d8] group-hover:text-white transition-colors">
                         {route.name}
                       </span>
                     </div>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#444444] group-hover:text-[#c8f542] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#8e8e93] group-hover:text-[#c8f542] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </Link>
                 ))}
               </div>
@@ -361,10 +373,10 @@ export default function Footer() {
             {/* ─── Column 3: NETWORK (Visual Social Cards) ─── */}
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-[#1f1f1f]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444]">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#9ca3af]">
                   OFFICIAL CHANNELS
                 </span>
-                <span className="font-mono text-[9px] text-[#6b6b6b]">
+                <span className="font-mono text-[10px] text-[#a1a1aa]">
                   [ SOCIAL ]
                 </span>
               </div>
@@ -379,8 +391,8 @@ export default function Footer() {
                   },
                   {
                     name: 'X (Twitter)',
-                    handle: '@FourFrontLab',
-                    href: 'https://x.com/FourFrontLab',
+                    handle: twitterHandle.startsWith('@') ? twitterHandle : `@${twitterHandle}`,
+                    href: twitterUrl,
                     icon: <XLineIcon />,
                   },
                   {
@@ -391,8 +403,8 @@ export default function Footer() {
                   },
                   {
                     name: 'GitHub',
-                    handle: '@fourfrontlab',
-                    href: 'https://github.com/fourfrontlab',
+                    handle: githubUrl.split('/').filter(Boolean).pop() || '@fourfrontlab',
+                    href: githubUrl,
                     icon: <GitHubLineIcon />,
                   },
                 ].map((social) => (
@@ -404,16 +416,16 @@ export default function Footer() {
                     className="p-3 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm hover:border-white transition-colors flex flex-col justify-between group"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[#6b6b6b] group-hover:text-white transition-colors">
+                      <span className="text-[#a1a1aa] group-hover:text-white transition-colors">
                         {social.icon}
                       </span>
-                      <ArrowUpRight className="w-3 h-3 text-[#444444] group-hover:text-white transition-colors" />
+                      <ArrowUpRight className="w-3 h-3 text-[#8e8e93] group-hover:text-white transition-colors" />
                     </div>
                     <div>
-                      <span className="font-mono text-[11px] text-[#f5f5f0] block group-hover:text-white">
+                      <span className="font-mono text-xs text-[#f5f5f0] block group-hover:text-white">
                         {social.name}
                       </span>
-                      <span className="font-mono text-[9px] text-[#444444] block truncate">
+                      <span className="font-mono text-[10px] text-[#8e8e93] block truncate">
                         {social.handle}
                       </span>
                     </div>
@@ -425,37 +437,37 @@ export default function Footer() {
             {/* ─── Column 4: HEADQUARTERS (Station Terminal Box) ─── */}
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-[#1f1f1f]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444]">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#9ca3af]">
                   STUDIO TELEMETRY
                 </span>
-                <span className="font-mono text-[9px] text-[#6b6b6b]">
+                <span className="font-mono text-[10px] text-[#a1a1aa]">
                   [ ISB ]
                 </span>
               </div>
 
               <div className="p-4 border border-[#1f1f1f] bg-[#0c0c0c]/90 backdrop-blur-sm space-y-3">
                 {/* Live Islamabad Clock */}
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="flex items-center gap-1.5 text-[#6b6b6b]">
-                    <Clock className="w-3 h-3 text-[#c8f542]" />
+                <div className="flex items-center justify-between font-mono text-xs">
+                  <span className="flex items-center gap-1.5 text-[#a1a1aa]">
+                    <Clock className="w-3.5 h-3.5 text-[#c8f542]" />
                     STUDIO TIME:
                   </span>
                   <StudioClock />
                 </div>
 
                 {/* Geolocation Coordinates */}
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="flex items-center gap-1.5 text-[#6b6b6b]">
-                    <MapPin className="w-3 h-3 text-[#6b6b6b]" />
+                <div className="flex items-center justify-between font-mono text-xs">
+                  <span className="flex items-center gap-1.5 text-[#a1a1aa]">
+                    <MapPin className="w-3.5 h-3.5 text-[#8e8e93]" />
                     LOCATION:
                   </span>
-                  <span className="text-[#f5f5f0]">Islamabad, PK</span>
+                  <span className="text-[#f5f5f0]">{studioLocation}</span>
                 </div>
 
                 {/* IP Ownership Security Badge */}
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="flex items-center gap-1.5 text-[#6b6b6b]">
-                    <ShieldCheck className="w-3 h-3 text-[#6b6b6b]" />
+                <div className="flex items-center justify-between font-mono text-xs">
+                  <span className="flex items-center gap-1.5 text-[#a1a1aa]">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#8e8e93]" />
                     IP OWNERSHIP:
                   </span>
                   <span className="text-[#c8f542] font-semibold">100% CLIENT</span>
@@ -467,10 +479,10 @@ export default function Footer() {
                     href="/admin/login"
                     className="flex items-center justify-between p-2 rounded border border-[#1f1f1f] hover:border-[#c8f542] bg-[#141414] transition-colors group"
                   >
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#6b6b6b] group-hover:text-[#c8f542]">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-[#a1a1aa] group-hover:text-[#c8f542]">
                       [ ACCESS ADMIN PORTAL ]
                     </span>
-                    <Terminal className="w-3 h-3 text-[#444444] group-hover:text-[#c8f542]" />
+                    <Terminal className="w-3.5 h-3.5 text-[#8e8e93] group-hover:text-[#c8f542]" />
                   </Link>
                 </div>
               </div>
@@ -480,7 +492,7 @@ export default function Footer() {
           {/* ─────────────────────────────────────────────────────────────
               3. BOTTOM LEGAL & METRICS STRIP
           ───────────────────────────────────────────────────────────── */}
-          <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-[11px] text-[#444444]">
+          <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[#8e8e93]">
             <p>© {currentYear} Four Front Lab. Engineered with Next.js 14.</p>
             <div className="flex items-center gap-6">
               <Link href="/privacy" className="hover:text-[#f5f5f0] transition-colors">

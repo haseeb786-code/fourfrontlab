@@ -17,10 +17,12 @@ async function main() {
   await prisma.adminUser.deleteMany({})
 
   // 2. Admin User
-  const passwordHash = await bcrypt.hash('admin123456', 10)
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@fourfrontlab.com'
+  const adminPassword = process.env.ADMIN_PASSWORD || 'admin123456'
+  const passwordHash = await bcrypt.hash(adminPassword, 10)
   const admin = await prisma.adminUser.create({
     data: {
-      email: 'haseebsays123@gmail.com',
+      email: adminEmail,
       passwordHash,
       name: 'Abdul Haseeb',
       role: 'superadmin',

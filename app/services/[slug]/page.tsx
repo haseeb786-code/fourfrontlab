@@ -290,12 +290,12 @@ export default async function ServiceDetailPage({
       />
       <Navbar />
 
-      <main className="flex-1 pt-32 pb-24 bg-[#07090e]">
+      <main className="flex-1 pt-32 pb-24 bg-[#080808] text-[#f5f5f0] min-h-screen">
         {/* Back Link & Breadcrumb */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-10 mb-8">
           <a
             href="/services"
-            className="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-brand-cyan transition-colors"
+            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#8e8e93] hover:text-[#c8f542] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to All Specializations</span>
@@ -303,27 +303,25 @@ export default async function ServiceDetailPage({
         </div>
 
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-          <div className="p-8 sm:p-14 rounded-3xl bg-[#0b0f19] border border-white/10 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-brand-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
-
+        <section className="max-w-[1200px] mx-auto px-6 lg:px-10 mb-20">
+          <div className="p-8 sm:p-14 bg-[#111111] border border-[#1f1f1f] relative overflow-hidden">
             <div className="relative z-10 max-w-3xl">
-              <div className="w-16 h-16 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan flex items-center justify-center mb-6 shadow-glow-cyan">
-                <Icon className="w-8 h-8" />
+              <div className="w-14 h-14 bg-[#0c0c0c] border border-[#1f1f1f] text-[#c8f542] flex items-center justify-center mb-6">
+                <Icon className="w-7 h-7" />
               </div>
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-6">
+              <h1 className="font-editorial text-[clamp(36px,5vw,72px)] font-normal text-white tracking-[-0.02em] leading-[1.05] mb-6">
                 {service.title}
               </h1>
-              <p className="text-base sm:text-xl text-slate-300 leading-relaxed mb-8">
+              <p className="text-base sm:text-xl text-[#a1a1aa] leading-relaxed mb-8">
                 {service.shortDesc}
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
                   href="#inquiry"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-brand-cyan to-brand-blue text-black shadow-glow-cyan hover:scale-105 transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-4 font-mono text-xs uppercase tracking-wider font-semibold bg-[#f5f5f0] hover:bg-[#c8f542] text-[#080808] transition-colors group"
                 >
                   <span>Request Dedicated Architecture Proposal</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </div>
             </div>
@@ -331,25 +329,28 @@ export default async function ServiceDetailPage({
         </section>
 
         {/* Detailed Overview & Value Proposition */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+        <section className="max-w-[1200px] mx-auto px-6 lg:px-10 mb-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-6">
-                Architecture & Engineering Standard
+              <span className="font-mono text-xs uppercase tracking-widest text-[#8e8e93] block mb-2">
+                // ARCHITECTURE &amp; EXECUTION
+              </span>
+              <h2 className="font-editorial text-2xl sm:text-3xl font-normal text-white mb-6">
+                Engineering Standard &amp; Process
               </h2>
-              <p className="text-slate-300 text-base sm:text-lg leading-relaxed mb-8">
+              <p className="text-[#a1a1aa] text-base sm:text-lg leading-relaxed mb-8">
                 {service.fullDesc}
               </p>
 
               {/* Measurable Benefits */}
-              <h3 className="text-xl font-bold text-white mb-4">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-[#c8f542] mb-4">
                 Quantifiable Business Benefits
               </h3>
               <div className="space-y-3 mb-8">
                 {benefits.map((benefit, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[#0b0f19] border border-white/5">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                    <span className="text-sm text-slate-200">{benefit}</span>
+                  <div key={i} className="flex items-start gap-3 p-4 bg-[#111111] border border-[#1f1f1f]">
+                    <CheckCircle2 className="w-5 h-5 text-[#c8f542] shrink-0 mt-0.5" />
+                    <span className="text-sm text-[#f5f5f0]">{benefit}</span>
                   </div>
                 ))}
               </div>
@@ -358,15 +359,15 @@ export default async function ServiceDetailPage({
             {/* Right Column: Deliverables & Tech Stack */}
             <div className="lg:col-span-5 space-y-8">
               {/* Deliverables Card */}
-              <div className="p-8 rounded-3xl bg-[#0b0f19] border border-white/10">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-brand-cyan" />
-                  What You Receive
+              <div className="p-8 bg-[#111111] border border-[#1f1f1f]">
+                <h3 className="font-mono text-xs uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#c8f542]" />
+                  <span>Deliverable Scope</span>
                 </h3>
                 <ul className="space-y-3">
                   {deliverables.map((del, i) => (
-                    <li key={i} className="text-sm text-slate-300 flex items-center gap-3">
-                      <span className="w-2 h-2 rounded-full bg-brand-cyan shrink-0"></span>
+                    <li key={i} className="text-sm text-[#a1a1aa] flex items-center gap-3 font-mono text-xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8f542] shrink-0"></span>
                       <span>{del}</span>
                     </li>
                   ))}
@@ -374,15 +375,15 @@ export default async function ServiceDetailPage({
               </div>
 
               {/* Tech Stack Card */}
-              <div className="p-8 rounded-3xl bg-[#0b0f19] border border-white/10">
-                <h3 className="text-lg font-bold text-white mb-4">
+              <div className="p-8 bg-[#111111] border border-[#1f1f1f]">
+                <h3 className="font-mono text-xs uppercase tracking-wider text-white mb-4">
                   Technologies Employed
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-white/5 text-brand-cyan border border-brand-cyan/20"
+                      className="px-2.5 py-1 text-xs font-mono uppercase bg-[#0c0c0c] text-[#c8f542] border border-[#1f1f1f]"
                     >
                       {tech}
                     </span>
@@ -395,13 +396,16 @@ export default async function ServiceDetailPage({
 
         {/* FAQs Accordion */}
         {faqs.length > 0 && (
-          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">
+          <section className="max-w-[1200px] mx-auto px-6 lg:px-10 mb-24">
+            <div className="mb-12">
+              <span className="font-mono text-xs uppercase tracking-widest text-[#8e8e93] block mb-2">
+                // TECHNICAL SPECIFICATION
+              </span>
+              <h2 className="font-editorial text-2xl sm:text-4xl font-normal text-white tracking-[-0.02em] mb-3">
                 Frequently Asked Technical Questions
               </h2>
-              <p className="text-sm text-slate-400">
-                Direct answers to common scoping and implementation considerations.
+              <p className="text-sm text-[#a1a1aa]">
+                Direct answers to common scoping, architectural, and implementation considerations.
               </p>
             </div>
 
@@ -409,13 +413,13 @@ export default async function ServiceDetailPage({
               {faqs.map((faq, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-2xl bg-[#0b0f19] border border-white/10 hover:border-brand-cyan/30 transition-colors"
+                  className="p-6 bg-[#111111] border border-[#1f1f1f] hover:border-[#c8f542] transition-colors"
                 >
-                  <h4 className="text-base font-bold text-white flex items-center gap-2.5 mb-2">
-                    <HelpCircle className="w-4 h-4 text-brand-cyan shrink-0" />
-                    {faq.question}
+                  <h4 className="text-base font-semibold text-white flex items-center gap-2.5 mb-2 font-mono text-xs uppercase tracking-wider">
+                    <HelpCircle className="w-4 h-4 text-[#c8f542] shrink-0" />
+                    <span>{faq.question}</span>
                   </h4>
-                  <p className="text-sm text-slate-300 leading-relaxed pl-6.5">
+                  <p className="text-sm text-[#a1a1aa] leading-relaxed pl-6.5">
                     {faq.answer}
                   </p>
                 </div>
@@ -425,17 +429,17 @@ export default async function ServiceDetailPage({
         )}
 
         {/* Tailored Inquiry Form Box */}
-        <section id="inquiry" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 sm:p-12 rounded-3xl bg-[#0b0f19] border border-brand-cyan/40 shadow-2xl backdrop-blur-xl">
+        <section id="inquiry" className="max-w-[1200px] mx-auto px-6 lg:px-10">
+          <div className="p-8 sm:p-12 bg-[#111111] border border-[#1f1f1f]">
             <div className="text-center max-w-xl mx-auto mb-8">
-              <span className="text-xs font-mono text-brand-cyan uppercase tracking-wider block mb-2 font-semibold">
+              <span className="text-xs font-mono text-[#c8f542] uppercase tracking-wider block mb-2 font-semibold">
                 Direct Engineering Lead Engagement
               </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+              <h3 className="font-editorial text-2xl sm:text-4xl font-normal text-white mb-2">
                 Initiate Your {service.title} Project
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400">
-                Fill out the technical brief below to receive a scoped system proposal within 24-48 hours.
+              <p className="text-xs sm:text-sm text-[#a1a1aa]">
+                Fill out the technical brief below to receive a scoped system proposal within 12 business hours.
               </p>
             </div>
 

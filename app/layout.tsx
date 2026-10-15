@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono, Newsreader } from 'next/font/google'
 import './globals.css'
 import CustomCursor from '@/components/CustomCursor'
 import WhatsAppButton from '@/components/WhatsAppButton'
@@ -15,6 +15,14 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
+})
+
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+  adjustFontFallback: false,
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fourfrontlab.tech'
@@ -89,7 +97,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`dark scroll-smooth ${inter.variable} ${jetbrainsMono.variable} ${newsreader.variable}`}
     >
       <head>
         <OrganizationJsonLd />

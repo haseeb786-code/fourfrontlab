@@ -677,16 +677,16 @@ export default function ServicesEditorial() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12 sm:mb-16 pb-6 border-b border-[#1f1f1f]">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#c8f542]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#c8f542]">
               03
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#3a3a3a]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#8e8e93]">
               / CAPABILITIES &amp; ARCHITECTURE
             </span>
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#6b6b6b]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#a1a1aa]">
               [ CLICK ANY SERVICE TO POP UP ARCHITECTURE ]
             </span>
           </div>
@@ -697,7 +697,7 @@ export default function ServicesEditorial() {
           <h2 className="font-editorial text-[clamp(32px,5vw,72px)] font-normal leading-[1.05] tracking-[-0.02em] text-[#f5f5f0] mb-6">
             Engineered for performance, not decoration.
           </h2>
-          <p className="text-base sm:text-lg leading-[1.8] text-[#6b6b6b]">
+          <p className="text-base sm:text-lg leading-[1.8] text-[#a1a1aa]">
             We build production-ready systems that eliminate bottlenecks and scale business revenue. Select any service below to inspect its technical architecture and telemetry.
           </p>
         </div>
@@ -808,7 +808,7 @@ export default function ServicesEditorial() {
                     className={`text-sm sm:text-base leading-[1.8] mb-8 transition-all ${
                       isSelected
                         ? 'font-bold text-[#f5f5f0]'
-                        : 'font-normal text-[#6b6b6b] group-hover:text-[#a0a0a0]'
+                        : 'font-normal text-[#a1a1aa] group-hover:text-[#f5f5f0]'
                     }`}
                   >
                     {service.desc}
@@ -816,7 +816,7 @@ export default function ServicesEditorial() {
 
                   {/* ─── DELIVERABLES: Bolds & illuminates when clicked ─── */}
                   <div className="pt-6 border-t border-[#1f1f1f] space-y-2.5 mb-6">
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-[#444444] mb-3">
+                    <div className="font-mono text-xs uppercase tracking-widest text-[#9ca3af] mb-3">
                       // DELIVERABLE CAPABILITIES
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -826,7 +826,7 @@ export default function ServicesEditorial() {
                           className={`flex items-center gap-2 p-2 rounded transition-all text-xs font-mono ${
                             isSelected
                               ? 'bg-[#141414] border border-[#2a2a2a] font-bold text-white'
-                              : 'font-normal text-[#6b6b6b] group-hover:text-[#a0a0a0]'
+                              : 'font-normal text-[#a1a1aa] group-hover:text-[#f5f5f0]'
                           }`}
                         >
                           <span

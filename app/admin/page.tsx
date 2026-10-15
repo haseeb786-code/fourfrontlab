@@ -28,7 +28,7 @@ export default async function AdminDashboardOverview() {
   let newInquiryCount = 0
   let serviceCount = 0
   let recentInquiries: any[] = []
-  let whatsappNumber = '+1 (800) 436-8736'
+  let whatsappNumber = '+92 344 474 1603'
 
   try {
     projectCount = await prisma.project.count()

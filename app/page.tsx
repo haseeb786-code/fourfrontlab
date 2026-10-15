@@ -11,6 +11,9 @@ import Footer from '@/components/Footer'
 
 import type { Metadata } from 'next'
 import { ServiceJsonLd, FaqJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd'
+import { prisma } from '@/lib/prisma'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Four Front Lab | Web Development & AI Automation Agency Pakistan',
@@ -28,7 +31,33 @@ export const metadata: Metadata = {
   },
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  let projects: any[] = []
+  let testimonials: any[] = []
+  let settingsMap: Record<string, string> = {}
+
+  try {
+    const [dbProjects, dbTestimonials, dbSettings] = await Promise.all([
+      prisma.project.findMany({
+        where: { published: true },
+        include: { category: true },
+        orderBy: { order: 'asc' },
+        take: 6,
+      }),
+      prisma.testimonial.findMany({
+        where: { featured: true },
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.siteSetting.findMany({}),
+    ])
+
+    projects = dbProjects
+    testimonials = dbTestimonials
+    settingsMap = Object.fromEntries(dbSettings.map((s) => [s.key, s.value]))
+  } catch (err) {
+    console.error('Failed to query Prisma CMS models on homepage:', err)
+  }
+
   return (
     <main className="min-h-screen bg-[#080808] text-[#f5f5f0] font-sans antialiased overflow-x-hidden selection:bg-[#f5f5f0] selection:text-[#080808]">
       {/* Structural JSON-LD for Search Engines */}
@@ -48,19 +77,19 @@ export default function HomePage() {
       <ServicesEditorial />
 
       {/* 06. Real Photography Portfolio (Grayscale to Color on Hover) */}
-      <PortfolioEditorial />
+      <PortfolioEditorial initialProjects={projects} />
 
       {/* 06.5. Architectural Editorial Team (Staggered Grid & Custom Wireframe Art) */}
       <TeamEditorial />
 
       {/* 07. Executive Endorsements (Large Acid Green Quotes & Headshots) */}
-      <TestimonialsEditorial />
+      <TestimonialsEditorial initialTestimonials={testimonials} />
 
       {/* 08. Omnichannel Contact & Direct Minimalist CTA */}
-      <ContactEditorial />
+      <ContactEditorial settings={settingsMap} />
 
       {/* 09. Massive Full-Bleed Editorial Typography Footer */}
-      <Footer />
+      <Footer settings={settingsMap} />
     </main>
   )
 }

@@ -20,7 +20,7 @@ const config: Config = {
         white: '#fafaf8',
       },
       fontFamily: {
-        serif: ['"Editorial New"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+        serif: ['var(--font-serif)', '"Editorial New"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
         sans: ['var(--font-sans)', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         mono: ['var(--font-mono)', '"JetBrains Mono"', 'monospace'],
       },

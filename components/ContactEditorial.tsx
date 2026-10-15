@@ -58,7 +58,11 @@ function PhoneLineIcon() {
   )
 }
 
-export default function ContactEditorial() {
+export default function ContactEditorial({
+  settings,
+}: {
+  settings?: Record<string, string>
+}) {
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     name: '',
@@ -126,21 +130,27 @@ export default function ContactEditorial() {
     }
   }
 
+  const email = settings?.contact_email || 'fourfrontlab@gmail.com'
+  const whatsappNumber = settings?.whatsapp_number || '+92 344 474 1603'
+  const whatsappRaw = settings?.whatsapp_raw || whatsappNumber.replace(/[^0-9]/g, '')
+  const twitterUrl = settings?.social_twitter || 'https://x.com/FourFrontLab'
+  const twitterHandle = twitterUrl.split('/').filter(Boolean).pop() || '@FourFrontLab'
+
   const channels = [
     {
       id: 'gmail',
       label: 'Gmail',
-      handle: 'fourfrontlab@gmail.com',
-      copyValue: 'fourfrontlab@gmail.com',
-      href: 'mailto:fourfrontlab@gmail.com',
+      handle: email,
+      copyValue: email,
+      href: `mailto:${email}`,
       icon: <MailLineIcon />,
     },
     {
       id: 'whatsapp',
       label: 'WhatsApp',
-      handle: '+92 344 474 1603',
-      copyValue: '+923444741603',
-      href: 'https://wa.me/923444741603?text=Hi%20Four%20Front%20Lab%2C%20let%27s%20talk%20about%20a%20project.',
+      handle: whatsappNumber,
+      copyValue: whatsappRaw,
+      href: `https://wa.me/${whatsappRaw}?text=Hi%20Four%20Front%20Lab%2C%20let%27s%20talk%20about%20a%20project.`,
       icon: <PhoneLineIcon />,
     },
     {
@@ -154,16 +164,16 @@ export default function ContactEditorial() {
     {
       id: 'x',
       label: 'X (Twitter)',
-      handle: '@FourFrontLab',
-      copyValue: 'FourFrontLab',
-      href: 'https://x.com/FourFrontLab',
+      handle: twitterHandle.startsWith('@') ? twitterHandle : `@${twitterHandle}`,
+      copyValue: twitterHandle.replace('@', ''),
+      href: twitterUrl,
       icon: <XLineIcon />,
     },
     {
       id: 'facebook',
       label: 'Facebook',
-      handle: 'fourfrontlab@gmail.com',
-      copyValue: 'fourfrontlab@gmail.com',
+      handle: email,
+      copyValue: email,
       href: 'https://facebook.com/fourfrontlab',
       icon: <FacebookLineIcon />,
     },
@@ -227,7 +237,7 @@ export default function ContactEditorial() {
         ───────────────────────────────────────────────────────────── */}
         <div className="py-28 sm:py-36 px-6 lg:px-10 border-b border-[#1f1f1f] text-center relative group">
           <div className="max-w-[1200px] mx-auto relative z-10">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#3a3a3a] mb-6 px-3.5 py-1.5 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[#8e8e93] mb-6 px-3.5 py-1.5 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#c8f542] animate-pulse" />
               <span>READY TO DEPLOY • WORKSTATION ACTIVE</span>
             </div>
@@ -238,7 +248,7 @@ export default function ContactEditorial() {
 
             <div>
               <a
-                href="mailto:fourfrontlab@gmail.com"
+                href={`mailto:${email}`}
                 className="font-editorial text-2xl sm:text-4xl text-[#f5f5f0] hover:text-[#c8f542] underline underline-offset-8 transition-colors inline-flex items-center gap-2 group/link"
               >
                 <span>Start a direct conversation</span>
@@ -257,17 +267,17 @@ export default function ContactEditorial() {
             <div className="lg:col-span-5 space-y-8">
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#c8f542]">
+                  <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#c8f542]">
                     05
                   </span>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#3a3a3a]">
+                  <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#8e8e93]">
                     / TOUCHPOINTS
                   </span>
                 </div>
                 <h3 className="font-editorial text-3xl sm:text-4xl font-normal text-[#f5f5f0] mb-3">
                   Direct Coordinates
                 </h3>
-                <p className="text-xs leading-[1.8] text-[#6b6b6b]">
+                <p className="text-sm leading-[1.8] text-[#a1a1aa]">
                   Reach our engineering desk directly. We operate without intermediaries and respond within 12 business hours.
                 </p>
               </div>
@@ -282,11 +292,11 @@ export default function ContactEditorial() {
                       className="p-4 border-b border-[#1f1f1f] flex items-center justify-between group hover:bg-[#111111]/90 transition-colors"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 border border-[#1f1f1f] bg-[#141414] flex items-center justify-center text-[#6b6b6b] group-hover:text-white transition-colors">
+                        <div className="w-8 h-8 border border-[#1f1f1f] bg-[#141414] flex items-center justify-center text-[#8e8e93] group-hover:text-white transition-colors">
                           {ch.icon}
                         </div>
                         <div>
-                          <span className="font-mono text-[10px] uppercase tracking-wider text-[#444444] block">
+                          <span className="font-mono text-[11px] uppercase tracking-wider text-[#9ca3af] block">
                             {ch.label}
                           </span>
                           <span className="text-xs font-medium text-[#f5f5f0]">
@@ -298,7 +308,7 @@ export default function ContactEditorial() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={(e) => handleCopy(ch.copyValue, ch.id, e)}
-                          className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1.5 border border-[#1f1f1f] hover:border-[#c8f542] text-[#6b6b6b] hover:text-[#f5f5f0] transition-colors"
+                          className="font-mono text-[11px] uppercase tracking-wider px-2.5 py-1.5 border border-[#1f1f1f] hover:border-[#c8f542] text-[#8e8e93] hover:text-[#f5f5f0] transition-colors"
                           title={`Copy ${ch.handle}`}
                         >
                           {isCopied ? (
@@ -314,7 +324,7 @@ export default function ContactEditorial() {
                           href={ch.href}
                           target={ch.href.startsWith('mailto:') ? '_self' : '_blank'}
                           rel="noopener noreferrer"
-                          className="w-7 h-7 border border-[#1f1f1f] hover:border-[#c8f542] flex items-center justify-center text-[#6b6b6b] hover:text-[#f5f5f0] transition-colors"
+                          className="w-7 h-7 border border-[#1f1f1f] hover:border-[#c8f542] flex items-center justify-center text-[#8e8e93] hover:text-[#f5f5f0] transition-colors"
                           aria-label={`Open ${ch.label}`}
                         >
                           <ArrowUpRight className="w-3.5 h-3.5" />
@@ -326,12 +336,12 @@ export default function ContactEditorial() {
               </div>
 
               {/* Station SLA Metric Strip */}
-              <div className="p-4 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm flex items-center justify-between font-mono text-[10px] text-[#6b6b6b]">
+              <div className="p-4 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm flex items-center justify-between font-mono text-xs text-[#a1a1aa]">
                 <div className="flex items-center gap-2">
                   <Activity className="w-3.5 h-3.5 text-[#c8f542]" />
                   <span>RESPONSE TIME: &lt;12 HOURS</span>
                 </div>
-                <span className="text-[#f5f5f0]">GLOBAL DISPATCH</span>
+                <span className="text-[#f5f5f0] font-semibold">GLOBAL DISPATCH</span>
               </div>
             </div>
 
@@ -378,7 +388,7 @@ export default function ContactEditorial() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block font-mono text-[10px] uppercase tracking-widest text-[#444444] mb-2">
+                      <label className="block font-mono text-[11px] uppercase tracking-widest text-[#9ca3af] mb-2 font-medium">
                         Your Name *
                       </label>
                       <input
@@ -388,13 +398,13 @@ export default function ContactEditorial() {
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
                         }
-                        placeholder="e.g. Vance"
-                        className="w-full bg-[#111111] border border-[#1f1f1f] px-4 py-3 text-sm text-[#f5f5f0] placeholder-[#3a3a3a] focus:border-[#c8f542] focus:outline-none transition-colors"
+                        placeholder="e.g. Marcus Vance"
+                        className="w-full bg-[#111111] border border-[#1f1f1f] px-4 py-3.5 text-sm text-[#f5f5f0] placeholder-[#6b7280] focus:border-[#c8f542] focus:outline-none transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block font-mono text-[10px] uppercase tracking-widest text-[#444444] mb-2">
+                      <label className="block font-mono text-[11px] uppercase tracking-widest text-[#9ca3af] mb-2 font-medium">
                         Work Email *
                       </label>
                       <input
@@ -405,13 +415,13 @@ export default function ContactEditorial() {
                           setFormData({ ...formData, email: e.target.value })
                         }
                         placeholder="vance@company.com"
-                        className="w-full bg-[#111111] border border-[#1f1f1f] px-4 py-3 text-sm text-[#f5f5f0] placeholder-[#3a3a3a] focus:border-[#c8f542] focus:outline-none transition-colors"
+                        className="w-full bg-[#111111] border border-[#1f1f1f] px-4 py-3.5 text-sm text-[#f5f5f0] placeholder-[#6b7280] focus:border-[#c8f542] focus:outline-none transition-colors"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block font-mono text-[10px] uppercase tracking-widest text-[#444444] mb-2">
+                    <label className="block font-mono text-[11px] uppercase tracking-widest text-[#9ca3af] mb-2 font-medium">
                       Company / Organization
                     </label>
                     <input
@@ -420,13 +430,13 @@ export default function ContactEditorial() {
                       onChange={(e) =>
                         setFormData({ ...formData, company: e.target.value })
                       }
-                      placeholder="e.g. Vance Global"
-                      className="w-full bg-[#111111] border border-[#1f1f1f] px-4 py-3 text-sm text-[#f5f5f0] placeholder-[#3a3a3a] focus:border-[#c8f542] focus:outline-none transition-colors"
+                      placeholder="e.g. Vance Global Enterprises"
+                      className="w-full bg-[#111111] border border-[#1f1f1f] px-4 py-3.5 text-sm text-[#f5f5f0] placeholder-[#6b7280] focus:border-[#c8f542] focus:outline-none transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-mono text-[10px] uppercase tracking-widest text-[#444444] mb-2">
+                    <label className="block font-mono text-[11px] uppercase tracking-widest text-[#9ca3af] mb-2 font-medium">
                       Project Vision / Technical Scope *
                     </label>
                     <textarea
@@ -436,8 +446,8 @@ export default function ContactEditorial() {
                       onChange={(e) =>
                         setFormData({ ...formData, message: e.target.value })
                       }
-                      placeholder="Describe your current bottleneck, timeline, or required deliverables..."
-                      className="w-full bg-[#111111] border border-[#1f1f1f] px-4 py-3 text-sm text-[#f5f5f0] placeholder-[#3a3a3a] focus:border-[#c8f542] focus:outline-none transition-colors resize-none"
+                      placeholder="Describe your current bottleneck, desired architecture, timeline, or required deliverables..."
+                      className="w-full bg-[#111111] border border-[#1f1f1f] px-4 py-3.5 text-sm text-[#f5f5f0] placeholder-[#6b7280] focus:border-[#c8f542] focus:outline-none transition-colors resize-none leading-relaxed"
                     />
                   </div>
 

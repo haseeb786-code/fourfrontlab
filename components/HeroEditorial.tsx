@@ -34,13 +34,13 @@ export default function HeroEditorial() {
             <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#c8f542]">
               01
             </span>
-            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#888888]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#a1a1aa]">
               / COLLECTIVE SPECIFICATION
             </span>
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="font-mono text-xs uppercase tracking-[0.15em] text-[#888888] hidden sm:block">
+            <div className="font-mono text-xs uppercase tracking-[0.15em] text-[#a1a1aa] hidden sm:block">
               EST. 2026 • GLOBALLY DISTRIBUTED
             </div>
           </div>
@@ -75,7 +75,7 @@ export default function HeroEditorial() {
             <div className="mt-10 sm:mt-12 flex flex-wrap items-center gap-4 sm:gap-6 pt-8 border-t border-[#1f1f1f]">
               <Link
                 href="#contact"
-                className="font-mono text-xs uppercase tracking-[0.15em] text-[#080808] bg-[#f5f5f0] hover:bg-[#c8f542] px-6 py-4 font-medium transition-colors flex items-center gap-2 group"
+                className="font-mono text-xs uppercase tracking-[0.15em] text-[#080808] bg-[#f5f5f0] hover:bg-[#c8f542] px-6 py-4 font-semibold transition-colors flex items-center gap-2 group"
               >
                 <span>Let&apos;s Talk</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -88,7 +88,7 @@ export default function HeroEditorial() {
                 Selected Work
               </Link>
 
-              <div className="w-full sm:w-auto font-mono text-[11px] text-[#3a3a3a] uppercase tracking-widest sm:ml-auto">
+              <div className="w-full sm:w-auto font-mono text-xs text-[#8e8e93] uppercase tracking-widest sm:ml-auto">
                 [ BUILD • LAUNCH • MAINTAIN • SCALE ]
               </div>
             </div>
@@ -105,9 +105,9 @@ export default function HeroEditorial() {
               className="object-cover object-left-top img-editorial group-hover:scale-105"
             />
             {/* Minimal Corner Monospace Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-[#080808]/90 border-t border-[#1f1f1f] flex items-center justify-between font-mono text-[10px] tracking-widest uppercase text-[#6b6b6b]">
-              <span>SYS_ARCHITECTURE</span>
-              <span>NEXT.JS & FULL-STACK ENG</span>
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-[#080808]/90 border-t border-[#1f1f1f] flex items-center justify-between font-mono text-[11px] tracking-widest uppercase text-[#a1a1aa]">
+              <span>FULL-STACK STUDIO</span>
+              <span>NEXT.JS &amp; AI INTEGRATION</span>
             </div>
           </div>
         </div>

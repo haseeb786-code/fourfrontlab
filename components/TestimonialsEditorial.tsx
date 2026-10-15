@@ -12,6 +12,17 @@ import {
   ArrowUpRight,
 } from 'lucide-react'
 
+export interface TestimonialProp {
+  id: string
+  clientName: string
+  clientRole: string
+  clientCompany: string
+  avatarUrl?: string | null
+  quote: string
+  rating?: number
+  featured?: boolean
+}
+
 type CategoryType = 'all' | 'web' | 'automation' | 'software' | 'ai'
 
 interface Endorsement {
@@ -28,7 +39,7 @@ interface Endorsement {
   tags: string[]
 }
 
-const endorsements: Endorsement[] = [
+const defaultEndorsements: Endorsement[] = [
   {
     id: '01',
     category: 'web',
@@ -99,8 +110,65 @@ const filterTabs: Array<{ id: CategoryType; label: string }> = [
   { id: 'ai', label: 'Enterprise AI' },
 ]
 
-export default function TestimonialsEditorial() {
+export default function TestimonialsEditorial({
+  initialTestimonials,
+}: {
+  initialTestimonials?: TestimonialProp[]
+}) {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('all')
+
+  const fallbackAvatars = [
+    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80&auto=format',
+    'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80&auto=format',
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format',
+    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80&auto=format',
+  ]
+
+  const accents = ['#c8f542', '#e8d5b7', '#38bdf8', '#c084fc']
+  const categoriesList: CategoryType[] = ['web', 'automation', 'software', 'ai']
+  const labelsList = [
+    'NEXT.JS 14 FLAGSHIP',
+    'EVENT PIPELINE & CRM',
+    'MULTI-TENANT PORTAL',
+    'ENTERPRISE RAG PIPELINE',
+  ]
+  const metricsList = [
+    '0.35s LCP • 100/100 CORE VITALS',
+    '50k DAILY EVENTS • 0% LOSS',
+    '<15ms QUERY TIME • RBAC AUTH',
+    '98.4% ACCURACY • ZERO DATA RETENTION',
+  ]
+  const tagsList = [
+    ['Next.js 14', 'Three.js'],
+    ['Webhook Bridges', 'ERP Sync'],
+    ['PostgreSQL', 'Prisma ORM'],
+    ['Isolated RAG', 'Cosine Search'],
+  ]
+
+  const endorsements: Endorsement[] =
+    initialTestimonials && initialTestimonials.length > 0
+      ? initialTestimonials.map((t, idx) => {
+          const mod = idx % 4
+          let avatar = t.avatarUrl
+          if (!avatar || avatar.startsWith('/images/avatar-')) {
+            avatar = fallbackAvatars[mod]
+          }
+
+          return {
+            id: String(idx + 1).padStart(2, '0'),
+            category: categoriesList[mod],
+            categoryLabel: labelsList[mod],
+            accentColor: accents[mod],
+            quote: t.quote,
+            author: t.clientName,
+            role: t.clientRole?.toUpperCase() || 'EXECUTIVE LEAD',
+            company: t.clientCompany?.toUpperCase() || 'ENTERPRISE CLIENT',
+            metric: metricsList[mod],
+            image: avatar,
+            tags: tagsList[mod],
+          }
+        })
+      : defaultEndorsements
 
   const filtered =
     activeCategory === 'all'
@@ -109,22 +177,11 @@ export default function TestimonialsEditorial() {
 
   return (
     <section className="relative w-full bg-[#0a0a0a] text-[#f5f5f0] py-28 sm:py-36 px-6 lg:px-10 border-b border-[#1f1f1f] overflow-hidden">
-      {/* ─────────────────────────────────────────────────────────────
-          PREMIUM TEXTURE SYSTEM:
-          Subtle tactile dot grid, ambient radial spotlight,
-          and SVG dark carbon noise texture
-      ───────────────────────────────────────────────────────────── */}
+      {/* Texture & Ambient Lighting */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        {/* Subtle Ambient Radial Light */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-white/[0.015] blur-[150px]" />
-
-        {/* Tactile 32px Dot Grid Texture */}
         <div className="absolute inset-0 bg-dot-grid opacity-25" />
-
-        {/* Subtle Static Carbon Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/[0.015] via-transparent to-white/[0.01] pointer-events-none" />
-
-        {/* Lateral & Edge Vignettes */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
       </div>
@@ -133,17 +190,17 @@ export default function TestimonialsEditorial() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12 sm:mb-16 pb-6 border-b border-[#1f1f1f]">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#c8f542]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#c8f542]">
               05
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#3a3a3a]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#8e8e93]">
               / VERIFIED ENDORSEMENTS
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#c8f542] animate-pulse" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#6b6b6b]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#a1a1aa]">
               DIRECT EXECUTIVE FEEDBACK
             </span>
           </div>
@@ -154,15 +211,12 @@ export default function TestimonialsEditorial() {
           <h2 className="font-editorial text-[clamp(32px,5vw,72px)] font-normal leading-[1.05] tracking-[-0.02em] text-[#f5f5f0] mb-6">
             Tested in production. Proven at scale.
           </h2>
-          <p className="text-base sm:text-lg leading-[1.8] text-[#6b6b6b]">
+          <p className="text-base sm:text-lg leading-[1.8] text-[#a1a1aa]">
             Direct client assessments from founders and technical leaders who partnered with our four engineers to eliminate critical software bottlenecks.
           </p>
         </div>
 
-        {/* ─────────────────────────────────────────────────────────────
-            INTERACTIVE CATEGORY FILTER TABS
-            Filter feedbacks by domain: Web, Automation, Portals, Enterprise AI
-        ───────────────────────────────────────────────────────────── */}
+        {/* Filter Tabs */}
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-14 sm:mb-16 pb-6 border-b border-[#1f1f1f]">
           {filterTabs.map((tab) => {
             const isActive = activeCategory === tab.id
@@ -179,7 +233,7 @@ export default function TestimonialsEditorial() {
                 className={`relative px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all flex items-center gap-2 rounded-sm ${
                   isActive
                     ? 'bg-[#f5f5f0] text-[#080808] font-bold shadow-[0_0_20px_rgba(255,255,255,0.15)]'
-                    : 'bg-[#111111]/80 hover:bg-[#161616] border border-[#1f1f1f] text-[#888888] hover:text-[#f5f5f0] hover:border-[#333333]'
+                    : 'bg-[#111111]/80 hover:bg-[#161616] border border-[#1f1f1f] text-[#a1a1aa] hover:text-[#f5f5f0] hover:border-[#333333]'
                 }`}
               >
                 {isActive && (
@@ -187,10 +241,10 @@ export default function TestimonialsEditorial() {
                 )}
                 <span>{tab.label}</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
+                  className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
                     isActive
                       ? 'bg-[#080808] text-[#f5f5f0]'
-                      : 'bg-[#181818] text-[#555555]'
+                      : 'bg-[#181818] text-[#8e8e93]'
                   }`}
                 >
                   {count}
@@ -200,19 +254,13 @@ export default function TestimonialsEditorial() {
           })}
         </div>
 
-        {/* ─────────────────────────────────────────────────────────────
-            FLOATING AESTHETIC FEEDBACK CARDS:
-            - Gentle asynchronous levitation animation (floating physics)
-            - 3D hover elevation & deep ambient shadow
-            - Verified enterprise stamp and live performance metric pill
-            - Large editorial accent quote mark
-        ───────────────────────────────────────────────────────────── */}
+        {/* Endorsements Grid */}
         <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch"
         >
           <AnimatePresence mode="popLayout">
-            {filtered.map((item, idx) => (
+            {filtered.map((item) => (
               <motion.div
                 key={item.id}
                 layout
@@ -229,7 +277,7 @@ export default function TestimonialsEditorial() {
                   scale: { duration: 0.25 },
                 }}
                 whileHover={{
-                  y: -8,
+                  y: -6,
                   scale: 1.01,
                   transition: { duration: 0.2 },
                 }}
@@ -238,27 +286,27 @@ export default function TestimonialsEditorial() {
                   borderLeft: `2px solid ${item.accentColor}`,
                 }}
               >
-                {/* Subtle Ambient Backlight Glow on Card Corner */}
+                {/* Backlight Glow on Card Corner */}
                 <div
                   className="absolute -top-20 -right-20 w-52 h-52 rounded-full pointer-events-none opacity-10 group-hover:opacity-20 blur-3xl transition-opacity duration-500"
                   style={{ backgroundColor: item.accentColor }}
                 />
 
                 <div>
-                  {/* Card Header: Category Chip & Verified Badge */}
+                  {/* Card Header */}
                   <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#1a1a1a]">
                     <div className="flex items-center gap-2">
                       <span
                         className="w-1.5 h-1.5 rounded-full"
                         style={{ backgroundColor: item.accentColor }}
                       />
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-[#a0a0a0]">
+                      <span className="font-mono text-xs uppercase tracking-widest text-[#d4d4d8]">
                         {item.categoryLabel}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded border border-[#222222] bg-[#141414] font-mono text-[9px] text-[#c8f542]">
-                      <ShieldCheck className="w-3 h-3" />
+                    <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded border border-[#222222] bg-[#141414] font-mono text-[10px] text-[#c8f542]">
+                      <ShieldCheck className="w-3.5 h-3.5" />
                       <span>VERIFIED</span>
                     </div>
                   </div>
@@ -271,7 +319,7 @@ export default function TestimonialsEditorial() {
                     >
                       &ldquo;
                     </span>
-                    <span className="font-mono text-xs text-[#3a3a3a] group-hover:text-[#6b6b6b] transition-colors">
+                    <span className="font-mono text-xs text-[#8e8e93] group-hover:text-[#c8f542] transition-colors">
                       [{item.id}]
                     </span>
                   </div>
@@ -281,10 +329,10 @@ export default function TestimonialsEditorial() {
                     {item.quote}
                   </p>
 
-                  {/* Metric Telemetry Pill */}
-                  <div className="mb-8 p-3 rounded bg-[#111111] border border-[#1a1a1a] flex items-center justify-between font-mono text-[10px]">
-                    <div className="flex items-center gap-2 text-[#6b6b6b]">
-                      <Activity className="w-3 h-3 text-[#c8f542]" />
+                  {/* Metric Pill */}
+                  <div className="mb-8 p-3.5 rounded bg-[#111111] border border-[#1a1a1a] flex items-center justify-between font-mono text-xs">
+                    <div className="flex items-center gap-2 text-[#a1a1aa]">
+                      <Activity className="w-3.5 h-3.5 text-[#c8f542]" />
                       <span>BENCHMARK:</span>
                     </div>
                     <span className="text-white font-bold tracking-wider">
@@ -293,7 +341,7 @@ export default function TestimonialsEditorial() {
                   </div>
                 </div>
 
-                {/* Author Metadata with Grayscale-to-Color Avatar */}
+                {/* Author Metadata */}
                 <div className="flex items-center justify-between pt-6 border-t border-[#1a1a1a]">
                   <div className="flex items-center gap-4">
                     <div className="relative w-12 h-12 bg-[#141414] border border-[#222222] overflow-hidden shrink-0 group-hover:border-white transition-colors">
@@ -310,18 +358,18 @@ export default function TestimonialsEditorial() {
                       <h4 className="text-sm font-semibold text-white">
                         {item.author}
                       </h4>
-                      <p className="font-mono text-[10px] tracking-wider uppercase text-[#6b6b6b] mt-0.5">
+                      <p className="font-mono text-xs tracking-wider uppercase text-[#a1a1aa] mt-0.5">
                         {item.role} • {item.company}
                       </p>
                     </div>
                   </div>
 
                   {/* Tech Stack Chips */}
-                  <div className="hidden sm:flex flex-wrap gap-1 max-w-[140px] justify-end">
+                  <div className="hidden sm:flex flex-wrap gap-1.5 max-w-[150px] justify-end">
                     {item.tags.slice(0, 2).map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#6b6b6b]"
+                        className="font-mono text-[10px] uppercase px-2 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#8e8e93]"
                       >
                         {tag}
                       </span>

@@ -104,7 +104,7 @@ export default function SiteSettingsManagerPage() {
                 type="text"
                 value={settings.whatsapp_number}
                 onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })}
-                placeholder="+1 (800) 436-8736"
+                placeholder="+92 344 474 1603"
                 className="w-full px-4 py-2.5 rounded-xl bg-[#090d15] border border-white/10 text-white text-xs focus:outline-none focus:border-brand-cyan"
               />
             </div>

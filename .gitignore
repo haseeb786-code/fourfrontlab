@@ -32,7 +32,10 @@ build
 next-env.d.ts
 
 # Prisma & SQLite local databases
-prisma/dev.db-journal
+*.db
+*.db-journal
+prisma/*.db
+prisma/*.db-journal
 prisma/*-journal
 
 # Uploaded test media

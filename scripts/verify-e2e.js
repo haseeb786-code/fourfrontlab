@@ -577,8 +577,8 @@ async function runTests() {
 
     // 32. Update WhatsApp number via POST
     const newSettingsPayload = JSON.stringify({
-      whatsapp_number: '+1 (800) 436-8736',
-      whatsapp_raw: '+18004368736',
+      whatsapp_number: '+92 344 474 1603',
+      whatsapp_raw: '+923444741603',
       contact_email: 'contact@fourfrontlab.com',
     })
     const resUpdateSettings = await request(
