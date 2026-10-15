@@ -24,227 +24,40 @@ import {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function KineticCyberBackground({ activeColor }: { activeColor: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animationFrameId: number
-    let isVisible = false
-    let width = (canvas.width = canvas.offsetWidth)
-    let height = (canvas.height = canvas.offsetHeight)
-
-    // Handle Resize
-    const handleResize = () => {
-      if (!canvas) return
-      width = canvas.width = canvas.offsetWidth
-      height = canvas.height = canvas.offsetHeight
-    }
-    window.addEventListener('resize', handleResize, { passive: true })
-
-    // Mouse coordinates for interactive repulsion
-    let mouse = { x: -1000, y: -1000, radius: 140 }
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.offsetX
-      mouse.y = e.offsetY
-    }
-    const handleMouseLeave = () => {
-      mouse.x = -1000
-      mouse.y = -1000
-    }
-    canvas.addEventListener('mousemove', handleMouseMove, { passive: true })
-    canvas.addEventListener('mouseleave', handleMouseLeave, { passive: true })
-
-    // Particles system
-    const isMobile = window.innerWidth < 768
-    const particleCount = isMobile ? 22 : 45
-    const particles: Array<{
-      x: number
-      y: number
-      vx: number
-      vy: number
-      size: number
-      baseAlpha: number
-    }> = []
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        size: Math.random() * 1.8 + 1,
-        baseAlpha: Math.random() * 0.4 + 0.2,
-      })
-    }
-
-    let waveOffset = 0
-
-    // Render loop
-    const render = () => {
-      if (!isVisible || document.hidden) return
-
-      ctx.clearRect(0, 0, width, height)
-      waveOffset = (waveOffset + 0.015) % 628
-
-      // 1. Draw Subtle Cyber Grid Lines
-      ctx.lineWidth = 0.5
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.025)'
-      const gridSize = 64
-      for (let x = 0; x < width; x += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, height)
-        ctx.stroke()
-      }
-      for (let y = 0; y < height; y += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(0, y)
-        ctx.lineTo(width, y)
-        ctx.stroke()
-      }
-
-      // 2. Draw Kinetic Sinusoidal Cyber Wave along bottom
-      ctx.beginPath()
-      ctx.lineWidth = 1
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)'
-      for (let x = 0; x < width; x += 6) {
-        const y =
-          height -
-          80 +
-          Math.sin(x * 0.008 + waveOffset) * 25 +
-          Math.cos(x * 0.004 + waveOffset * 0.8) * 15
-        if (x === 0) ctx.moveTo(x, y)
-        else ctx.lineTo(x, y)
-      }
-      ctx.stroke()
-
-      // 3. Update & Draw Interactive Particle Constellation
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i]
-        p.x += p.vx
-        p.y += p.vy
-
-        // Wrap around bounds
-        if (p.x < 0) p.x = width
-        if (p.x > width) p.x = 0
-        if (p.y < 0) p.y = height
-        if (p.y > height) p.y = 0
-
-        // Mouse repulsion
-        const dx = mouse.x - p.x
-        const dy = mouse.y - p.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < mouse.radius) {
-          const force = (mouse.radius - dist) / mouse.radius
-          p.x -= (dx / dist) * force * 2
-          p.y -= (dy / dist) * force * 2
-        }
-
-        // Draw particle node
-        ctx.fillStyle = `rgba(245, 245, 240, ${p.baseAlpha})`
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fill()
-
-        // Connect adjacent nodes with laser lines
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j]
-          const dist2 = Math.hypot(p.x - p2.x, p.y - p2.y)
-          if (dist2 < 110) {
-            const alpha = (1 - dist2 / 110) * 0.12
-            ctx.strokeStyle = `rgba(245, 245, 240, ${alpha})`
-            ctx.lineWidth = 0.6
-            ctx.beginPath()
-            ctx.moveTo(p.x, p.y)
-            ctx.lineTo(p2.x, p2.y)
-            ctx.stroke()
-          }
-        }
-      }
-
-      // 4. Mouse Interactive Spotlight Glow
-      if (mouse.x > 0 && mouse.y > 0) {
-        const radGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          260
-        )
-        radGrad.addColorStop(0, 'rgba(255, 255, 255, 0.04)')
-        radGrad.addColorStop(1, 'transparent')
-        ctx.fillStyle = radGrad
-        ctx.beginPath()
-        ctx.arc(mouse.x, mouse.y, 260, 0, Math.PI * 2)
-        ctx.fill()
-      }
-
-      animationFrameId = requestAnimationFrame(render)
-    }
-
-    // Visibility Observer to pause when off-screen
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const wasVisible = isVisible
-        isVisible = entry.isIntersecting
-        if (isVisible && !document.hidden) {
-          if (!wasVisible) {
-            cancelAnimationFrame(animationFrameId)
-            animationFrameId = requestAnimationFrame(render)
-          }
-        } else {
-          cancelAnimationFrame(animationFrameId)
-        }
-      },
-      { threshold: 0 }
-    )
-
-    observer.observe(canvas)
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        cancelAnimationFrame(animationFrameId)
-      } else if (isVisible) {
-        cancelAnimationFrame(animationFrameId)
-        animationFrameId = requestAnimationFrame(render)
-      }
-    }
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-
-    return () => {
-      observer.disconnect()
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-      cancelAnimationFrame(animationFrameId)
-      window.removeEventListener('resize', handleResize)
-      canvas.removeEventListener('mousemove', handleMouseMove)
-      canvas.removeEventListener('mouseleave', handleMouseLeave)
-      // Release GPU/canvas backing store memory
-      canvas.width = 0
-      canvas.height = 0
-    }
-  }, [])
-
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-      {/* Live Cyber Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="w-full h-full block pointer-events-auto opacity-75"
-      />
-
-      {/* Sweeping Laser Radar Beam */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.03] to-transparent h-40 animate-[radar_9s_ease-in-out_infinite] pointer-events-none" />
-
-      {/* Dynamic Ambient Color Orb tied to selected service */}
+      {/* High-performance CSS Cyber Grid with subtle opacity */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full blur-[140px] opacity-15 transition-all duration-700 pointer-events-none"
-        style={{ backgroundColor: activeColor }}
+        className="absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+        }}
       />
+
+      {/* Hardware-accelerated dynamic radial ambient glow (no expensive 140px blur filter) */}
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] rounded-full pointer-events-none transition-colors duration-700 ease-out"
+        style={{
+          background: `radial-gradient(ellipse at center, ${activeColor}15 0%, ${activeColor}05 45%, transparent 70%)`,
+        }}
+      />
+
+      {/* Subtle bottom cyber wave accent line (pure SVG, 0ms JS cost) */}
+      <svg
+        className="absolute bottom-0 left-0 w-full h-16 opacity-20 pointer-events-none"
+        preserveAspectRatio="none"
+        viewBox="0 0 1200 80"
+        fill="none"
+      >
+        <path
+          d="M0 40 Q 300 10 600 40 T 1200 40"
+          stroke="#f5f5f0"
+          strokeWidth="1"
+          strokeDasharray="4 6"
+        />
+      </svg>
 
       {/* Editorial Vignettes to merge with #111111 */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#111111] via-transparent to-[#111111] pointer-events-none" />

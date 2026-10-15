@@ -1,20 +1,15 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Github,
   Linkedin,
   LayoutGrid,
   Rows3,
-  Sparkles,
+  ExternalLink,
   Sun,
   Moon,
-  ExternalLink,
-  Cpu,
-  Activity,
-  Layers,
-  Terminal,
 } from 'lucide-react'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -29,11 +24,11 @@ function KineticPolyhedron({ isDark }: { isDark: boolean }) {
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       {/* Background Ambient Glow */}
       <div
-        className="absolute inset-0 rounded-full blur-2xl opacity-20 pointer-events-none transition-all duration-700"
+        className="absolute inset-0 rounded-full opacity-20 pointer-events-none transition-all duration-700"
         style={{
           background: isDark
-            ? 'radial-gradient(circle, #c8f542 0%, transparent 70%)'
-            : 'radial-gradient(circle, #2b5951 0%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(200, 245, 66, 0.25) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(43, 89, 81, 0.25) 0%, transparent 70%)',
         }}
       />
 
@@ -71,7 +66,7 @@ function KineticPolyhedron({ isDark }: { isDark: boolean }) {
         />
 
         {/* Rotating Internal Geometric Facet Cage */}
-        <g className="origin-[120px_110px] animate-[spin_18s_linear_infinite]">
+        <g className="origin-[120px_110px]">
           <circle cx="120" cy="110" r="38" stroke={strokeColor} strokeWidth="0.8" strokeDasharray="4 6" opacity="0.35" />
           <polygon
             points="120,72 152,128 88,128"
@@ -94,10 +89,9 @@ function KineticPolyhedron({ isDark }: { isDark: boolean }) {
         <line x1="64" y1="74" x2="120" y2="172" stroke={secondaryStroke} strokeWidth="0.9" opacity="0.75" />
         <line x1="176" y1="74" x2="120" y2="172" stroke={secondaryStroke} strokeWidth="0.9" opacity="0.75" />
 
-        {/* Pulsing Quantum Vertex Nodes */}
-        <circle cx="120" cy="32" r="3" fill={strokeColor} className="animate-ping origin-[120px_32px] opacity-75" />
-        <circle cx="120" cy="32" r="2.5" fill={strokeColor} />
-        <circle cx="120" cy="110" r="3.5" fill={strokeColor} className="animate-pulse" />
+        {/* Accent Vertex Nodes */}
+        <circle cx="120" cy="32" r="3" fill={strokeColor} />
+        <circle cx="120" cy="110" r="3.5" fill={strokeColor} />
         <circle cx="64" cy="74" r="2" fill={strokeColor} />
         <circle cx="176" cy="74" r="2" fill={strokeColor} />
         <circle cx="44" cy="172" r="2" fill={strokeColor} />
@@ -118,11 +112,11 @@ function KineticArchVault({ isDark }: { isDark: boolean }) {
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       <div
-        className="absolute inset-0 rounded-full blur-2xl opacity-20 pointer-events-none transition-all duration-700"
+        className="absolute inset-0 rounded-full opacity-20 pointer-events-none transition-all duration-700"
         style={{
           background: isDark
-            ? 'radial-gradient(circle, #38bdf8 0%, transparent 70%)'
-            : 'radial-gradient(circle, #2b5951 0%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(43, 89, 81, 0.25) 0%, transparent 70%)',
         }}
       />
 
@@ -144,7 +138,6 @@ function KineticArchVault({ isDark }: { isDark: boolean }) {
           stroke={strokeColor}
           strokeWidth="1.2"
           strokeDasharray="6 3"
-          className="animate-[dash_12s_linear_infinite]"
         />
         <path
           d="M 68 182 V 112 A 52 52 0 0 1 172 112 V 182"
@@ -174,7 +167,7 @@ function KineticArchVault({ isDark }: { isDark: boolean }) {
         <line x1="36" y1="155" x2="204" y2="155" stroke={strokeColor} strokeWidth="0.8" opacity="0.6" />
         <line x1="36" y1="168" x2="204" y2="168" stroke={strokeColor} strokeWidth="0.8" opacity="0.6" />
 
-        {/* Vertical Data Bus Lines with Alternating Blinks */}
+        {/* Vertical Data Bus Lines */}
         {[52, 68, 84, 100, 120, 140, 156, 172, 188].map((x, i) => (
           <line
             key={x}
@@ -188,13 +181,13 @@ function KineticArchVault({ isDark }: { isDark: boolean }) {
           />
         ))}
 
-        {/* Live Active Server Node Lights */}
-        <circle cx="52" cy="155" r="1.8" fill={secondaryStroke} className="animate-ping" />
-        <circle cx="120" cy="155" r="2" fill={strokeColor} className="animate-pulse" />
-        <circle cx="188" cy="168" r="1.8" fill={secondaryStroke} className="animate-ping" />
+        {/* Active Server Node Lights */}
+        <circle cx="52" cy="155" r="1.8" fill={secondaryStroke} />
+        <circle cx="120" cy="155" r="2" fill={strokeColor} />
+        <circle cx="188" cy="168" r="1.8" fill={secondaryStroke} />
 
         {/* Keystone Apex Beacon */}
-        <circle cx="120" cy="20" r="2.5" fill={strokeColor} className="animate-pulse" />
+        <circle cx="120" cy="20" r="2.5" fill={strokeColor} />
         <line x1="120" y1="20" x2="120" y2="104" stroke={strokeColor} strokeWidth="0.8" strokeDasharray="3 3" opacity="0.4" />
       </svg>
     </div>
@@ -212,11 +205,11 @@ function KineticGlobe({ isDark }: { isDark: boolean }) {
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       <div
-        className="absolute inset-0 rounded-full blur-2xl opacity-20 pointer-events-none transition-all duration-700"
+        className="absolute inset-0 rounded-full opacity-20 pointer-events-none transition-all duration-700"
         style={{
           background: isDark
-            ? 'radial-gradient(circle, #a78bfa 0%, transparent 70%)'
-            : 'radial-gradient(circle, #2b5951 0%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(167, 139, 250, 0.25) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(43, 89, 81, 0.25) 0%, transparent 70%)',
         }}
       />
 
@@ -238,7 +231,7 @@ function KineticGlobe({ isDark }: { isDark: boolean }) {
         <ellipse cx="120" cy="120" rx="76" ry="48" stroke={strokeColor} strokeWidth="1" strokeDasharray="4 2" />
         <ellipse cx="120" cy="120" rx="76" ry="66" stroke={strokeColor} strokeWidth="0.8" opacity="0.5" />
 
-        {/* Kinetic Rotating Longitudes Group */}
+        {/* Rotating Longitudes Group */}
         <g className="origin-[120px_120px]">
           <ellipse cx="120" cy="120" rx="26" ry="76" stroke={strokeColor} strokeWidth="1.1" />
           <ellipse cx="120" cy="120" rx="52" ry="76" stroke={secondaryStroke} strokeWidth="1.1" />
@@ -246,11 +239,9 @@ function KineticGlobe({ isDark }: { isDark: boolean }) {
         </g>
 
         {/* Orbiting Satellite Ring at 45 Degree Angle */}
-        <g className="origin-[120px_120px] animate-[spin_10s_linear_infinite]">
+        <g className="origin-[120px_120px]">
           <ellipse cx="120" cy="120" rx="88" ry="32" stroke={strokeColor} strokeWidth="0.8" strokeDasharray="6 6" opacity="0.4" />
-          {/* Orbiting Satellite Beacon */}
-          <circle cx="208" cy="120" r="3" fill={strokeColor} className="animate-pulse" />
-          <circle cx="208" cy="120" r="5" stroke={strokeColor} strokeWidth="0.8" className="animate-ping" />
+          <circle cx="208" cy="120" r="3" fill={strokeColor} />
         </g>
 
         {/* Center Core Coordinate Node */}
@@ -271,11 +262,11 @@ function KineticIsometricMatrix({ isDark }: { isDark: boolean }) {
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       <div
-        className="absolute inset-0 rounded-full blur-2xl opacity-20 pointer-events-none transition-all duration-700"
+        className="absolute inset-0 rounded-full opacity-20 pointer-events-none transition-all duration-700"
         style={{
           background: isDark
-            ? 'radial-gradient(circle, #f59e0b 0%, transparent 70%)'
-            : 'radial-gradient(circle, #2b5951 0%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(43, 89, 81, 0.25) 0%, transparent 70%)',
         }}
       />
 
@@ -323,20 +314,18 @@ function KineticIsometricMatrix({ isDark }: { isDark: boolean }) {
         <line x1="185" y1="101" x2="185" y2="144" stroke={secondaryStroke} strokeWidth="0.9" />
         <line x1="105" y1="168" x2="205" y2="110" stroke={strokeColor} strokeWidth="0.9" strokeDasharray="3 2" />
 
-        {/* Scanning Laser HUD Plane Sweeping Down */}
-        <g className="animate-[bounce_4s_easeInOut_infinite]">
-          <line
-            x1="55"
-            y1="130"
-            x2="215"
-            y2="80"
-            stroke={strokeColor}
-            strokeWidth="1.2"
-            opacity="0.8"
-            strokeDasharray="4 4"
-          />
-          <circle cx="135" cy="105" r="2.5" fill={strokeColor} className="animate-ping" />
-        </g>
+        {/* Static Precision Guide Line */}
+        <line
+          x1="55"
+          y1="130"
+          x2="215"
+          y2="80"
+          stroke={strokeColor}
+          strokeWidth="1.2"
+          opacity="0.6"
+          strokeDasharray="4 4"
+        />
+        <circle cx="135" cy="105" r="2.5" fill={strokeColor} />
 
         {/* Isometric Growth Arrow Vector */}
         <g className="origin-[105px_147px] transition-transform duration-500">
@@ -360,66 +349,21 @@ interface TiltCardProps {
 }
 
 function TiltCard({ children, className = '', isDark }: TiltCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  // Spring physics for buttery-smooth non-jerky rotation
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), {
-    stiffness: 280,
-    damping: 24,
-  })
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), {
-    stiffness: 280,
-    damping: 24,
-  })
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = e.currentTarget
-    const width = el.offsetWidth || 300
-    const height = el.offsetHeight || 400
-
-    const clientX = e.nativeEvent.offsetX
-    const clientY = e.nativeEvent.offsetY
-
-    x.set(clientX / width - 0.5)
-    y.set(clientY / height - 0.5)
-
-    mouseX.set(clientX)
-    mouseY.set(clientY)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
   return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
-      }}
-      className={`relative will-change-transform ${className}`}
+    <div
+      className={`relative transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#c8f542]/50 ${className}`}
     >
       {/* Specular Glare/Sheen on Hover */}
-      <motion.div
+      <div
         className="pointer-events-none absolute -inset-px rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-30"
         style={{
           background: isDark
-            ? 'radial-gradient(400px circle at 50% 50%, rgba(200, 245, 66, 0.12), transparent 75%)'
-            : 'radial-gradient(400px circle at 50% 50%, rgba(26, 59, 54, 0.08), transparent 75%)',
+            ? 'radial-gradient(400px circle at 50% 50%, rgba(200, 245, 66, 0.08), transparent 75%)'
+            : 'radial-gradient(400px circle at 50% 50%, rgba(26, 59, 54, 0.05), transparent 75%)',
         }}
       />
       {children}
-    </motion.div>
+    </div>
   )
 }
 

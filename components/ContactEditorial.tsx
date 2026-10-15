@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'framer-motion'
 import {
   ArrowUpRight,
   Copy,
@@ -70,15 +69,6 @@ export default function ContactEditorial() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
-
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  })
-
-  // Subtle parallax depth translation for the workstation background image
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-6%', '6%'])
 
   const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const isMountedRef = useRef(true)
@@ -182,19 +172,15 @@ export default function ContactEditorial() {
   return (
     <section
       id="contact"
-      ref={sectionRef}
       className="relative w-full bg-[#080808] text-[#f5f5f0] border-b border-[#1f1f1f] overflow-hidden"
     >
       {/* ─────────────────────────────────────────────────────────────
           TOP-NOTCH DARK PC WORKSTATION BACKGROUND VISUAL:
           High-res developer hardware setup treated with editorial grayscale,
-          dark contrast, parallax drift, and seamless vignette blending
+          dark contrast, and seamless vignette blending
       ───────────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        <motion.div
-          style={{ y: bgY }}
-          className="relative w-full h-[120%] -top-[10%]"
-        >
+        <div className="relative w-full h-full">
           <Image
             src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1080&q=70&auto=format"
             alt="Four Front Lab Engineering Hardware & PC Workstation"
@@ -203,7 +189,7 @@ export default function ContactEditorial() {
             className="object-cover object-center grayscale contrast-125 brightness-[0.18] opacity-40 transition-all duration-700"
             priority={false}
           />
-        </motion.div>
+        </div>
 
         {/* Multi-layered dark vignette masks to melt image into pure #080808 */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#080808] via-transparent to-[#080808]" />

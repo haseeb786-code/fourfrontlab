@@ -1,43 +1,12 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
 export default function HeroEditorial() {
-  const heroRef = useRef<HTMLDivElement>(null)
-
-  // Scroll scrub bound to hero container: starts at top and scrubs as user scrolls
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end 0.3'],
-  })
-
-  const progressBarWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
-  const paragraphOneColor = useTransform(
-    scrollYProgress,
-    [0, 0.45],
-    ['#8a8a86', '#f5f5f0']
-  )
-  const paragraphOneOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.45],
-    [0.75, 1]
-  )
-  const paragraphTwoColor = useTransform(
-    scrollYProgress,
-    [0.35, 0.85],
-    ['#555555', '#f5f5f0']
-  )
-  const paragraphTwoOpacity = useTransform(
-    scrollYProgress,
-    [0.35, 0.85],
-    [0.4, 1]
-  )
-
-  // Exact intro copy as requested
+  // Exact intro copy
   const paragraphOne =
     'We are a team of four passionate Software Engineering students turning ideas into powerful digital experiences. From stunning web designs to full-scale business solutions — we build, we launch, we maintain.'
 
@@ -47,25 +16,13 @@ export default function HeroEditorial() {
   return (
     <section
       id="about"
-      ref={heroRef}
       className="relative w-full bg-[#080808] text-[#f5f5f0] pt-28 sm:pt-36 pb-24 sm:pb-32 px-6 lg:px-10 border-b border-[#1f1f1f] overflow-hidden"
     >
       {/* Subtle Dot Grid Background Pattern */}
-      <div className="absolute inset-0 bg-dot-grid opacity-20 pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-dot-grid opacity-25 pointer-events-none z-0" />
 
-      {/* Razor-Sharp Crystal-Clear Next.js & Web Engineering Background Canvas */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-[1]">
-        <Image
-          src="/images/react-code-sharp.jpg"
-          alt="Razor-Sharp Next.js Code Canvas"
-          fill
-          sizes="100vw"
-          className="object-cover object-right-top lg:object-right opacity-65 contrast-125 brightness-105"
-        />
-        {/* Cinematic Translucent Overlays: keeps typography 100% crisp while code syntax shines through without blur */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/95 via-[#080808]/75 to-[#080808]/20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/85 via-transparent to-[#080808]" />
-      </div>
+      {/* Lightweight Ambient Radial Glow (0ms JS Cost) */}
+      <div className="absolute top-1/4 right-10 w-[550px] h-[350px] bg-[#c8f542]/[0.025] rounded-full pointer-events-none" />
 
       {/* Animated Horizontal Rule Line Drawing Across */}
       <div className="absolute top-20 left-0 right-0 h-[1px] bg-[#1f1f1f] animate-draw-line z-[2]" />
@@ -74,33 +31,24 @@ export default function HeroEditorial() {
         {/* Top Section Metadata Label */}
         <div className="flex items-center justify-between mb-8 sm:mb-12">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#c8f542]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#c8f542]">
               01
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#3a3a3a]">
+            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#888888]">
               / COLLECTIVE SPECIFICATION
             </span>
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444] hidden sm:inline-block">
-              [ SCROLL TO ILLUMINATE ]
-            </span>
-            <div className="w-16 h-[1.5px] bg-[#1f1f1f] overflow-hidden hidden sm:block">
-              <motion.div
-                style={{ width: progressBarWidth }}
-                className="h-full bg-[#f5f5f0]"
-              />
-            </div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#6b6b6b] hidden sm:block">
+            <div className="font-mono text-xs uppercase tracking-[0.15em] text-[#888888] hidden sm:block">
               EST. 2026 • GLOBALLY DISTRIBUTED
             </div>
           </div>
         </div>
 
-        {/* Hero Split Layout: Left Typography & Scroll Scrub Copy / Right Editorial Image Canvas */}
+        {/* Hero Split Layout: Left Typography & Copy / Right Editorial Image Canvas */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column (7 cols): Massive Thin Serif H1 & Scroll-Scrubbed Copy */}
+          {/* Left Column (7 cols): Massive Thin Serif H1 & High-Contrast Editorial Copy */}
           <div className="lg:col-span-7 flex flex-col justify-between">
             <div>
               <h1 className="font-editorial text-[clamp(48px,7.5vw,110px)] font-light leading-[0.95] tracking-[-0.03em] text-[#f5f5f0] mb-8 select-none">
@@ -111,27 +59,15 @@ export default function HeroEditorial() {
                 companies.
               </h1>
 
-              {/* ─────────────────────────────────────────────────────────────
-                  SCROLL-SCRUBBED INTRO COPY:
-                  - Width preserved at max-w-xl (no increase)
-                  - Typography size maintained (text-base sm:text-lg & text-sm sm:text-base)
-                  - "Your next tech partner" as opening line
-                  - Illuminates smoothly as user scrolls with zero per-word overhead
-              ───────────────────────────────────────────────────────────── */}
+              {/* High-Contrast Readable Editorial Copy */}
               <div className="max-w-xl space-y-4">
-                <motion.p
-                  style={{ color: paragraphOneColor, opacity: paragraphOneOpacity }}
-                  className="text-base sm:text-lg leading-[1.8] font-normal select-none"
-                >
+                <p className="text-base sm:text-lg leading-[1.8] font-normal text-[#f5f5f0]">
                   {paragraphOne}
-                </motion.p>
+                </p>
 
-                <motion.p
-                  style={{ color: paragraphTwoColor, opacity: paragraphTwoOpacity }}
-                  className="text-sm sm:text-base leading-[1.8] font-normal select-none"
-                >
+                <p className="text-sm sm:text-base leading-[1.8] font-normal text-[#a3a39e]">
                   {paragraphTwo}
-                </motion.p>
+                </p>
               </div>
             </div>
 
