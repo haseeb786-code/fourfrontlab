@@ -80,7 +80,7 @@ const teamMembers: TeamMember[] = [
     fallbackAvatarUrl: '/images/team/syed-reference.webp',
     initials: 'SB',
     specCode: 'SYSTEM // 003',
-    staggerClass: 'lg:translate-y-20 xl:translate-y-24',
+    staggerClass: 'lg:translate-y-12 xl:translate-y-16',
   },
   {
     id: '04',
@@ -95,7 +95,7 @@ const teamMembers: TeamMember[] = [
     fallbackAvatarUrl: '/images/team/mustafa-reference.webp',
     initials: 'MA',
     specCode: 'SCALE // 004',
-    staggerClass: 'lg:translate-y-28 xl:translate-y-36',
+    staggerClass: 'lg:translate-y-20 xl:translate-y-24',
   },
 ]
 
@@ -454,9 +454,9 @@ export default function TeamEditorial() {
       ───────────────────────────────────────────────────────────────── */}
       <div className="absolute top-0 right-0 w-[55vw] max-w-[920px] h-full pointer-events-none select-none z-0 overflow-hidden">
         {/* Architectural Artwork extracted from Reference Design */}
-        <div className="relative w-full h-full opacity-65 sm:opacity-85 mix-blend-multiply transition-opacity duration-700">
+        <div className={`relative w-full h-full opacity-65 sm:opacity-85 transition-opacity duration-700 ${isDark ? '' : 'mix-blend-multiply'}`}>
           <Image
-            src="/images/team/four-fronts-blueprint-art.webp"
+            src="/images/architectural-antigravity-pure.webp"
             alt="The Four Fronts Architectural Isometric Wireframe"
             fill
             priority={false}
@@ -600,7 +600,7 @@ export default function TeamEditorial() {
         {/* ─────────────────────────────────────────────────────────────
             STAGGERED ROW LAYOUT (BOTTOM): 4 Stepped Architectural Cards
         ───────────────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-5 xl:gap-6 items-start pt-4 pb-12 sm:pb-16 lg:pb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-5 xl:gap-6 items-start pt-4 pb-32 sm:pb-36 lg:pb-44">
           {teamMembers.map((member, index) => {
             const staggerStyle = isStaggered ? member.staggerClass : 'lg:translate-y-0'
 

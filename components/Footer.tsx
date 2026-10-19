@@ -3,20 +3,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import {
   ArrowUpRight,
-  Copy,
   Check,
-  Terminal,
-  Activity,
   ShieldCheck,
   Clock,
   MapPin,
-  ExternalLink,
 } from 'lucide-react'
 
-// Minimal 16px Line Icons for Social Badges
+// Minimal Line Icons for Social Badges
 function InstaLineIcon() {
   return (
     <svg className="w-3.5 h-3.5 stroke-current fill-none stroke-[1.5]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
@@ -68,81 +63,33 @@ function PhoneLineIcon() {
   )
 }
 
-const pktTimeFormatter = new Intl.DateTimeFormat('en-US', {
-  timeZone: 'Asia/Karachi',
-  hour12: true,
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-})
-
 function StudioClock() {
-  const [timeStr, setTimeStr] = useState<string>('')
-  const clockRef = useRef<HTMLSpanElement>(null)
+  const [timeStr, setTimeStr] = useState<string>('04:44:23 PM PKT')
 
   useEffect(() => {
-    const el = clockRef.current
-    if (!el) return
-
-    let interval: NodeJS.Timeout | null = null
-
     const updateTime = () => {
       try {
         const now = new Date()
-        setTimeStr(`${pktTimeFormatter.format(now)} PKT`)
+        const formatted = now.toLocaleTimeString('en-US', {
+          timeZone: 'Asia/Karachi',
+          hour12: true,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        })
+        setTimeStr(`${formatted} PKT`)
       } catch {
-        setTimeStr('08:30:00 PKT')
+        setTimeStr('04:44:23 PM PKT')
       }
     }
-
-    const startTimer = () => {
-      if (interval) return
-      updateTime()
-      interval = setInterval(updateTime, 1000)
-    }
-
-    const stopTimer = () => {
-      if (interval) {
-        clearInterval(interval)
-        interval = null
-      }
-    }
-
-    let isVisible = false
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        stopTimer()
-      } else if (isVisible) {
-        startTimer()
-      }
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting
-        if (isVisible && !document.hidden) {
-          startTimer()
-        } else {
-          stopTimer()
-        }
-      },
-      { threshold: 0 }
-    )
-
-    observer.observe(el)
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-
-    return () => {
-      stopTimer()
-      observer.disconnect()
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-    }
+    updateTime()
+    const timer = setInterval(updateTime, 1000)
+    return () => clearInterval(timer)
   }, [])
 
   return (
-    <span ref={clockRef} className="text-white font-bold">
-      {timeStr || 'LIVE PKT'}
+    <span className="text-[#121316] font-bold font-mono">
+      {timeStr}
     </span>
   )
 }
@@ -174,105 +121,127 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative w-full bg-[#080808] text-[#f5f5f0] pt-16 sm:pt-24 pb-12 select-none overflow-hidden border-t border-[#1f1f1f]">
+    <footer className="relative w-full bg-[#F4F4F2] text-[#121316] pt-12 sm:pt-14 pb-12 px-6 lg:px-12 border-t border-[#E0E2DE] overflow-hidden select-none">
       {/* ─────────────────────────────────────────────────────────────
-          COOL STATIC PREMIUM ARCHITECTURAL BACKGROUND IMAGE:
-          Dark architectural studio interior treated with editorial monochrome,
-          subtle vignette fades, and ambient dot-grid texture
+          ARCHITECTURAL BLUEPRINT GRID & DRAFTING GUIDE LINES
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=85&auto=format"
-          alt="Four Front Lab Architectural Studio Foundation"
-          fill
-          sizes="100vw"
-          className="object-cover object-center grayscale contrast-125 brightness-[0.12] opacity-35"
-          priority={false}
-        />
+      <div className="absolute inset-0 bg-blueprint-grid opacity-60 pointer-events-none z-0" />
 
-        {/* Multi-layered dark vignette masks to melt into #080808 */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080808] via-transparent to-[#080808]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-transparent to-[#080808]" />
-        <div className="absolute inset-0 bg-[#080808]/75" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse at 50% 60%, transparent 20%, #080808 85%)',
-          }}
-        />
+      {/* Guide lines across canvas */}
+      <div className="absolute left-8 lg:left-12 top-0 bottom-0 w-[1px] bg-[#E0E2DE]/70 pointer-events-none z-[1]" />
+      <div className="absolute right-8 lg:right-12 top-0 bottom-0 w-[1px] bg-[#E0E2DE]/70 pointer-events-none z-[1]" />
 
-        {/* Tactile Dot Grid */}
-        <div className="absolute inset-0 bg-dot-grid opacity-20" />
+      {/* ─────────────────────────────────────────────────────────────
+          LEFT MARGIN: WATERMARK 01, STATUS '=' & SOCIALS
+      ───────────────────────────────────────────────────────────── */}
+      {/* Faint watermark number 01 on top-left */}
+      <div className="absolute top-10 left-3 sm:left-5 pointer-events-none select-none z-[1] opacity-70 hidden md:block">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="70" fill="#121316" fillOpacity="0.08" fontFamily="var(--font-serif), Georgia, serif" fontSize="64" fontWeight="400">01</text>
+        </svg>
       </div>
 
-      <div className="relative z-10 w-full">
-        {/* ─────────────────────────────────────────────────────────────
-            1. KINETIC MARQUEE STREAM: "FOUR FRONT LAB"
-            Infinite smooth horizontal gliding typography moving left-to-right.
-            Eliminates static casual bold text; gives active cinematic energy!
-        ───────────────────────────────────────────────────────────── */}
-        <div className="w-full overflow-hidden border-b border-[#1f1f1f] pb-8 mb-12 sm:mb-16 group">
-          <div className="flex w-max animate-marquee hover:[animation-play-state:paused] cursor-default">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-8 sm:gap-16 px-4 sm:px-8 select-none"
-              >
-                <span className="font-editorial text-[clamp(48px,9vw,135px)] font-light leading-none tracking-[-0.03em] text-[#f5f5f0] uppercase whitespace-nowrap transition-colors duration-300 group-hover:text-white">
-                  FOUR FRONT LAB
-                </span>
-                <span className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#c8f542] shrink-0 animate-pulse shadow-[0_0_12px_#c8f542]" />
-              </div>
-            ))}
-          </div>
-
-          {/* Interactive Specification Chips */}
-          <div className="max-w-[1200px] mx-auto px-6 lg:px-10 mt-6 sm:mt-8 flex flex-wrap items-center justify-between gap-4 font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#6b6b6b]">
-            <div className="flex items-center gap-2 px-3 py-1 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm rounded-sm hover:border-[#c8f542] transition-colors">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c8f542]" />
-              <span>DIGITAL PRODUCTS</span>
-            </div>
-
-            <div className="flex items-center gap-2 px-3 py-1 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm rounded-sm hover:border-[#38bdf8] transition-colors">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8]" />
-              <span>4 SOFTWARE ENGINEERS</span>
-            </div>
-
-            <div className="flex items-center gap-2 px-3 py-1 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm rounded-sm hover:border-[#e8d5b7] transition-colors">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#e8d5b7]" />
-              <span>AMBITIOUS ENTERPRISES</span>
-            </div>
-          </div>
+      {/* Left-edge status indicator (= in olive green) & Social links */}
+      <div className="absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-5 z-20 hidden lg:flex">
+        {/* Olive green double-dash '=' */}
+        <div className="flex flex-col gap-1 select-none">
+          <span className="w-3.5 h-[2px] bg-[#687D3B] rounded-full" />
+          <span className="w-3.5 h-[2px] bg-[#687D3B] rounded-full" />
         </div>
 
-        {/* ─────────────────────────────────────────────────────────────
-            2. VISUAL NAVIGATION CARDS & INTERACTIVE STATION COLUMNS:
-            High-tech visual cards replacing plain casual text links
-        ───────────────────────────────────────────────────────────── */}
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-16 sm:pb-24 border-b border-[#1f1f1f]">
-            {/* ─── Column 1: DIRECT DISPATCH (Interactive Live Hub) ─── */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-[#1f1f1f]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444]">
+        {/* Minimal Social Links */}
+        <div className="flex flex-col items-center gap-3.5 text-[#767A82]">
+          <a
+            href="https://x.com/FourFrontLab"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter X"
+            className="hover:text-[#121316] transition-colors p-1"
+          >
+            <XLineIcon />
+          </a>
+
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="hover:text-[#121316] transition-colors p-1"
+          >
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.66 1.66 0 0 0-1.66 1.66c0 .92.74 1.66 1.66 1.66a1.66 1.66 0 0 0 1.66-1.66c0-.92-.74-1.66-1.66-1.66z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      {/* Bottom-left mechanical blueprint drafting flange watermark */}
+      <div className="absolute -bottom-6 -left-6 pointer-events-none select-none z-[1] opacity-50 hidden md:block">
+        <svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="140" cy="140" r="115" stroke="#121316" strokeOpacity="0.12" strokeWidth="1" strokeDasharray="4 2" />
+          <circle cx="140" cy="140" r="85" stroke="#121316" strokeOpacity="0.14" strokeWidth="1" />
+          <circle cx="140" cy="140" r="55" stroke="#121316" strokeOpacity="0.16" strokeWidth="1" />
+          <circle cx="140" cy="140" r="28" stroke="#121316" strokeOpacity="0.18" strokeWidth="1" />
+          <circle cx="140" cy="140" r="4" fill="#687D3B" fillOpacity="0.4" />
+          <line x1="15" y1="140" x2="265" y2="140" stroke="#121316" strokeOpacity="0.12" strokeWidth="1" />
+          <line x1="140" y1="15" x2="140" y2="265" stroke="#121316" strokeOpacity="0.12" strokeWidth="1" />
+          <path d="M100 100 L115 85 M120 100 L135 85 M100 120 L115 105 M140 100 L155 85 M160 140 L185 115 M170 150 L195 125 M180 160 L205 135" stroke="#121316" strokeOpacity="0.15" strokeWidth="1" />
+          <path d="M55 140 H25 V170 H55" stroke="#121316" strokeOpacity="0.16" strokeWidth="1" />
+          <path d="M225 140 H255 V170 H225" stroke="#121316" strokeOpacity="0.16" strokeWidth="1" />
+          <line x1="25" y1="175" x2="55" y2="175" stroke="#121316" strokeOpacity="0.2" strokeWidth="0.75" />
+          <line x1="25" y1="172" x2="25" y2="178" stroke="#121316" strokeOpacity="0.25" strokeWidth="0.75" />
+          <line x1="55" y1="172" x2="55" y2="178" stroke="#121316" strokeOpacity="0.25" strokeWidth="0.75" />
+          <text x="34" y="185" fill="#666A73" fontSize="6.5" fontFamily="var(--font-mono), monospace">Ø30</text>
+        </svg>
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────
+          RIGHT MARGIN: 3D ISOMETRIC ARCHITECTURAL STRUCTURE BACKDROP
+      ───────────────────────────────────────────────────────────── */}
+      <div className="absolute right-0 bottom-0 w-[55%] max-w-[700px] h-[360px] pointer-events-none select-none z-[1] opacity-75 hidden sm:block">
+        <Image
+          src="/images/footer-arch-backdrop.webp"
+          alt="Architectural Blueprint Structure"
+          fill
+          className="object-contain object-bottom-right mix-blend-multiply"
+        />
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────
+          MAIN CONTENT CONTAINER
+      ───────────────────────────────────────────────────────────── */}
+      <div className="max-w-[1320px] mx-auto relative z-10">
+        {/* Prominent Architectural Top Line Divider */}
+        <div className="w-full h-[2px] bg-[#121316] mb-8 sm:mb-10" />
+
+        {/* 4 Floating Architectural Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 items-stretch">
+          {/* ─── CARD 1: DIRECT DISPATCH ─── */}
+          <div className="rounded-2xl border border-[#D4D7D1] bg-[#F8F8F6]/95 backdrop-blur-md p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300 hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]">
+            <div>
+              {/* Header */}
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E0E2DE]/80">
+                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#121316] font-bold">
                   DIRECT DISPATCH
                 </span>
-                <span className="flex items-center gap-1.5 font-mono text-[9px] text-[#c8f542] bg-[#c8f542]/10 px-2 py-0.5 rounded border border-[#c8f542]/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8f542] animate-ping" />
+                <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-[#687D3B] bg-[#687D3B]/10 px-2 py-0.5 rounded border border-[#687D3B]/30 font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#687D3B] animate-pulse" />
                   ONLINE
                 </span>
               </div>
 
-              <p className="text-xs text-[#6b6b6b] leading-relaxed">
+              {/* Description */}
+              <p className="text-[13px] text-[#454950] leading-[1.65] font-normal mb-5">
                 We engineer digital flagships and autonomous software for ambitious teams worldwide.
               </p>
+            </div>
 
-              {/* Visual Interactive Contact Pill: Gmail */}
-              <div className="p-3 border border-[#1f1f1f] bg-[#0c0c0c]/90 backdrop-blur-sm hover:border-[#c8f542] transition-colors flex items-center justify-between group">
+            <div className="space-y-2.5">
+              {/* Email Box */}
+              <div className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316] transition-all p-3 flex items-center justify-between group">
                 <a
                   href="mailto:fourfrontlab@gmail.com"
-                  className="flex items-center gap-2 text-xs font-mono text-[#f5f5f0] group-hover:text-white transition-colors truncate mr-2"
+                  className="flex items-center gap-2.5 text-xs font-mono text-[#121316] font-medium truncate mr-2"
                 >
                   <MailLineIcon />
                   <span className="truncate">fourfrontlab@gmail.com</span>
@@ -280,26 +249,26 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={(e) => handleCopy('fourfrontlab@gmail.com', 'mail', e)}
-                  className="font-mono text-[9px] uppercase px-2 py-1 border border-[#1f1f1f] text-[#6b6b6b] hover:text-[#f5f5f0] hover:border-white transition-colors"
+                  className="font-mono text-[9.5px] uppercase tracking-wider px-2 py-1 border border-[#C2C6CF] bg-white hover:bg-[#F4F4F2] text-[#555860] hover:text-[#121316] font-bold rounded shadow-2xs transition-all shrink-0"
                   title="Copy Gmail"
                 >
                   {copiedKey === 'mail' ? (
-                    <span className="text-[#c8f542] flex items-center gap-1">
-                      <Check className="w-2.5 h-2.5" /> Copied
+                    <span className="text-[#687D3B] flex items-center gap-1">
+                      <Check className="w-2.5 h-2.5" /> COPIED
                     </span>
                   ) : (
-                    'Copy'
+                    'COPY'
                   )}
                 </button>
               </div>
 
-              {/* Visual Interactive Contact Pill: WhatsApp */}
-              <div className="p-3 border border-[#1f1f1f] bg-[#0c0c0c]/90 backdrop-blur-sm hover:border-[#c8f542] transition-colors flex items-center justify-between group">
+              {/* Phone / WhatsApp Box */}
+              <div className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316] transition-all p-3 flex items-center justify-between group">
                 <a
                   href="https://wa.me/923444741603"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-xs font-mono text-[#f5f5f0] group-hover:text-white transition-colors truncate mr-2"
+                  className="flex items-center gap-2.5 text-xs font-mono text-[#121316] font-medium truncate mr-2"
                 >
                   <PhoneLineIcon />
                   <span>+92 344 474 1603</span>
@@ -307,68 +276,77 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={(e) => handleCopy('+923444741603', 'wa', e)}
-                  className="font-mono text-[9px] uppercase px-2 py-1 border border-[#1f1f1f] text-[#6b6b6b] hover:text-[#f5f5f0] hover:border-white transition-colors"
+                  className="font-mono text-[9.5px] uppercase tracking-wider px-2 py-1 border border-[#C2C6CF] bg-white hover:bg-[#F4F4F2] text-[#555860] hover:text-[#121316] font-bold rounded shadow-2xs transition-all shrink-0"
                   title="Copy WhatsApp"
                 >
                   {copiedKey === 'wa' ? (
-                    <span className="text-[#c8f542] flex items-center gap-1">
-                      <Check className="w-2.5 h-2.5" /> Copied
+                    <span className="text-[#687D3B] flex items-center gap-1">
+                      <Check className="w-2.5 h-2.5" /> COPIED
                     </span>
                   ) : (
-                    'Copy'
+                    'COPY'
                   )}
                 </button>
               </div>
             </div>
+          </div>
 
-            {/* ─── Column 2: INDEX (Visual Numbered Route Cards) ─── */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-[#1f1f1f]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444]">
+          {/* ─── CARD 2: SITE NAVIGATION ─── */}
+          <div className="rounded-2xl border border-[#D4D7D1] bg-[#F8F8F6]/95 backdrop-blur-md p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300 hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]">
+            <div>
+              {/* Header */}
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E0E2DE]/80">
+                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#121316] font-bold">
                   SITE NAVIGATION
                 </span>
-                <span className="font-mono text-[9px] text-[#6b6b6b]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[#767A82] font-semibold">
                   [ 04 ROUTES ]
                 </span>
               </div>
 
+              {/* Navigation Items */}
               <div className="space-y-2">
                 {[
-                  { num: '01', name: 'Selected Work', href: '#work', tag: 'CASES' },
-                  { num: '02', name: 'Capabilities & Stack', href: '#services', tag: 'SPEC' },
-                  { num: '03', name: 'Collective Spec', href: '#about', tag: 'ABOUT' },
-                  { num: '04', name: 'Start a Project', href: '#contact', tag: 'DISPATCH' },
-                ].map((route) => (
+                  { num: '01', name: 'Selected Work', href: '#work' },
+                  { num: '02', name: 'Capabilities & Stack', href: '#services' },
+                  { num: '03', name: 'Collective Spec', href: '#about' },
+                  { num: '04', name: 'Start a Project', href: '#contact' },
+                  { num: '04', name: 'Start a Project', href: '#contact' },
+                ].map((route, idx) => (
                   <Link
-                    key={route.num}
+                    key={`${route.num}-${idx}`}
                     href={route.href}
-                    className="p-2.5 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm hover:bg-[#141414] hover:border-[#c8f542] transition-colors flex items-center justify-between group"
+                    className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316] p-2.5 flex items-center justify-between group transition-all"
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-[10px] text-[#444444] group-hover:text-[#c8f542] transition-colors">
+                      <span className="font-mono text-[11px] text-[#767A82] font-semibold group-hover:text-[#687D3B] transition-colors">
                         [{route.num}]
                       </span>
-                      <span className="font-mono text-xs text-[#a0a0a0] group-hover:text-white transition-colors">
+                      <span className="font-mono text-xs text-[#121316] font-bold group-hover:text-[#121316] transition-colors">
                         {route.name}
                       </span>
                     </div>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#444444] group-hover:text-[#c8f542] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#767A82] group-hover:text-[#121316] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </Link>
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* ─── Column 3: NETWORK (Visual Social Cards) ─── */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-[#1f1f1f]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444]">
+          {/* ─── CARD 3: OFFICIAL CHANNELS ─── */}
+          <div className="rounded-2xl border border-[#D4D7D1] bg-[#F8F8F6]/95 backdrop-blur-md p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300 hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]">
+            <div>
+              {/* Header */}
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E0E2DE]/80">
+                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#121316] font-bold">
                   OFFICIAL CHANNELS
                 </span>
-                <span className="font-mono text-[9px] text-[#6b6b6b]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[#767A82] font-semibold">
                   [ SOCIAL ]
                 </span>
               </div>
 
+              {/* 2x2 Social Grid */}
               <div className="grid grid-cols-2 gap-2.5">
                 {[
                   {
@@ -385,13 +363,13 @@ export default function Footer() {
                   },
                   {
                     name: 'Facebook',
-                    handle: 'fourfrontlab',
+                    handle: '@fourfrontlab',
                     href: 'https://facebook.com/fourfrontlab',
                     icon: <FacebookLineIcon />,
                   },
                   {
                     name: 'GitHub',
-                    handle: '@fourfrontlab',
+                    handle: '@FourFrontLab',
                     href: 'https://github.com/fourfrontlab',
                     icon: <GitHubLineIcon />,
                   },
@@ -401,19 +379,19 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm hover:border-white transition-colors flex flex-col justify-between group"
+                    className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316] p-2.5 sm:p-3 flex flex-col justify-between group transition-all min-h-[74px]"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[#6b6b6b] group-hover:text-white transition-colors">
+                      <span className="text-[#121316] group-hover:text-[#687D3B] transition-colors">
                         {social.icon}
                       </span>
-                      <ArrowUpRight className="w-3 h-3 text-[#444444] group-hover:text-white transition-colors" />
+                      <ArrowUpRight className="w-3 h-3 text-[#767A82] group-hover:text-[#121316] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </div>
                     <div>
-                      <span className="font-mono text-[11px] text-[#f5f5f0] block group-hover:text-white">
+                      <span className="font-mono text-xs font-bold text-[#121316] block leading-tight">
                         {social.name}
                       </span>
-                      <span className="font-mono text-[9px] text-[#444444] block truncate">
+                      <span className="font-mono text-[9.5px] text-[#767A82] block truncate mt-0.5">
                         {social.handle}
                       </span>
                     </div>
@@ -421,78 +399,78 @@ export default function Footer() {
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* ─── Column 4: HEADQUARTERS (Station Terminal Box) ─── */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-[#1f1f1f]">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#444444]">
+          {/* ─── CARD 4: STUDIO TELEMETRY ─── */}
+          <div className="rounded-2xl border border-[#D4D7D1] bg-[#F8F8F6]/95 backdrop-blur-md p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300 hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]">
+            <div>
+              {/* Header */}
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E0E2DE]/80">
+                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#121316] font-bold">
                   STUDIO TELEMETRY
                 </span>
-                <span className="font-mono text-[9px] text-[#6b6b6b]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[#767A82] font-semibold">
                   [ ISB ]
                 </span>
               </div>
 
-              <div className="p-4 border border-[#1f1f1f] bg-[#0c0c0c]/90 backdrop-blur-sm space-y-3">
-                {/* Live Islamabad Clock */}
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="flex items-center gap-1.5 text-[#6b6b6b]">
-                    <Clock className="w-3 h-3 text-[#c8f542]" />
+              {/* Telemetry Data Box */}
+              <div className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 p-3 sm:p-3.5 space-y-2.5 mb-3.5">
+                {/* Studio Time */}
+                <div className="flex items-center justify-between font-mono text-[10.5px]">
+                  <span className="flex items-center gap-1.5 text-[#555860] font-semibold">
+                    <Clock className="w-3.5 h-3.5 text-[#687D3B]" />
                     STUDIO TIME:
                   </span>
                   <StudioClock />
                 </div>
 
-                {/* Geolocation Coordinates */}
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="flex items-center gap-1.5 text-[#6b6b6b]">
-                    <MapPin className="w-3 h-3 text-[#6b6b6b]" />
+                {/* Location */}
+                <div className="flex items-center justify-between font-mono text-[10.5px]">
+                  <span className="flex items-center gap-1.5 text-[#555860] font-semibold">
+                    <MapPin className="w-3.5 h-3.5 text-[#555860]" />
                     LOCATION:
                   </span>
-                  <span className="text-[#f5f5f0]">Islamabad, PK</span>
+                  <span className="text-[#121316] font-bold">Islamabad, PK</span>
                 </div>
 
-                {/* IP Ownership Security Badge */}
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="flex items-center gap-1.5 text-[#6b6b6b]">
-                    <ShieldCheck className="w-3 h-3 text-[#6b6b6b]" />
+                {/* IP Ownership */}
+                <div className="flex items-center justify-between font-mono text-[10.5px]">
+                  <span className="flex items-center gap-1.5 text-[#555860] font-semibold">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#555860]" />
                     IP OWNERSHIP:
                   </span>
-                  <span className="text-[#c8f542] font-semibold">100% CLIENT</span>
-                </div>
-
-                {/* Admin Access Chip */}
-                <div className="pt-2 border-t border-[#1f1f1f]">
-                  <Link
-                    href="/admin/login"
-                    className="flex items-center justify-between p-2 rounded border border-[#1f1f1f] hover:border-[#c8f542] bg-[#141414] transition-colors group"
-                  >
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#6b6b6b] group-hover:text-[#c8f542]">
-                      [ ACCESS ADMIN PORTAL ]
-                    </span>
-                    <Terminal className="w-3 h-3 text-[#444444] group-hover:text-[#c8f542]" />
-                  </Link>
+                  <span className="text-[#121316] font-bold">100% CLIENT</span>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* ─────────────────────────────────────────────────────────────
-              3. BOTTOM LEGAL & METRICS STRIP
-          ───────────────────────────────────────────────────────────── */}
-          <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-[11px] text-[#444444]">
-            <p>© {currentYear} Four Front Lab. Engineered with Next.js 14.</p>
-            <div className="flex items-center gap-6">
-              <Link href="/privacy" className="hover:text-[#f5f5f0] transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="hover:text-[#f5f5f0] transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="/sitemap.xml" className="hover:text-[#f5f5f0] transition-colors">
-                Sitemap
-              </Link>
-            </div>
+            {/* Access Admin Portal Button */}
+            <Link
+              href="/admin/login"
+              className="w-full bg-[#26282B] hover:bg-[#121316] text-[#F4F4F2] px-4 py-3 rounded-lg flex items-center justify-between font-mono text-[11px] uppercase tracking-wider font-bold transition-all shadow-sm group"
+            >
+              <span>[ ACCESS ADMIN PORTAL ]</span>
+              <span className="text-[#A0A4AB] group-hover:text-white font-mono transition-colors">&gt;_</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* ─────────────────────────────────────────────────────────────
+            BOTTOM LEGAL & METRICS STRIP
+        ───────────────────────────────────────────────────────────── */}
+        <div className="pt-8 mt-12 sm:mt-16 border-t border-[#D4D7D1] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[#555860]">
+          <p>© {currentYear} Four Front Lab. Engineered with Next.js 14.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/privacy" className="hover:text-[#121316] transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-[#121316] transition-colors">
+              Terms of Service
+            </Link>
+            <Link href="/sitemap.xml" className="hover:text-[#121316] transition-colors">
+              Sitemap
+            </Link>
           </div>
         </div>
       </div>

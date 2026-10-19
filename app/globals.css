@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Light Mode (Default) ─────────────────────────────── */
 :root {
   --black: #080808;
   --surface: #111111;
@@ -21,26 +22,69 @@
   --blueprint-text: #121316;
   --blueprint-text-muted: #666A73;
   --blueprint-text-dim: #9DA1A8;
-  --blueprint-accent: #687D3B; /* Olive moss green */
+  --blueprint-accent: #687D3B;
   --blueprint-gold: #E5A93C;
+
+  /* Semantic tokens (light defaults) */
+  --dm-bg: #F4F4F2;
+  --dm-surface: #FFFFFF;
+  --dm-border: #E0E2DE;
+  --dm-border-strong: #D4D7D1;
+  --dm-text: #121316;
+  --dm-text-muted: #666A73;
+  --dm-text-dim: #9DA1A8;
+  --dm-accent: #687D3B;
+  --dm-navbar-bg: rgba(244, 244, 242, 0.95);
+  --dm-card-bg: #FFFFFF;
+  --dm-input-bg: #FFFFFF;
 }
 
+/* ─── Dark Mode Overrides ─────────────────────────────── */
+.dark {
+  --blueprint-bg: #0f0f0f;
+  --blueprint-surface: #181818;
+  --blueprint-border: #282828;
+  --blueprint-border-dark: #333333;
+  --blueprint-line: #222222;
+  --blueprint-text: #f0ede8;
+  --blueprint-text-muted: #9a9a9a;
+  --blueprint-text-dim: #555555;
+  --blueprint-accent: #a0c050;
+  --blueprint-gold: #e8b84b;
+
+  --dm-bg: #0f0f0f;
+  --dm-surface: #181818;
+  --dm-border: #282828;
+  --dm-border-strong: #333333;
+  --dm-text: #f0ede8;
+  --dm-text-muted: #9a9a9a;
+  --dm-text-dim: #555555;
+  --dm-accent: #a0c050;
+  --dm-navbar-bg: rgba(15, 15, 15, 0.97);
+  --dm-card-bg: #181818;
+  --dm-input-bg: #181818;
+}
+
+
+
 * {
-  border-color: var(--border);
+  border-color: var(--dm-border);
 }
 
 html {
-  background-color: var(--blueprint-bg);
+  background-color: var(--dm-bg);
   scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
-  color: var(--blueprint-text);
-  background-color: var(--blueprint-bg);
+  color: var(--dm-text);
+  background-color: var(--dm-bg);
   overflow-x: hidden;
   font-family: var(--font-sans), Inter, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Editorial Serif Typography */
@@ -50,12 +94,19 @@ body {
 
 /* Architectural Blueprint Drafting Grid */
 .bg-blueprint-grid {
-  background-color: #F4F4F2;
+  background-color: var(--dm-bg);
   background-image:
     linear-gradient(to right, rgba(18, 19, 22, 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(18, 19, 22, 0.045) 1px, transparent 1px);
   background-size: 32px 32px;
 }
+
+.dark .bg-blueprint-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
 
 .bg-blueprint-grid-dense {
   background-color: #F4F4F2;
@@ -120,22 +171,23 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--blueprint-bg);
+  background: var(--dm-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--blueprint-border-dark);
+  background: var(--dm-border-strong);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--blueprint-accent);
+  background: var(--dm-accent);
 }
 
 ::selection {
-  background: var(--blueprint-text);
-  color: var(--blueprint-bg);
+  background: var(--dm-text);
+  color: var(--dm-bg);
 }
+
 
 /* Horizontal Marquee Animation */
 @keyframes marquee {
@@ -205,4 +257,88 @@ body {
     0 0 15px -2px rgba(74, 222, 128, 0.2);
 }
 
+/* ─── Dark Mode: Component-Level Overrides ───────────────
+   These rules target components that still use hardcoded
+   blueprint hex values. CSS var cascade handles new code;
+   these rules provide backward-compatible dark mode support
+   for existing components without rewriting every file.
+──────────────────────────────────────────────────────── */
 
+/* Backgrounds */
+.dark .bg-\[\#F4F4F2\],
+.dark .bg-\[\#EBEBE7\],
+.dark .bg-\[\#F9F9F7\],
+.dark .bg-\[\#FAFAF8\] {
+  background-color: var(--dm-bg) !important;
+}
+
+.dark .bg-\[\#FFFFFF\],
+.dark .bg-white {
+  background-color: var(--dm-surface) !important;
+}
+
+/* Text */
+.dark .text-\[\#121316\] {
+  color: var(--dm-text) !important;
+}
+
+.dark .text-\[\#666A73\],
+.dark .text-\[\#767A82\],
+.dark .text-\[\#555860\] {
+  color: var(--dm-text-muted) !important;
+}
+
+.dark .text-\[\#9DA1A8\] {
+  color: var(--dm-text-dim) !important;
+}
+
+.dark .text-\[\#687D3B\] {
+  color: var(--dm-accent) !important;
+}
+
+/* Borders */
+.dark .border-\[\#E0E2DE\],
+.dark .border-\[\#DCDED9\],
+.dark .border-\[\#D4D7D1\],
+.dark .border-\[\#E8EAE6\] {
+  border-color: var(--dm-border) !important;
+}
+
+.dark .border-\[\#121316\] {
+  border-color: var(--dm-border-strong) !important;
+}
+
+/* Section backgrounds that use the blueprint palette */
+.dark section,
+.dark .bg-blueprint-grid-dense {
+  background-color: var(--dm-bg);
+}
+
+.dark .bg-blueprint-grid-dense {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+}
+
+/* Cards and surfaces */
+.dark .bg-\[\#FFFFFF\]\/80,
+.dark .bg-white\/80 {
+  background-color: rgba(24, 24, 24, 0.8) !important;
+}
+
+/* Transition all color-bearing elements smoothly */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* But don't override animation-specific transitions */
+[class*="animate-"],
+[class*="motion-"] {
+  transition-property: opacity, transform, filter;
+}

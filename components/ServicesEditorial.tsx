@@ -614,7 +614,7 @@ function SoftwareVisual({ color }: { color: string; isActive?: boolean }) {
 
         {/* Panel 1 Footer */}
         <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#15181a] pt-1.5 text-[#6b6b6b]">
-          <span>SCHEMAS: NONCRITIC</span>
+          <span>SCHEMAS: NONCRITICAL</span>
           <span className="text-[#38bdf8] font-bold">c1000: RELIABLE</span>
         </div>
       </div>
@@ -774,7 +774,7 @@ function SoftwareVisual({ color }: { color: string; isActive?: boolean }) {
 
         {/* Panel 2 Footer */}
         <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#15181a] pt-1.5 text-[#6b6b6b]">
-          <span>SCHEMAS: NOMICAL: UCRWS</span>
+          <span>SCHEMAS: NOMINAL</span>
           <span className="text-[#f5f5f0] font-bold">15ms VITALS</span>
         </div>
       </div>

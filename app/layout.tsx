@@ -4,6 +4,7 @@ import './globals.css'
 import CustomCursor from '@/components/CustomCursor'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/JsonLd'
+import { ThemeProvider } from '@/components/ThemeProvider'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -97,20 +98,42 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`scroll-smooth ${inter.variable} ${jetbrainsMono.variable} ${cormorant.variable}`}
     >
       <head>
         <OrganizationJsonLd />
         <WebSiteJsonLd />
+        {/* Anti-flash: apply saved theme before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function(){
+  try {
+    var t = localStorage.getItem('ffl-theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (t === 'dark' || (!t && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+  } catch(e) {}
+})();
+            `.trim(),
+          }}
+        />
       </head>
-      <body className="bg-[#F4F4F2] text-[#121316] font-sans antialiased min-h-screen flex flex-col selection:bg-[#121316] selection:text-[#F4F4F2]">
-        {/* Floating WhatsApp Hotline */}
-        <WhatsAppButton />
-        {/* Editorial Inverting Difference Cursor */}
-        <CustomCursor />
-        <div className="flex-1 flex flex-col">
-          {children}
-        </div>
+      <body
+        suppressHydrationWarning
+        className="bg-[var(--dm-bg)] text-[var(--dm-text)] font-sans antialiased min-h-screen flex flex-col"
+      >
+        <ThemeProvider>
+          {/* Floating WhatsApp Hotline */}
+          <WhatsAppButton />
+          {/* Editorial Inverting Difference Cursor */}
+          <CustomCursor />
+          <div className="flex-1 flex flex-col">
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#F4F4F2] text-[#121316] font-sans antialiased overflow-x-hidden selection:bg-[#121316] selection:text-[#F4F4F2]">
+    <main className="min-h-screen bg-[var(--dm-bg)] text-[var(--dm-text)] font-sans antialiased overflow-x-hidden transition-colors duration-300">
       {/* Structural JSON-LD for Search Engines */}
       <ServiceJsonLd />
       <FaqJsonLd />
