@@ -4,22 +4,18 @@ import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  ArrowUpRight,
   Check,
   X,
-  Sparkles,
-  Activity,
+  Zap,
   Database,
   Bot,
-  Zap,
-  RotateCw,
-  Shield,
-  Layers,
+  ArrowUpRight,
 } from 'lucide-react'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // KINETIC CYBER BACKGROUND CANVAS
-// Subtle coordinate grid, laser lines, and reactive ambient illumination
+// Precise CAD drafting blueprint on left, 3D dark tech terminal on right,
+// coordinate drafting grid lines, interactive particle lattice, and ambient glows
 // ─────────────────────────────────────────────────────────────────────────────
 
 function KineticCyberBackground({ activeColor }: { activeColor: string }) {
@@ -57,7 +53,7 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
     canvas.addEventListener('mouseleave', handleMouseLeave, { passive: true })
 
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-    const particleCount = isMobile ? 18 : 36
+    const particleCount = isMobile ? 16 : 32
     const particles: Array<{
       x: number
       y: number
@@ -71,10 +67,10 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        size: Math.random() * 1.6 + 0.8,
-        baseAlpha: Math.random() * 0.3 + 0.15,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 1.5 + 0.8,
+        baseAlpha: Math.random() * 0.25 + 0.12,
       })
     }
 
@@ -128,8 +124,8 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j]
           const dist2 = Math.hypot(p.x - p2.x, p.y - p2.y)
-          if (dist2 < 95) {
-            const alpha = (1 - dist2 / 95) * 0.08
+          if (dist2 < 90) {
+            const alpha = (1 - dist2 / 90) * 0.07
             ctx.strokeStyle = `rgba(200, 245, 66, ${alpha})`
             ctx.lineWidth = 0.5
             ctx.beginPath()
@@ -150,7 +146,7 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
           mouse.y,
           220
         )
-        radGrad.addColorStop(0, 'rgba(200, 245, 66, 0.035)')
+        radGrad.addColorStop(0, 'rgba(200, 245, 66, 0.03)')
         radGrad.addColorStop(1, 'transparent')
         ctx.fillStyle = radGrad
         ctx.beginPath()
@@ -205,29 +201,29 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
       {/* CAD/Blueprint Technical Drafting Wireframe on Left Background */}
       <div
-        className="absolute left-0 top-0 bottom-0 w-[360px] sm:w-[440px] lg:w-[500px] pointer-events-none select-none z-0 opacity-40 mix-blend-screen bg-no-repeat bg-left-top bg-contain"
+        className="absolute left-0 top-0 bottom-0 w-[380px] sm:w-[460px] lg:w-[540px] pointer-events-none select-none z-0 opacity-45 mix-blend-screen bg-no-repeat bg-left-top bg-cover"
         style={{ backgroundImage: "url('/images/services-cad-wireframe.png')" }}
       />
 
       {/* 3D Isometric Dark Tech Server/Laptop Terminal Rendering on Right Background */}
       <div
-        className="absolute right-0 top-0 bottom-0 w-[400px] sm:w-[480px] lg:w-[540px] pointer-events-none select-none z-0 opacity-55 bg-no-repeat bg-right-top bg-contain"
+        className="absolute right-0 top-0 bottom-0 w-[420px] sm:w-[500px] lg:w-[580px] pointer-events-none select-none z-0 opacity-60 bg-no-repeat bg-right-top bg-cover"
         style={{ backgroundImage: "url('/images/services-tech-terminal.png')" }}
       />
 
       {/* Top-Right Warm Amber / Golden Atmospheric Illumination */}
-      <div className="absolute -top-24 -right-24 w-[520px] h-[520px] bg-[#e5a93c]/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -top-20 -right-20 w-[560px] h-[560px] bg-[#e5a93c]/12 rounded-full blur-[150px] pointer-events-none" />
 
       {/* Bottom-Right Cyan & Emerald Illumination */}
-      <div className="absolute -bottom-24 right-12 w-[480px] h-[480px] bg-[#00f0ff]/8 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-24 right-10 w-[500px] h-[500px] bg-[#00f0ff]/8 rounded-full blur-[140px] pointer-events-none" />
 
       {/* Left Center Teal / Cyan Ambient Glow */}
-      <div className="absolute top-1/3 -left-20 w-[420px] h-[420px] bg-[#00e5ff]/6 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/3 -left-20 w-[440px] h-[440px] bg-[#00e5ff]/6 rounded-full blur-[130px] pointer-events-none" />
 
       {/* Interactive Micro Grid Canvas */}
       <canvas
         ref={canvasRef}
-        className="w-full h-full block pointer-events-auto opacity-40"
+        className="w-full h-full block pointer-events-auto opacity-35"
       />
 
       {/* Active Service Dynamic Ambient Color Aura */}
@@ -238,7 +234,7 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
 
       {/* Edge Vignettes into base dark tone */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0c0e] via-transparent to-[#0a0c0e] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0c0e]/80 via-transparent to-[#0a0c0e]/80 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0c0e]/70 via-transparent to-[#0a0c0e]/70 pointer-events-none" />
     </div>
   )
 }
@@ -247,30 +243,27 @@ function KineticCyberBackground({ activeColor }: { activeColor: string }) {
 // BESPOKE HIGH-TECH SCHEMATIC VISUALS (EXACT 1:1 TO SCREENSHOTS)
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Card 01: Kinetic Web Development — Green Glowing Parametric Physics Arc
+// CARD 01: Kinetic Web Development — Green Glowing Parametric Physics Arc
 function WebVisual({ color }: { color: string; isActive?: boolean }) {
   return (
-    <div className="w-full h-40 sm:h-44 relative rounded border border-[#1e2224] bg-[#08090a] overflow-hidden p-3 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
-      {/* Schematic Header */}
-      <div className="flex items-center justify-between border-b border-[#181b1d] pb-2">
-        <div className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#333a3d]" />
-          <span className="w-1.5 h-1.5 rounded-full bg-[#333a3d]" />
-          <span className="w-1.5 h-1.5 rounded-full bg-[#333a3d]" />
-          <span className="font-mono text-[9px] text-[#6b6b6b] ml-1.5 uppercase tracking-wider">
-            webgl://canvas-physics
-          </span>
+    <div className="w-full h-44 sm:h-48 relative rounded-lg border border-[#1e2224] bg-[#08090a] overflow-hidden p-3.5 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
+      {/* Top Header Row inside schematic box */}
+      <div className="flex items-center justify-between border-b border-[#15181a] pb-2">
+        <div className="flex items-center gap-1.5 font-mono text-[9px] text-[#6b6b6b] tracking-wider uppercase">
+          <span className="text-[#888888]">:::</span>
+          <span>/PASS</span>
+          <span className="text-[#555860]">0012010450</span>
         </div>
-        <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#262c2e] text-[#8e959b] bg-[#121517]">
-          [ 60FPS • 100/100 ]
+        <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#c8f542]/40 text-[#c8f542] bg-[#c8f542]/10 font-bold">
+          CF 100.00
         </div>
       </div>
 
       {/* SVG Parametric Physics Arc Graphic */}
-      <div className="relative flex-1 flex items-center justify-center my-0.5 overflow-hidden">
+      <div className="relative flex-1 flex items-center justify-center my-1 overflow-hidden">
         <svg
           className="w-full h-full max-h-24"
-          viewBox="0 0 250 80"
+          viewBox="0 0 260 85"
           fill="none"
         >
           <defs>
@@ -283,17 +276,28 @@ function WebVisual({ color }: { color: string; isActive?: boolean }) {
             </filter>
           </defs>
 
-          {/* Background drafting coordinate grid lines */}
-          <line x1="20" y1="20" x2="230" y2="20" stroke="#16191b" strokeWidth="0.8" />
-          <line x1="20" y1="40" x2="230" y2="40" stroke="#16191b" strokeWidth="0.8" />
-          <line x1="20" y1="60" x2="230" y2="60" stroke="#1c2022" strokeWidth="1" />
-          <line x1="75" y1="15" x2="75" y2="65" stroke="#16191b" strokeWidth="0.8" />
-          <line x1="125" y1="15" x2="125" y2="65" stroke="#1e2326" strokeWidth="0.8" />
-          <line x1="175" y1="15" x2="175" y2="65" stroke="#16191b" strokeWidth="0.8" />
+          {/* Coordinate drafting grid lines */}
+          <line x1="20" y1="20" x2="240" y2="20" stroke="#141719" strokeWidth="0.8" />
+          <line x1="20" y1="42" x2="240" y2="42" stroke="#141719" strokeWidth="0.8" />
+          <line x1="20" y1="64" x2="240" y2="64" stroke="#1a1e20" strokeWidth="1" />
+          <line x1="75" y1="15" x2="75" y2="70" stroke="#141719" strokeWidth="0.8" />
+          <line x1="130" y1="15" x2="130" y2="70" stroke="#1e2225" strokeWidth="0.8" />
+          <line x1="185" y1="15" x2="185" y2="70" stroke="#141719" strokeWidth="0.8" />
+
+          {/* Horizontal baseline between endpoints */}
+          <line
+            x1="28"
+            y1="64"
+            x2="232"
+            y2="64"
+            stroke="#262c2e"
+            strokeWidth="1.2"
+            strokeDasharray="3 3"
+          />
 
           {/* Lower dashed chord arc */}
           <path
-            d="M 28 60 Q 125 36 222 60"
+            d="M 28 64 Q 130 40 232 64"
             stroke="#84cc16"
             strokeWidth="1.2"
             strokeDasharray="3 3"
@@ -302,18 +306,18 @@ function WebVisual({ color }: { color: string; isActive?: boolean }) {
 
           {/* Main glowing green parametric curve */}
           <path
-            d="M 28 60 Q 125 14 222 60"
+            d="M 28 64 Q 130 16 232 64"
             stroke={color}
             strokeWidth="2.2"
             filter="url(#glow-green-arc)"
           />
 
-          {/* Apex vertical measurement line */}
+          {/* Vertical measurement drop line from apex to baseline */}
           <line
-            x1="125"
-            y1="14"
-            x2="125"
-            y2="60"
+            x1="130"
+            y1="16"
+            x2="130"
+            y2="64"
             stroke={color}
             strokeWidth="1"
             strokeDasharray="2 2"
@@ -321,19 +325,19 @@ function WebVisual({ color }: { color: string; isActive?: boolean }) {
           />
 
           {/* Apex glowing dot with pulse ring */}
-          <circle cx="125" cy="14" r="7" fill={color} opacity="0.2" className="animate-pulse" />
-          <circle cx="125" cy="14" r="3.5" fill={color} />
+          <circle cx="130" cy="16" r="7" fill={color} opacity="0.2" className="animate-pulse" />
+          <circle cx="130" cy="16" r="3.5" fill={color} />
 
           {/* Key geometric nodal dots */}
-          <circle cx="28" cy="60" r="3" fill="#f5f5f0" />
-          <circle cx="222" cy="60" r="3" fill="#f5f5f0" />
-          <circle cx="76.5" cy="37" r="2.2" fill={color} />
-          <circle cx="173.5" cy="37" r="2.2" fill={color} />
+          <circle cx="28" cy="64" r="3" fill="#f5f5f0" />
+          <circle cx="232" cy="64" r="3" fill="#f5f5f0" />
+          <circle cx="79" cy="40" r="2.2" fill={color} />
+          <circle cx="181" cy="40" r="2.2" fill={color} />
         </svg>
       </div>
 
-      {/* Gauges Footer */}
-      <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#181b1d] pt-1.5 text-[#6b6b6b]">
+      {/* Gauges Footer inside schematic box */}
+      <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#15181a] pt-1.5 text-[#6b6b6b]">
         <span>CANVAS PHYSICS: 60FPS</span>
         <span className="text-[#f5f5f0] font-bold">100/100 VITALS</span>
       </div>
@@ -341,44 +345,43 @@ function WebVisual({ color }: { color: string; isActive?: boolean }) {
   )
 }
 
-// Card 02: Business Automation — High-Tech Event Pipeline Flowchart
+// CARD 02: Business Automation — High-Tech Event Pipeline Flowchart
 function AutomationVisual({ color }: { color: string; isActive?: boolean }) {
   return (
-    <div className="w-full h-40 sm:h-44 relative rounded border border-[#1e2224] bg-[#08090a] overflow-hidden p-3 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
-      {/* Schematic Header */}
-      <div className="flex items-center justify-between border-b border-[#181b1d] pb-2">
-        <div className="flex items-center gap-1.5">
+    <div className="w-full h-44 sm:h-48 relative rounded-lg border border-[#1e2224] bg-[#08090a] overflow-hidden p-3.5 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
+      {/* Top Header Row inside schematic box */}
+      <div className="flex items-center justify-between border-b border-[#15181a] pb-2">
+        <div className="flex items-center gap-1.5 font-mono text-[9px] text-[#6b6b6b] tracking-wider uppercase">
           <Zap className="w-3 h-3 text-[#c8f542]" />
-          <span className="font-mono text-[9px] text-[#6b6b6b] uppercase tracking-wider">
-            DATA 04 #000127010
-          </span>
+          <span>ROUTE ok</span>
+          <span className="text-[#555860]">*30052761c</span>
         </div>
         <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#262c2e] text-[#8e959b] bg-[#121517]">
-          [ 00ms RETRY ]
+          01 0700:00100:00
         </div>
       </div>
 
       {/* SVG Pipeline Flowchart Graphic: [WEBHOOK] -> [ROUTER] -> [DB / CRM] */}
-      <div className="relative flex-1 flex items-center justify-center my-0.5 overflow-hidden">
+      <div className="relative flex-1 flex items-center justify-center my-1 overflow-hidden">
         <svg
           className="w-full h-full max-h-24"
-          viewBox="0 0 250 80"
+          viewBox="0 0 260 85"
           fill="none"
         >
           {/* Main bus backbone line */}
           <line
             x1="18"
-            y1="40"
-            x2="232"
-            y2="40"
+            y1="42"
+            x2="242"
+            y2="42"
             stroke="#1c2022"
             strokeWidth="2"
           />
           <line
             x1="18"
-            y1="40"
-            x2="232"
-            y2="40"
+            y1="42"
+            x2="242"
+            y2="42"
             stroke={color}
             strokeWidth="1.2"
             strokeDasharray="4 4"
@@ -388,10 +391,10 @@ function AutomationVisual({ color }: { color: string; isActive?: boolean }) {
 
           {/* Node 1: [WEBHOOK] */}
           <rect
-            x="20"
-            y="25"
-            width="58"
-            height="30"
+            x="18"
+            y="26"
+            width="62"
+            height="32"
             rx="3"
             fill="#121416"
             stroke="#262c2e"
@@ -399,7 +402,7 @@ function AutomationVisual({ color }: { color: string; isActive?: boolean }) {
           />
           <text
             x="49"
-            y="43"
+            y="45"
             fill="#f5f5f0"
             fontSize="8"
             fontFamily="monospace"
@@ -409,27 +412,27 @@ function AutomationVisual({ color }: { color: string; isActive?: boolean }) {
             WEBHOOK
           </text>
 
-          {/* Connector 1 with animated pulse */}
-          <line x1="78" y1="40" x2="98" y2="40" stroke={color} strokeWidth="1.2" />
-          <circle cx="88" cy="40" r="2.5" fill={color} />
-          <polygon points="98,37 103,40 98,43" fill={color} />
+          {/* Connector 1 with animated pulse packet */}
+          <line x1="80" y1="42" x2="101" y2="42" stroke={color} strokeWidth="1.2" />
+          <circle cx="90.5" cy="42" r="2.5" fill={color} />
+          <polygon points="101,39 106,42 101,45" fill={color} />
 
-          {/* Node 2: [ROUTER] */}
+          {/* Node 2: [ROUTER] (Highlighted Neon Lime Green) */}
           <rect
-            x="103"
-            y="25"
-            width="54"
-            height="30"
+            x="106"
+            y="26"
+            width="58"
+            height="32"
             rx="3"
             fill="#121416"
             stroke={color}
             strokeWidth="1.5"
           />
           <text
-            x="130"
-            y="43"
+            x="135"
+            y="45"
             fill={color}
-            fontSize="8"
+            fontSize="8.5"
             fontFamily="monospace"
             textAnchor="middle"
             fontWeight="bold"
@@ -437,25 +440,25 @@ function AutomationVisual({ color }: { color: string; isActive?: boolean }) {
             ROUTER
           </text>
 
-          {/* Connector 2 with animated pulse */}
-          <line x1="157" y1="40" x2="177" y2="40" stroke={color} strokeWidth="1.2" />
-          <circle cx="167" cy="40" r="2.5" fill={color} />
-          <polygon points="177,37 182,40 177,43" fill={color} />
+          {/* Connector 2 with animated pulse packet */}
+          <line x1="164" y1="42" x2="185" y2="42" stroke={color} strokeWidth="1.2" />
+          <circle cx="174.5" cy="42" r="2.5" fill={color} />
+          <polygon points="185,39 190,42 185,45" fill={color} />
 
           {/* Node 3: [DB / CRM] */}
           <rect
-            x="182"
-            y="25"
-            width="58"
-            height="30"
+            x="190"
+            y="26"
+            width="62"
+            height="32"
             rx="3"
             fill="#121416"
             stroke="#262c2e"
             strokeWidth="1.2"
           />
           <text
-            x="211"
-            y="43"
+            x="221"
+            y="45"
             fill="#f5f5f0"
             fontSize="8"
             fontFamily="monospace"
@@ -467,8 +470,8 @@ function AutomationVisual({ color }: { color: string; isActive?: boolean }) {
         </svg>
       </div>
 
-      {/* Gauges Footer */}
-      <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#181b1d] pt-1.5 text-[#6b6b6b]">
+      {/* Gauges Footer inside schematic box */}
+      <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#15181a] pt-1.5 text-[#6b6b6b]">
         <span>DATA: 30.000 00120</span>
         <span className="text-[#f5f5f0] font-bold">00ms RETRY</span>
       </div>
@@ -476,259 +479,483 @@ function AutomationVisual({ color }: { color: string; isActive?: boolean }) {
   )
 }
 
-// Card 03: Custom Software & Portals — Relational Database Architecture Diagram
+// CARD 03: Custom Software & Portals — DUAL SCHEMATICS (1:1 to Reference Screenshot 2)
+// Box 1: Relational Schema Diagram [ext_database] -> [multi-tenant] -> (✓)
+// Sub-Header: #:27.25 IX • DB01 • 20 [01]
+// Box 2: Database 3D Cylinder to Portal Architecture Diagram
 function SoftwareVisual({ color }: { color: string; isActive?: boolean }) {
   return (
-    <div className="w-full h-40 sm:h-44 relative rounded border border-[#1e2224] bg-[#08090a] overflow-hidden p-3 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
-      {/* Schematic Header */}
-      <div className="flex items-center justify-between border-b border-[#181b1d] pb-2">
-        <div className="flex items-center gap-1.5">
-          <Database className="w-3 h-3 text-[#38bdf8]" />
-          <span className="font-mono text-[9px] text-[#6b6b6b] uppercase tracking-wider">
-            schema //relational.core
-          </span>
+    <div className="w-full flex flex-col gap-3">
+      {/* ─── SCHEMATIC PANEL 1: Relational Schema Diagram ─── */}
+      <div className="w-full h-36 sm:h-40 relative rounded-lg border border-[#1e2224] bg-[#08090a] overflow-hidden p-3 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
+        {/* Header Row */}
+        <div className="flex items-center justify-between border-b border-[#15181a] pb-1.5">
+          <div className="flex items-center gap-1.5 font-mono text-[9px] text-[#6b6b6b] tracking-wider uppercase">
+            <Database className="w-3 h-3 text-[#38bdf8]" />
+            <span>server /relations.core</span>
+          </div>
+          <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#0284c7]/40 text-[#38bdf8] bg-[#0284c7]/10 font-bold">
+            9 PORTALS + SCEN
+          </div>
         </div>
-        <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#0284c7]/40 text-[#38bdf8] bg-[#0284c7]/10">
-          9 PORTALS + SCEN
+
+        {/* SVG Graphic 1: [ext_database] -> [multi-tenant] -> (✓) */}
+        <div className="relative flex-1 flex items-center justify-center my-0.5 overflow-hidden">
+          <svg
+            className="w-full h-full max-h-20"
+            viewBox="0 0 260 70"
+            fill="none"
+          >
+            {/* ext_database Node */}
+            <rect
+              x="16"
+              y="16"
+              width="68"
+              height="30"
+              rx="3"
+              fill="#121416"
+              stroke="#262c2e"
+              strokeWidth="1.2"
+            />
+            <text
+              x="50"
+              y="30"
+              fill="#f5f5f0"
+              fontSize="7.5"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              ext_database
+            </text>
+            <text
+              x="50"
+              y="40"
+              fill="#6b6b6b"
+              fontSize="6"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              [PK] tenant_id
+            </text>
+
+            {/* Dashed connector line with arrow */}
+            <line
+              x1="84"
+              y1="31"
+              x2="114"
+              y2="31"
+              stroke={color}
+              strokeWidth="1.2"
+              strokeDasharray="3 3"
+            />
+            <polygon points="113,28 117,31 113,34" fill={color} />
+
+            {/* multi-tenant Node (Cyan highlighted) */}
+            <rect
+              x="117"
+              y="16"
+              width="70"
+              height="30"
+              rx="3"
+              fill="#121416"
+              stroke={color}
+              strokeWidth="1.4"
+            />
+            <text
+              x="152"
+              y="30"
+              fill={color}
+              fontSize="7.5"
+              fontFamily="monospace"
+              textAnchor="middle"
+              fontWeight="bold"
+            >
+              multi-tenant
+            </text>
+            <text
+              x="152"
+              y="40"
+              fill="#8e959b"
+              fontSize="6"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              [FK] RBAC_role
+            </text>
+
+            {/* Connector to Verified Checkmark Badge */}
+            <line
+              x1="187"
+              y1="31"
+              x2="204"
+              y2="31"
+              stroke="#333a3d"
+              strokeWidth="1"
+            />
+
+            {/* Checkmark Badge */}
+            <circle
+              cx="214"
+              cy="31"
+              r="8"
+              fill="#121416"
+              stroke={color}
+              strokeWidth="1.2"
+            />
+            <path
+              d="M 210.5 31 L 213 33.5 L 217.5 28.5"
+              stroke={color}
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+
+        {/* Panel 1 Footer */}
+        <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#15181a] pt-1.5 text-[#6b6b6b]">
+          <span>SCHEMAS: NONCRITIC</span>
+          <span className="text-[#38bdf8] font-bold">c1000: RELIABLE</span>
         </div>
       </div>
 
-      {/* SVG Relational Database Diagram */}
-      <div className="relative flex-1 flex items-center justify-center my-0.5 overflow-hidden">
-        <svg
-          className="w-full h-full max-h-24"
-          viewBox="0 0 250 80"
-          fill="none"
-        >
-          {/* Top Row: [ext_database] -> [multi-tenant] -> checkmark */}
-          {/* ext_database Node */}
-          <rect
-            x="20"
-            y="14"
-            width="62"
-            height="26"
-            rx="3"
-            fill="#121416"
-            stroke="#262c2e"
-            strokeWidth="1.2"
-          />
-          <text
-            x="51"
-            y="27"
-            fill="#f5f5f0"
-            fontSize="7"
-            fontFamily="monospace"
-            textAnchor="middle"
-          >
-            ext_database
-          </text>
-          <text
-            x="51"
-            y="35"
-            fill="#6b6b6b"
-            fontSize="6"
-            fontFamily="monospace"
-            textAnchor="middle"
-          >
-            [PK] tenant_id
-          </text>
-
-          {/* Connector dashed line */}
-          <line
-            x1="82"
-            y1="27"
-            x2="114"
-            y2="27"
-            stroke={color}
-            strokeWidth="1.2"
-            strokeDasharray="3 3"
-          />
-          <polygon points="113,24 117,27 113,30" fill={color} />
-
-          {/* multi-tenant Node */}
-          <rect
-            x="117"
-            y="14"
-            width="62"
-            height="26"
-            rx="3"
-            fill="#121416"
-            stroke={color}
-            strokeWidth="1.2"
-          />
-          <text
-            x="148"
-            y="27"
-            fill={color}
-            fontSize="7"
-            fontFamily="monospace"
-            textAnchor="middle"
-            fontWeight="bold"
-          >
-            multi-tenant
-          </text>
-          <text
-            x="148"
-            y="35"
-            fill="#8e959b"
-            fontSize="6"
-            fontFamily="monospace"
-            textAnchor="middle"
-          >
-            [FK] RBAC_role
-          </text>
-
-          {/* Verified Checkmark Badge */}
-          <circle
-            cx="198"
-            cy="27"
-            r="8"
-            fill="#121416"
-            stroke={color}
-            strokeWidth="1.2"
-          />
-          <path
-            d="M 194.5 27 L 197 29.5 L 201.5 24.5"
-            stroke={color}
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-
-          {/* Lower Row: Database Cylinder -> Portal */}
-          {/* Database 3D Cylinder */}
-          <g transform="translate(42, 48)">
-            <ellipse cx="14" cy="5" rx="12" ry="4" fill="#14171a" stroke={color} strokeWidth="1.2" />
-            <path d="M 2 5 V 20 A 12 4 0 0 0 26 20 V 5" fill="#14171a" stroke={color} strokeWidth="1.2" />
-            <path d="M 2 12 A 12 4 0 0 0 26 12" stroke={color} strokeWidth="0.8" opacity="0.6" />
-          </g>
-
-          {/* Connector to Portal */}
-          <line x1="72" y1="60" x2="114" y2="60" stroke="#333a3d" strokeWidth="1" strokeDasharray="2 2" />
-          <polygon points="113,58 117,60 113,62" fill="#38bdf8" />
-
-          {/* Portal Node */}
-          <rect
-            x="117"
-            y="50"
-            width="62"
-            height="20"
-            rx="3"
-            fill="#121416"
-            stroke="#262c2e"
-            strokeWidth="1.2"
-          />
-          <text
-            x="148"
-            y="63"
-            fill="#f5f5f0"
-            fontSize="7.5"
-            fontFamily="monospace"
-            textAnchor="middle"
-          >
-            Portal Hub
-          </text>
-        </svg>
+      {/* ─── SUB-HEADER: #:27.25 IX • DB01 • 20  [01] ─── */}
+      <div className="flex items-center justify-between px-1">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[#888888]">
+          #:27.25 IX • DB01 • 20
+        </span>
+        <span className="font-mono text-xs text-[#6b6b6b]">
+          [01]
+        </span>
       </div>
 
-      {/* Gauges Footer */}
-      <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#181b1d] pt-1.5 text-[#6b6b6b]">
-        <span>PORTALS + SCEN</span>
-        <span className="text-[#f5f5f0] font-bold">15ms VITALS</span>
+      {/* ─── SCHEMATIC PANEL 2: Database 3D Cylinder to Portal Architecture ─── */}
+      <div className="w-full h-36 sm:h-40 relative rounded-lg border border-[#1e2224] bg-[#08090a] overflow-hidden p-3 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
+        {/* Header Row */}
+        <div className="flex items-center justify-between border-b border-[#15181a] pb-1.5">
+          <div className="font-mono text-[9px] text-[#6b6b6b] tracking-wider uppercase">
+            db://cluster-mesh
+          </div>
+          <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#0284c7]/40 text-[#38bdf8] bg-[#0284c7]/10 font-bold">
+            15ms VITALS
+          </div>
+        </div>
+
+        {/* SVG Graphic 2: [ext_database] -> 3D Cylinder Database -> [Portal] */}
+        <div className="relative flex-1 flex items-center justify-center my-0.5 overflow-hidden">
+          <svg
+            className="w-full h-full max-h-20"
+            viewBox="0 0 260 70"
+            fill="none"
+          >
+            {/* ext_database Node */}
+            <rect
+              x="16"
+              y="18"
+              width="64"
+              height="28"
+              rx="3"
+              fill="#121416"
+              stroke="#262c2e"
+              strokeWidth="1.2"
+            />
+            <text
+              x="48"
+              y="32"
+              fill="#f5f5f0"
+              fontSize="7.5"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              ext_database
+            </text>
+            <text
+              x="48"
+              y="40"
+              fill="#6b6b6b"
+              fontSize="6"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              [PK] id
+            </text>
+
+            {/* Connector to Database */}
+            <line
+              x1="80"
+              y1="32"
+              x2="110"
+              y2="32"
+              stroke={color}
+              strokeWidth="1"
+              strokeDasharray="2 2"
+            />
+            <polygon points="109,29 113,32 109,35" fill={color} />
+
+            {/* 3D Database Cylinder in center */}
+            <g transform="translate(118, 12)">
+              {/* Cylinder top ellipse */}
+              <ellipse
+                cx="15"
+                cy="7"
+                rx="14"
+                ry="5"
+                fill="#161a1e"
+                stroke={color}
+                strokeWidth="1.3"
+              />
+              {/* Cylinder body */}
+              <path
+                d="M 1 7 V 26 A 14 5 0 0 0 29 26 V 7"
+                fill="#121518"
+                stroke={color}
+                strokeWidth="1.3"
+              />
+              {/* Intermediate segment rings */}
+              <path
+                d="M 1 13 A 14 5 0 0 0 29 13"
+                stroke={color}
+                strokeWidth="0.9"
+                opacity="0.7"
+              />
+              <path
+                d="M 1 19 A 14 5 0 0 0 29 19"
+                stroke={color}
+                strokeWidth="0.9"
+                opacity="0.7"
+              />
+            </g>
+
+            {/* Connector to Portal */}
+            <line
+              x1="150"
+              y1="32"
+              x2="180"
+              y2="32"
+              stroke="#333a3d"
+              strokeWidth="1"
+              strokeDasharray="2 2"
+            />
+            <polygon points="179,29 183,32 179,35" fill="#38bdf8" />
+
+            {/* Portal Hub Node */}
+            <rect
+              x="183"
+              y="18"
+              width="62"
+              height="28"
+              rx="3"
+              fill="#121416"
+              stroke="#262c2e"
+              strokeWidth="1.2"
+            />
+            <text
+              x="214"
+              y="32"
+              fill="#f5f5f0"
+              fontSize="7.5"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              Portal
+            </text>
+            <text
+              x="214"
+              y="40"
+              fill="#8e959b"
+              fontSize="6"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              Client UI
+            </text>
+          </svg>
+        </div>
+
+        {/* Panel 2 Footer */}
+        <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#15181a] pt-1.5 text-[#6b6b6b]">
+          <span>SCHEMAS: NOMICAL: UCRWS</span>
+          <span className="text-[#f5f5f0] font-bold">15ms VITALS</span>
+        </div>
       </div>
     </div>
   )
 }
 
-// Card 04: Enterprise AI Solutions — Glowing Purple Neural Network Lattice & RAG Pipeline
+// CARD 04: Enterprise AI Solutions — DUAL SCHEMATICS (1:1 to Reference Screenshot 2 & 3)
+// Box 1: Private RAG Pipeline with Vector Embeddings Diagram
+// Sub-Header: PERKLNOVK • DARKEDGE • ZP  [03]
+// Box 2: Glowing Purple Multi-Layer Neural Network Lattice
 function AiVisual({ color }: { color: string; isActive?: boolean }) {
   return (
-    <div className="w-full h-40 sm:h-44 relative rounded border border-[#1e2224] bg-[#08090a] overflow-hidden p-3 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
-      {/* Schematic Header */}
-      <div className="flex items-center justify-between border-b border-[#181b1d] pb-2">
-        <div className="flex items-center gap-1.5">
-          <Bot className="w-3 h-3 text-[#c084fc]" />
-          <span className="font-mono text-[9px] text-[#6b6b6b] uppercase tracking-wider">
-            vector //isolated-rag
-          </span>
+    <div className="w-full flex flex-col gap-3">
+      {/* ─── SCHEMATIC PANEL 1: Private RAG & Vector Embeddings Pipeline ─── */}
+      <div className="w-full h-36 sm:h-40 relative rounded-lg border border-[#1e2224] bg-[#08090a] overflow-hidden p-3 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
+        {/* Header Row */}
+        <div className="flex items-center justify-between border-b border-[#15181a] pb-1.5">
+          <div className="flex items-center gap-1.5 font-mono text-[9px] text-[#6b6b6b] tracking-wider uppercase">
+            <Bot className="w-3 h-3 text-[#c084fc]" />
+            <span>vector /textEmbed-vlm</span>
+          </div>
+          <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#9333ea]/40 text-[#c084fc] bg-[#9333ea]/10 font-bold">
+            95504L - 4.2UI
+          </div>
         </div>
-        <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#9333ea]/40 text-[#c084fc] bg-[#9333ea]/10">
-          [ 95%COS • 4.2UI ]
+
+        {/* SVG Graphic 1: Vector Embeddings Cluster & RAG Pipeline */}
+        <div className="relative flex-1 flex items-center justify-center my-0.5 overflow-hidden">
+          <svg
+            className="w-full h-full max-h-20"
+            viewBox="0 0 260 70"
+            fill="none"
+          >
+            {/* Background Cluster Box */}
+            <rect
+              x="70"
+              y="10"
+              width="120"
+              height="45"
+              rx="4"
+              fill="#100b17"
+              stroke="#2c1a3b"
+              strokeWidth="0.8"
+              strokeDasharray="2 2"
+            />
+
+            {/* Vector links inside cluster */}
+            <line x1="88" y1="32" x2="118" y2="20" stroke="#5b21b6" strokeWidth="0.8" />
+            <line x1="88" y1="32" x2="125" y2="42" stroke="#5b21b6" strokeWidth="0.8" />
+            <line x1="118" y1="20" x2="152" y2="26" stroke={color} strokeWidth="1.2" />
+            <line x1="125" y1="42" x2="152" y2="26" stroke={color} strokeWidth="1.2" />
+            <line x1="152" y1="26" x2="175" y2="35" stroke="#5b21b6" strokeWidth="0.8" />
+
+            {/* Cluster Nodes */}
+            <circle cx="88" cy="32" r="3.5" fill="#1b1226" stroke={color} strokeWidth="1" />
+            <circle cx="118" cy="20" r="3" fill="#3b1d5c" />
+            <circle cx="125" cy="42" r="3" fill="#3b1d5c" />
+            <circle cx="152" cy="26" r="4.5" fill={color} className="animate-pulse" />
+            <circle cx="175" cy="35" r="3" fill="#1b1226" stroke="#5b21b6" strokeWidth="1" />
+
+            {/* Left Tag: PRIVATE EMBEDDINGS_DB */}
+            <text
+              x="42"
+              y="35"
+              fill="#888888"
+              fontSize="6"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              EMBED_DB
+            </text>
+
+            {/* Right Tag: SCRAPED DATA */}
+            <text
+              x="222"
+              y="35"
+              fill="#888888"
+              fontSize="6"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              PARSED_DATA
+            </text>
+          </svg>
+        </div>
+
+        {/* Panel 1 Footer */}
+        <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#15181a] pt-1.5 text-[#6b6b6b]">
+          <span className="text-[#c084fc]">PRIVATE EMBEDDINGS_DB</span>
+          <span className="text-[#8e959b]">SCRAPED DATA</span>
         </div>
       </div>
 
-      {/* SVG Glowing Purple Neural Network Lattice */}
-      <div className="relative flex-1 flex items-center justify-center my-0.5 overflow-hidden">
-        <svg
-          className="w-full h-full max-h-24"
-          viewBox="0 0 250 80"
-          fill="none"
-        >
-          <defs>
-            <filter id="glow-purple-nn" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="2" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          {/* Background Synaptic Grid Lines */}
-          {/* Layer 1 (x: 40) to Layer 2 (x: 105) */}
-          <line x1="40" y1="20" x2="105" y2="15" stroke="#2a1a38" strokeWidth="0.8" />
-          <line x1="40" y1="20" x2="105" y2="32" stroke="#2a1a38" strokeWidth="0.8" />
-          <line x1="40" y1="40" x2="105" y2="32" stroke={color} strokeWidth="1.2" opacity="0.8" />
-          <line x1="40" y1="40" x2="105" y2="48" stroke={color} strokeWidth="1.2" opacity="0.8" />
-          <line x1="40" y1="60" x2="105" y2="48" stroke="#2a1a38" strokeWidth="0.8" />
-          <line x1="40" y1="60" x2="105" y2="65" stroke="#2a1a38" strokeWidth="0.8" />
-
-          {/* Layer 2 (x: 105) to Layer 3 (x: 170) */}
-          <line x1="105" y1="15" x2="170" y2="22" stroke="#2a1a38" strokeWidth="0.8" />
-          <line x1="105" y1="32" x2="170" y2="22" stroke="#2a1a38" strokeWidth="0.8" />
-          <line x1="105" y1="32" x2="170" y2="40" stroke={color} strokeWidth="1.4" opacity="0.9" />
-          <line x1="105" y1="48" x2="170" y2="40" stroke={color} strokeWidth="1.4" opacity="0.9" />
-          <line x1="105" y1="48" x2="170" y2="58" stroke="#2a1a38" strokeWidth="0.8" />
-          <line x1="105" y1="65" x2="170" y2="58" stroke="#2a1a38" strokeWidth="0.8" />
-
-          {/* Layer 3 (x: 170) to Apex Synthesis (x: 215) */}
-          <line x1="170" y1="22" x2="215" y2="40" stroke="#2a1a38" strokeWidth="0.8" />
-          <line x1="170" y1="40" x2="215" y2="40" stroke={color} strokeWidth="1.5" opacity="0.9" />
-          <line x1="170" y1="58" x2="215" y2="40" stroke="#2a1a38" strokeWidth="0.8" />
-
-          {/* Layer 1 Nodes (Input / Scraped Data) */}
-          <circle cx="40" cy="20" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
-          <circle cx="40" cy="40" r="4.5" fill={color} filter="url(#glow-purple-nn)" />
-          <circle cx="40" cy="60" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
-
-          {/* Layer 2 Nodes (Hidden / Embeddings Vector) */}
-          <circle cx="105" cy="15" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
-          <circle cx="105" cy="32" r="5" fill={color} filter="url(#glow-purple-nn)" />
-          <circle cx="105" cy="48" r="5" fill={color} filter="url(#glow-purple-nn)" />
-          <circle cx="105" cy="65" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
-
-          {/* Layer 3 Nodes (Output / Cosine RAG) */}
-          <circle cx="170" cy="22" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
-          <circle cx="170" cy="40" r="5.5" fill={color} filter="url(#glow-purple-nn)" />
-          <circle cx="170" cy="58" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
-
-          {/* Apex Synthesis Node */}
-          <circle cx="215" cy="40" r="6" fill="#f5f5f0" stroke={color} strokeWidth="2" />
-
-          {/* Diagram Labels */}
-          <text x="40" y="75" fill="#6b6b6b" fontSize="6.5" fontFamily="monospace" textAnchor="middle">
-            SCRAPED DATA
-          </text>
-          <text x="135" y="75" fill={color} fontSize="6.5" fontFamily="monospace" textAnchor="middle">
-            PRIVATE EMBEDDINGS_DB
-          </text>
-        </svg>
+      {/* ─── SUB-HEADER: PERKLNOVK • DARKEDGE • ZP  [03] ─── */}
+      <div className="flex items-center justify-between px-1">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-[#888888]">
+          PERKLNOVK • DARKEDGE • ZP
+        </span>
+        <span className="font-mono text-xs text-[#6b6b6b]">
+          [03]
+        </span>
       </div>
 
-      {/* Gauges Footer */}
-      <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#181b1d] pt-1.5 text-[#6b6b6b]">
-        <span>DATA: 38.000 00120</span>
-        <span className="text-[#f5f5f0] font-bold">48ms RUNTIME</span>
+      {/* ─── SCHEMATIC PANEL 2: Glowing Purple Neural Network Lattice ─── */}
+      <div className="w-full h-36 sm:h-40 relative rounded-lg border border-[#1e2224] bg-[#08090a] overflow-hidden p-3 flex flex-col justify-between group-hover:border-[#333a3d] transition-colors">
+        {/* Header Row */}
+        <div className="flex items-center justify-between border-b border-[#15181a] pb-1.5">
+          <div className="font-mono text-[9px] text-[#6b6b6b] tracking-wider uppercase">
+            nn://graph-lattice
+          </div>
+          <div className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded border border-[#262c2e] text-[#8e959b] bg-[#121517]">
+            01 0700: REPOD:00
+          </div>
+        </div>
+
+        {/* SVG Graphic 2: Multi-Layer Neural Network Graph */}
+        <div className="relative flex-1 flex items-center justify-center my-0.5 overflow-hidden">
+          <svg
+            className="w-full h-full max-h-20"
+            viewBox="0 0 260 75"
+            fill="none"
+          >
+            <defs>
+              <filter id="glow-purple-nn-card" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="2.2" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            {/* Synaptic interconnect lines */}
+            {/* L1 (x=38) to L2 (x=98) */}
+            <line x1="38" y1="20" x2="98" y2="14" stroke="#2a1a38" strokeWidth="0.8" />
+            <line x1="38" y1="20" x2="98" y2="30" stroke="#2a1a38" strokeWidth="0.8" />
+            <line x1="38" y1="38" x2="98" y2="30" stroke={color} strokeWidth="1.2" opacity="0.85" />
+            <line x1="38" y1="38" x2="98" y2="46" stroke={color} strokeWidth="1.2" opacity="0.85" />
+            <line x1="38" y1="56" x2="98" y2="46" stroke="#2a1a38" strokeWidth="0.8" />
+            <line x1="38" y1="56" x2="98" y2="62" stroke="#2a1a38" strokeWidth="0.8" />
+
+            {/* L2 (x=98) to L3 (x=160) */}
+            <line x1="98" y1="14" x2="160" y2="22" stroke="#2a1a38" strokeWidth="0.8" />
+            <line x1="98" y1="30" x2="160" y2="22" stroke="#2a1a38" strokeWidth="0.8" />
+            <line x1="98" y1="30" x2="160" y2="38" stroke={color} strokeWidth="1.4" opacity="0.9" />
+            <line x1="98" y1="46" x2="160" y2="38" stroke={color} strokeWidth="1.4" opacity="0.9" />
+            <line x1="98" y1="46" x2="160" y2="54" stroke="#2a1a38" strokeWidth="0.8" />
+            <line x1="98" y1="62" x2="160" y2="54" stroke="#2a1a38" strokeWidth="0.8" />
+
+            {/* L3 (x=160) to L4 (x=218) */}
+            <line x1="160" y1="22" x2="218" y2="38" stroke="#2a1a38" strokeWidth="0.8" />
+            <line x1="160" y1="38" x2="218" y2="38" stroke={color} strokeWidth="1.6" opacity="0.95" />
+            <line x1="160" y1="54" x2="218" y2="38" stroke="#2a1a38" strokeWidth="0.8" />
+
+            {/* Layer 1 Nodes (Input) */}
+            <circle cx="38" cy="20" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
+            <circle cx="38" cy="38" r="4.5" fill={color} filter="url(#glow-purple-nn-card)" />
+            <circle cx="38" cy="56" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
+
+            {/* Layer 2 Nodes (Hidden Dense) */}
+            <circle cx="98" cy="14" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
+            <circle cx="98" cy="30" r="5" fill={color} filter="url(#glow-purple-nn-card)" />
+            <circle cx="98" cy="46" r="5" fill={color} filter="url(#glow-purple-nn-card)" />
+            <circle cx="98" cy="62" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
+
+            {/* Layer 3 Nodes (Latent) */}
+            <circle cx="160" cy="22" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
+            <circle cx="160" cy="38" r="5.5" fill={color} filter="url(#glow-purple-nn-card)" />
+            <circle cx="160" cy="54" r="3.5" fill="#181220" stroke="#4a3060" strokeWidth="1.2" />
+
+            {/* Layer 4 Node (Output Synthesis) */}
+            <circle cx="218" cy="38" r="6" fill="#f5f5f0" stroke={color} strokeWidth="2.2" />
+          </svg>
+        </div>
+
+        {/* Panel 2 Footer */}
+        <div className="flex items-center justify-between text-[10px] font-mono border-t border-[#15181a] pt-1.5 text-[#6b6b6b]">
+          <span>DATA: 30.000 00120</span>
+          <span className="text-[#f5f5f0] font-bold">48ms RUNTIME</span>
+        </div>
       </div>
     </div>
   )
@@ -884,8 +1111,9 @@ export default function ServicesEditorial() {
             - Right badge: "[ CLICK ANY SERVICE TO VIEW DETAILS ]" in muted text (#6b6b6b)
             - Headline: "Engineered for performance, not decoration." in high-contrast serif typography
             - Subtitle: "We build production-ready systems..."
+            (Notice: NO horizontal border divider separating the counter row and headline)
         ─────────────────────────────────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 sm:mb-14 pb-5 border-b border-[#1c2022]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-12">
           <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.16em]">
             <span className="text-[#c8f542] font-semibold">02 /</span>
             <span className="text-[#c8f542] font-semibold">
@@ -914,8 +1142,8 @@ export default function ServicesEditorial() {
             2. THE 4 CARDS IN 2-COLUMN LAYOUT:
             - Card 01: Kinetic Web Development
             - Card 02: Business Automation
-            - Card 03: Custom Software & Portals
-            - Card 04: Enterprise AI Solutions
+            - Card 03: Custom Software & Portals (Dual Schematics)
+            - Card 04: Enterprise AI Solutions (Dual Schematics)
         ─────────────────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
           {services.map((service) => {
@@ -934,9 +1162,9 @@ export default function ServicesEditorial() {
                 }`}
               >
                 <div>
-                  {/* Card Header Row: Left identifier badge + Right [0X] index */}
+                  {/* Card Header Row: Left identifier text (NO pill box) + Right [0X] index */}
                   <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded border border-[#22272a] bg-[#14171a] text-[#888888] group-hover:text-[#a0a5aa] transition-colors">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-[#888888] group-hover:text-[#a0a5aa] transition-colors">
                       {service.headerTag}
                     </span>
 
@@ -984,11 +1212,10 @@ export default function ServicesEditorial() {
                   </div>
                 </div>
 
-                {/* Card Footer: Action Trigger + Status Indicator */}
+                {/* Card Footer: Action Trigger + Status Indicator (Clean Monospace, NO arrow icon) */}
                 <div className="pt-4 mt-6 border-t border-[#1c2022] flex items-center justify-between font-mono text-[10px] text-[#6b6b6b] group-hover:text-[#8e959b] transition-colors">
-                  <span className="tracking-wider flex items-center gap-1">
-                    <span>{service.footerAction}</span>
-                    <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  <span className="tracking-wider">
+                    {service.footerAction}
                   </span>
                   <span
                     className="font-semibold tracking-wider transition-colors"

@@ -32,6 +32,7 @@ build
 next-env.d.ts
 
 # Prisma & SQLite local databases
+prisma/dev.db
 prisma/dev.db-journal
 prisma/*-journal
 
