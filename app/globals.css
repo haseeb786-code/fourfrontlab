@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black: #080808;
+  --surface: #111111;
+  --border: #1f1f1f;
+  --text-primary: #f5f5f0;
+  --text-muted: #6b6b6b;
+  --text-dim: #3a3a3a;
+  --accent: #c8f542; /* acid green */
+  --white: #fafaf8;
+
+  /* Architectural Blueprint Theme Variables */
+  --blueprint-bg: #F4F4F2;
+  --blueprint-surface: #FFFFFF;
+  --blueprint-border: #E0E2DE;
+  --blueprint-border-dark: #D4D7D1;
+  --blueprint-line: #E8EAE6;
+  --blueprint-text: #121316;
+  --blueprint-text-muted: #666A73;
+  --blueprint-text-dim: #9DA1A8;
+  --blueprint-accent: #687D3B; /* Olive moss green */
+  --blueprint-gold: #E5A93C;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  background-color: var(--blueprint-bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--blueprint-text);
+  background-color: var(--blueprint-bg);
+  overflow-x: hidden;
+  font-family: var(--font-sans), Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editorial Serif Typography */
+.font-editorial {
+  font-family: var(--font-serif), "Editorial New", Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+/* Architectural Blueprint Drafting Grid */
+.bg-blueprint-grid {
+  background-color: #F4F4F2;
+  background-image:
+    linear-gradient(to right, rgba(18, 19, 22, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 19, 22, 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-blueprint-grid-dense {
+  background-color: #F4F4F2;
+  background-image:
+    linear-gradient(to right, rgba(18, 19, 22, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 19, 22, 0.035) 1px, transparent 1px),
+    linear-gradient(to right, rgba(18, 19, 22, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 19, 22, 0.07) 1px, transparent 1px);
+  background-size: 16px 16px, 16px 16px, 80px 80px, 80px 80px;
+}
+
+/* Subtle drafting caliper markings */
+.caliper-circle {
+  border: 1px dashed rgba(18, 19, 22, 0.15);
+  border-radius: 50%;
+}
+
+/* Floating tablet ambient glow */
+.tablet-ambient-glow {
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.35),
+    0 0 35px -5px rgba(229, 169, 60, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+}
+
+/* Clean 32px Dot Grid Utility */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, #1f1f1f 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Editorial Line Draw */
+@keyframes drawLine {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-draw-line {
+  transform-origin: left;
+  animation: drawLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Grayscale to Color Image Reveal */
+.img-editorial {
+  filter: grayscale(100%) contrast(1.08);
+  transition: filter 400ms cubic-bezier(0.16, 1, 0.3, 1), transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .img-editorial,
+.img-editorial:hover {
+  filter: grayscale(0%) contrast(1);
+}
+
+/* Minimalist Blueprint Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--blueprint-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--blueprint-border-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blueprint-accent);
+}
+
+::selection {
+  background: var(--blueprint-text);
+  color: var(--blueprint-bg);
+}
+
+/* Horizontal Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Zero-Gravity Floating Keyframe Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes float-reverse {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(-1.5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-reverse 4.5s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float 3.2s ease-in-out infinite;
+}
+
+/* Glassmorphic Zero-Gravity Floating Code Tag */
+.code-tag-antigravity {
+  background: rgba(18, 20, 26, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.4),
+    0 0 15px -2px rgba(74, 222, 128, 0.2);
+}
+
+
