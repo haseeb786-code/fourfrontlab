@@ -6,8 +6,14 @@ import ServicesEditorial from '@/components/ServicesEditorial'
 import PortfolioEditorial from '@/components/PortfolioEditorial'
 import TeamEditorial from '@/components/TeamEditorial'
 import TestimonialsEditorial from '@/components/TestimonialsEditorial'
-import ContactEditorial from '@/components/ContactEditorial'
-import Footer from '@/components/Footer'
+import dynamic from 'next/dynamic'
+
+const ContactEditorial = dynamic(() => import('@/components/ContactEditorial'), {
+  ssr: true,
+})
+const Footer = dynamic(() => import('@/components/Footer'), {
+  ssr: true,
+})
 
 import type { Metadata } from 'next'
 import { ServiceJsonLd, FaqJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd'

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowUpRight,
@@ -10,6 +9,7 @@ import {
   Clock,
   MapPin,
 } from 'lucide-react'
+import { useTheme } from './ThemeProvider'
 
 // Minimal Line Icons for Social Badges
 function InstaLineIcon() {
@@ -63,7 +63,7 @@ function PhoneLineIcon() {
   )
 }
 
-function StudioClock() {
+function StudioClock({ isDark }: { isDark: boolean }) {
   const [timeStr, setTimeStr] = useState<string>('04:44:23 PM PKT')
 
   useEffect(() => {
@@ -88,7 +88,7 @@ function StudioClock() {
   }, [])
 
   return (
-    <span className="text-[#121316] font-bold font-mono">
+    <span className={`font-bold font-mono ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
       {timeStr}
     </span>
   )
@@ -96,6 +96,8 @@ function StudioClock() {
 
 export default function Footer() {
   const currentYear = 2026
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
   const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -121,15 +123,29 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative w-full bg-[#F4F4F2] text-[#121316] pt-12 sm:pt-14 pb-12 px-6 lg:px-12 border-t border-[#E0E2DE] overflow-hidden select-none">
+    <footer
+      className={`relative w-full transition-colors duration-300 pt-12 sm:pt-14 pb-12 px-6 lg:px-12 border-t overflow-hidden select-none ${
+        isDark
+          ? 'bg-[var(--dm-bg)] text-[var(--dm-text)] border-[var(--dm-border)]'
+          : 'bg-[#F4F4F2] text-[#121316] border-[#E0E2DE]'
+      }`}
+    >
       {/* ─────────────────────────────────────────────────────────────
           ARCHITECTURAL BLUEPRINT GRID & DRAFTING GUIDE LINES
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 bg-blueprint-grid opacity-60 pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-blueprint-grid opacity-50 pointer-events-none z-0" />
 
       {/* Guide lines across canvas */}
-      <div className="absolute left-8 lg:left-12 top-0 bottom-0 w-[1px] bg-[#E0E2DE]/70 pointer-events-none z-[1]" />
-      <div className="absolute right-8 lg:right-12 top-0 bottom-0 w-[1px] bg-[#E0E2DE]/70 pointer-events-none z-[1]" />
+      <div
+        className={`absolute left-8 lg:left-12 top-0 bottom-0 w-[1px] pointer-events-none z-[1] ${
+          isDark ? 'bg-[var(--dm-border)]/50' : 'bg-[#E0E2DE]/70'
+        }`}
+      />
+      <div
+        className={`absolute right-8 lg:right-12 top-0 bottom-0 w-[1px] pointer-events-none z-[1] ${
+          isDark ? 'bg-[var(--dm-border)]/50' : 'bg-[#E0E2DE]/70'
+        }`}
+      />
 
       {/* ─────────────────────────────────────────────────────────────
           LEFT MARGIN: WATERMARK 01, STATUS '=' & SOCIALS
@@ -137,26 +153,36 @@ export default function Footer() {
       {/* Faint watermark number 01 on top-left */}
       <div className="absolute top-10 left-3 sm:left-5 pointer-events-none select-none z-[1] opacity-70 hidden md:block">
         <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="10" y="70" fill="#121316" fillOpacity="0.08" fontFamily="var(--font-serif), Georgia, serif" fontSize="64" fontWeight="400">01</text>
+          <text
+            x="10"
+            y="70"
+            fill={isDark ? '#f0ede8' : '#121316'}
+            fillOpacity={isDark ? '0.06' : '0.08'}
+            fontFamily="var(--font-serif), Georgia, serif"
+            fontSize="64"
+            fontWeight="400"
+          >
+            01
+          </text>
         </svg>
       </div>
 
-      {/* Left-edge status indicator (= in olive green) & Social links */}
+      {/* Left-edge status indicator (= in accent) & Social links */}
       <div className="absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-5 z-20 hidden lg:flex">
-        {/* Olive green double-dash '=' */}
+        {/* Accent double-dash '=' */}
         <div className="flex flex-col gap-1 select-none">
-          <span className="w-3.5 h-[2px] bg-[#687D3B] rounded-full" />
-          <span className="w-3.5 h-[2px] bg-[#687D3B] rounded-full" />
+          <span className={`w-3.5 h-[2px] rounded-full ${isDark ? 'bg-[#c8f542]' : 'bg-[#687D3B]'}`} />
+          <span className={`w-3.5 h-[2px] rounded-full ${isDark ? 'bg-[#c8f542]' : 'bg-[#687D3B]'}`} />
         </div>
 
         {/* Minimal Social Links */}
-        <div className="flex flex-col items-center gap-3.5 text-[#767A82]">
+        <div className={`flex flex-col items-center gap-3.5 ${isDark ? 'text-[#8E929A]' : 'text-[#767A82]'}`}>
           <a
             href="https://x.com/FourFrontLab"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Twitter X"
-            className="hover:text-[#121316] transition-colors p-1"
+            className={`transition-colors p-1 ${isDark ? 'hover:text-white' : 'hover:text-[#121316]'}`}
           >
             <XLineIcon />
           </a>
@@ -166,7 +192,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="hover:text-[#121316] transition-colors p-1"
+            className={`transition-colors p-1 ${isDark ? 'hover:text-white' : 'hover:text-[#121316]'}`}
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.66 1.66 0 0 0-1.66 1.66c0 .92.74 1.66 1.66 1.66a1.66 1.66 0 0 0 1.66-1.66c0-.92-.74-1.66-1.66-1.66z" />
@@ -176,35 +202,23 @@ export default function Footer() {
       </div>
 
       {/* Bottom-left mechanical blueprint drafting flange watermark */}
-      <div className="absolute -bottom-6 -left-6 pointer-events-none select-none z-[1] opacity-50 hidden md:block">
+      <div className="absolute -bottom-6 -left-6 pointer-events-none select-none z-[1] opacity-40 hidden md:block">
         <svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="140" cy="140" r="115" stroke="#121316" strokeOpacity="0.12" strokeWidth="1" strokeDasharray="4 2" />
-          <circle cx="140" cy="140" r="85" stroke="#121316" strokeOpacity="0.14" strokeWidth="1" />
-          <circle cx="140" cy="140" r="55" stroke="#121316" strokeOpacity="0.16" strokeWidth="1" />
-          <circle cx="140" cy="140" r="28" stroke="#121316" strokeOpacity="0.18" strokeWidth="1" />
-          <circle cx="140" cy="140" r="4" fill="#687D3B" fillOpacity="0.4" />
-          <line x1="15" y1="140" x2="265" y2="140" stroke="#121316" strokeOpacity="0.12" strokeWidth="1" />
-          <line x1="140" y1="15" x2="140" y2="265" stroke="#121316" strokeOpacity="0.12" strokeWidth="1" />
-          <path d="M100 100 L115 85 M120 100 L135 85 M100 120 L115 105 M140 100 L155 85 M160 140 L185 115 M170 150 L195 125 M180 160 L205 135" stroke="#121316" strokeOpacity="0.15" strokeWidth="1" />
-          <path d="M55 140 H25 V170 H55" stroke="#121316" strokeOpacity="0.16" strokeWidth="1" />
-          <path d="M225 140 H255 V170 H225" stroke="#121316" strokeOpacity="0.16" strokeWidth="1" />
-          <line x1="25" y1="175" x2="55" y2="175" stroke="#121316" strokeOpacity="0.2" strokeWidth="0.75" />
-          <line x1="25" y1="172" x2="25" y2="178" stroke="#121316" strokeOpacity="0.25" strokeWidth="0.75" />
-          <line x1="55" y1="172" x2="55" y2="178" stroke="#121316" strokeOpacity="0.25" strokeWidth="0.75" />
-          <text x="34" y="185" fill="#666A73" fontSize="6.5" fontFamily="var(--font-mono), monospace">Ø30</text>
+          <circle cx="140" cy="140" r="115" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.08' : '0.12'} strokeWidth="1" strokeDasharray="4 2" />
+          <circle cx="140" cy="140" r="85" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.10' : '0.14'} strokeWidth="1" />
+          <circle cx="140" cy="140" r="55" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.12' : '0.16'} strokeWidth="1" />
+          <circle cx="140" cy="140" r="28" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.14' : '0.18'} strokeWidth="1" />
+          <circle cx="140" cy="140" r="4" fill={isDark ? '#c8f542' : '#687D3B'} fillOpacity="0.4" />
+          <line x1="15" y1="140" x2="265" y2="140" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.08' : '0.12'} strokeWidth="1" />
+          <line x1="140" y1="15" x2="140" y2="265" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.08' : '0.12'} strokeWidth="1" />
+          <path d="M100 100 L115 85 M120 100 L135 85 M100 120 L115 105 M140 100 L155 85 M160 140 L185 115 M170 150 L195 125 M180 160 L205 135" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.10' : '0.15'} strokeWidth="1" />
+          <path d="M55 140 H25 V170 H55" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.12' : '0.16'} strokeWidth="1" />
+          <path d="M225 140 H255 V170 H225" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.12' : '0.16'} strokeWidth="1" />
+          <line x1="25" y1="175" x2="55" y2="175" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.15' : '0.2'} strokeWidth="0.75" />
+          <line x1="25" y1="172" x2="25" y2="178" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.2' : '0.25'} strokeWidth="0.75" />
+          <line x1="55" y1="172" x2="55" y2="178" stroke={isDark ? '#f0ede8' : '#121316'} strokeOpacity={isDark ? '0.2' : '0.25'} strokeWidth="0.75" />
+          <text x="34" y="185" fill={isDark ? '#8E929A' : '#666A73'} fontSize="6.5" fontFamily="var(--font-mono), monospace">Ø30</text>
         </svg>
-      </div>
-
-      {/* ─────────────────────────────────────────────────────────────
-          RIGHT MARGIN: 3D ISOMETRIC ARCHITECTURAL STRUCTURE BACKDROP
-      ───────────────────────────────────────────────────────────── */}
-      <div className="absolute right-0 bottom-0 w-[55%] max-w-[700px] h-[360px] pointer-events-none select-none z-[1] opacity-75 hidden sm:block">
-        <Image
-          src="/images/footer-arch-backdrop.webp"
-          alt="Architectural Blueprint Structure"
-          fill
-          className="object-contain object-bottom-right mix-blend-multiply"
-        />
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
@@ -212,36 +226,60 @@ export default function Footer() {
       ───────────────────────────────────────────────────────────── */}
       <div className="max-w-[1320px] mx-auto relative z-10">
         {/* Prominent Architectural Top Line Divider */}
-        <div className="w-full h-[2px] bg-[#121316] mb-8 sm:mb-10" />
+        <div className={`w-full h-[2px] mb-8 sm:mb-10 ${isDark ? 'bg-[var(--dm-border-strong)]' : 'bg-[#121316]'}`} />
 
         {/* 4 Floating Architectural Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 items-stretch">
           {/* ─── CARD 1: DIRECT DISPATCH ─── */}
-          <div className="rounded-2xl border border-[#D4D7D1] bg-[#F8F8F6]/95 backdrop-blur-md p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300 hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]">
+          <div
+            className={`rounded-2xl backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 ${
+              isDark
+                ? 'border border-[#222730] bg-[#121418]/95 shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:border-[#384050]'
+                : 'border border-[#D4D7D1] bg-[#F8F8F6]/95 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]'
+            }`}
+          >
             <div>
               {/* Header */}
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E0E2DE]/80">
-                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#121316] font-bold">
+              <div
+                className={`flex items-center justify-between pb-3 mb-4 border-b ${
+                  isDark ? 'border-[#222730]' : 'border-[#E0E2DE]/80'
+                }`}
+              >
+                <span className={`font-mono text-xs uppercase tracking-[0.18em] font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
                   DIRECT DISPATCH
                 </span>
-                <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-[#687D3B] bg-[#687D3B]/10 px-2 py-0.5 rounded border border-[#687D3B]/30 font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#687D3B] animate-pulse" />
+                <span
+                  className={`flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded border font-bold ${
+                    isDark
+                      ? 'text-[#c8f542] bg-[#c8f542]/10 border-[#c8f542]/30'
+                      : 'text-[#687D3B] bg-[#687D3B]/10 border-[#687D3B]/30'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isDark ? 'bg-[#c8f542]' : 'bg-[#687D3B]'}`} />
                   ONLINE
                 </span>
               </div>
 
               {/* Description */}
-              <p className="text-[13px] text-[#454950] leading-[1.65] font-normal mb-5">
+              <p className={`text-[13px] leading-[1.65] font-normal mb-5 ${isDark ? 'text-[#9DA1A8]' : 'text-[#454950]'}`}>
                 We engineer digital flagships and autonomous software for ambitious teams worldwide.
               </p>
             </div>
 
             <div className="space-y-2.5">
               {/* Email Box */}
-              <div className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316] transition-all p-3 flex items-center justify-between group">
+              <div
+                className={`rounded-lg border p-3 flex items-center justify-between group transition-all ${
+                  isDark
+                    ? 'border-[#2A2F3A] bg-[#181B20]/80 hover:bg-[#1E2228] hover:border-[#424A5A]'
+                    : 'border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316]'
+                }`}
+              >
                 <a
                   href="mailto:fourfrontlab@gmail.com"
-                  className="flex items-center gap-2.5 text-xs font-mono text-[#121316] font-medium truncate mr-2"
+                  className={`flex items-center gap-2.5 text-xs font-mono font-medium truncate mr-2 ${
+                    isDark ? 'text-[#f0ede8]' : 'text-[#121316]'
+                  }`}
                 >
                   <MailLineIcon />
                   <span className="truncate">fourfrontlab@gmail.com</span>
@@ -249,11 +287,15 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={(e) => handleCopy('fourfrontlab@gmail.com', 'mail', e)}
-                  className="font-mono text-[9.5px] uppercase tracking-wider px-2 py-1 border border-[#C2C6CF] bg-white hover:bg-[#F4F4F2] text-[#555860] hover:text-[#121316] font-bold rounded shadow-2xs transition-all shrink-0"
+                  className={`font-mono text-[9.5px] uppercase tracking-wider px-2 py-1 border font-bold rounded shadow-2xs transition-all shrink-0 ${
+                    isDark
+                      ? 'border-[#333945] bg-[#222730] hover:bg-[#2C323E] text-[#8E929A] hover:text-white'
+                      : 'border-[#C2C6CF] bg-white hover:bg-[#F4F4F2] text-[#555860] hover:text-[#121316]'
+                  }`}
                   title="Copy Gmail"
                 >
                   {copiedKey === 'mail' ? (
-                    <span className="text-[#687D3B] flex items-center gap-1">
+                    <span className={`flex items-center gap-1 ${isDark ? 'text-[#c8f542]' : 'text-[#687D3B]'}`}>
                       <Check className="w-2.5 h-2.5" /> COPIED
                     </span>
                   ) : (
@@ -263,12 +305,20 @@ export default function Footer() {
               </div>
 
               {/* Phone / WhatsApp Box */}
-              <div className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316] transition-all p-3 flex items-center justify-between group">
+              <div
+                className={`rounded-lg border p-3 flex items-center justify-between group transition-all ${
+                  isDark
+                    ? 'border-[#2A2F3A] bg-[#181B20]/80 hover:bg-[#1E2228] hover:border-[#424A5A]'
+                    : 'border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316]'
+                }`}
+              >
                 <a
                   href="https://wa.me/923444741603"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 text-xs font-mono text-[#121316] font-medium truncate mr-2"
+                  className={`flex items-center gap-2.5 text-xs font-mono font-medium truncate mr-2 ${
+                    isDark ? 'text-[#f0ede8]' : 'text-[#121316]'
+                  }`}
                 >
                   <PhoneLineIcon />
                   <span>+92 344 474 1603</span>
@@ -276,11 +326,15 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={(e) => handleCopy('+923444741603', 'wa', e)}
-                  className="font-mono text-[9.5px] uppercase tracking-wider px-2 py-1 border border-[#C2C6CF] bg-white hover:bg-[#F4F4F2] text-[#555860] hover:text-[#121316] font-bold rounded shadow-2xs transition-all shrink-0"
+                  className={`font-mono text-[9.5px] uppercase tracking-wider px-2 py-1 border font-bold rounded shadow-2xs transition-all shrink-0 ${
+                    isDark
+                      ? 'border-[#333945] bg-[#222730] hover:bg-[#2C323E] text-[#8E929A] hover:text-white'
+                      : 'border-[#C2C6CF] bg-white hover:bg-[#F4F4F2] text-[#555860] hover:text-[#121316]'
+                  }`}
                   title="Copy WhatsApp"
                 >
                   {copiedKey === 'wa' ? (
-                    <span className="text-[#687D3B] flex items-center gap-1">
+                    <span className={`flex items-center gap-1 ${isDark ? 'text-[#c8f542]' : 'text-[#687D3B]'}`}>
                       <Check className="w-2.5 h-2.5" /> COPIED
                     </span>
                   ) : (
@@ -292,41 +346,70 @@ export default function Footer() {
           </div>
 
           {/* ─── CARD 2: SITE NAVIGATION ─── */}
-          <div className="rounded-2xl border border-[#D4D7D1] bg-[#F8F8F6]/95 backdrop-blur-md p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300 hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]">
+          <div
+            className={`rounded-2xl backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 ${
+              isDark
+                ? 'border border-[#222730] bg-[#121418]/95 shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:border-[#384050]'
+                : 'border border-[#D4D7D1] bg-[#F8F8F6]/95 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]'
+            }`}
+          >
             <div>
               {/* Header */}
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E0E2DE]/80">
-                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#121316] font-bold">
+              <div
+                className={`flex items-center justify-between pb-3 mb-4 border-b ${
+                  isDark ? 'border-[#222730]' : 'border-[#E0E2DE]/80'
+                }`}
+              >
+                <span className={`font-mono text-xs uppercase tracking-[0.18em] font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
                   SITE NAVIGATION
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[#767A82] font-semibold">
+                <span className={`font-mono text-[10px] uppercase tracking-wider font-semibold ${isDark ? 'text-[#8E929A]' : 'text-[#767A82]'}`}>
                   [ 04 ROUTES ]
                 </span>
               </div>
 
-              {/* Navigation Items */}
+              {/* Navigation Items (4 clean, unique routes) */}
               <div className="space-y-2">
                 {[
                   { num: '01', name: 'Selected Work', href: '#work' },
                   { num: '02', name: 'Capabilities & Stack', href: '#services' },
                   { num: '03', name: 'Collective Spec', href: '#about' },
                   { num: '04', name: 'Start a Project', href: '#contact' },
-                  { num: '04', name: 'Start a Project', href: '#contact' },
-                ].map((route, idx) => (
+                ].map((route) => (
                   <Link
-                    key={`${route.num}-${idx}`}
+                    key={route.num}
                     href={route.href}
-                    className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316] p-2.5 flex items-center justify-between group transition-all"
+                    className={`rounded-lg border p-2.5 flex items-center justify-between group transition-all ${
+                      isDark
+                        ? 'border-[#2A2F3A] bg-[#181B20]/80 hover:bg-[#1E2228] hover:border-[#424A5A]'
+                        : 'border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316]'
+                    }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-[11px] text-[#767A82] font-semibold group-hover:text-[#687D3B] transition-colors">
+                      <span
+                        className={`font-mono text-[11px] font-semibold transition-colors ${
+                          isDark
+                            ? 'text-[#8E929A] group-hover:text-[#c8f542]'
+                            : 'text-[#767A82] group-hover:text-[#687D3B]'
+                        }`}
+                      >
                         [{route.num}]
                       </span>
-                      <span className="font-mono text-xs text-[#121316] font-bold group-hover:text-[#121316] transition-colors">
+                      <span
+                        className={`font-mono text-xs font-bold transition-colors ${
+                          isDark ? 'text-[#f0ede8] group-hover:text-white' : 'text-[#121316]'
+                        }`}
+                      >
                         {route.name}
                       </span>
                     </div>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#767A82] group-hover:text-[#121316] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    <ArrowUpRight
+                      className={`w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all ${
+                        isDark
+                          ? 'text-[#8E929A] group-hover:text-[#c8f542]'
+                          : 'text-[#767A82] group-hover:text-[#121316]'
+                      }`}
+                    />
                   </Link>
                 ))}
               </div>
@@ -334,14 +417,24 @@ export default function Footer() {
           </div>
 
           {/* ─── CARD 3: OFFICIAL CHANNELS ─── */}
-          <div className="rounded-2xl border border-[#D4D7D1] bg-[#F8F8F6]/95 backdrop-blur-md p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300 hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]">
+          <div
+            className={`rounded-2xl backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 ${
+              isDark
+                ? 'border border-[#222730] bg-[#121418]/95 shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:border-[#384050]'
+                : 'border border-[#D4D7D1] bg-[#F8F8F6]/95 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]'
+            }`}
+          >
             <div>
               {/* Header */}
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E0E2DE]/80">
-                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#121316] font-bold">
+              <div
+                className={`flex items-center justify-between pb-3 mb-4 border-b ${
+                  isDark ? 'border-[#222730]' : 'border-[#E0E2DE]/80'
+                }`}
+              >
+                <span className={`font-mono text-xs uppercase tracking-[0.18em] font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
                   OFFICIAL CHANNELS
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[#767A82] font-semibold">
+                <span className={`font-mono text-[10px] uppercase tracking-wider font-semibold ${isDark ? 'text-[#8E929A]' : 'text-[#767A82]'}`}>
                   [ SOCIAL ]
                 </span>
               </div>
@@ -379,19 +472,35 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316] p-2.5 sm:p-3 flex flex-col justify-between group transition-all min-h-[74px]"
+                    className={`rounded-lg border p-2.5 sm:p-3 flex flex-col justify-between group transition-all min-h-[74px] ${
+                      isDark
+                        ? 'border-[#2A2F3A] bg-[#181B20]/80 hover:bg-[#1E2228] hover:border-[#424A5A]'
+                        : 'border-[#DCDFD9] bg-[#EFEFEA]/50 hover:bg-white hover:border-[#121316]'
+                    }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[#121316] group-hover:text-[#687D3B] transition-colors">
+                      <span
+                        className={`transition-colors ${
+                          isDark
+                            ? 'text-[#f0ede8] group-hover:text-[#c8f542]'
+                            : 'text-[#121316] group-hover:text-[#687D3B]'
+                        }`}
+                      >
                         {social.icon}
                       </span>
-                      <ArrowUpRight className="w-3 h-3 text-[#767A82] group-hover:text-[#121316] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      <ArrowUpRight
+                        className={`w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ${
+                          isDark
+                            ? 'text-[#8E929A] group-hover:text-white'
+                            : 'text-[#767A82] group-hover:text-[#121316]'
+                        }`}
+                      />
                     </div>
                     <div>
-                      <span className="font-mono text-xs font-bold text-[#121316] block leading-tight">
+                      <span className={`font-mono text-xs font-bold block leading-tight ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
                         {social.name}
                       </span>
-                      <span className="font-mono text-[9.5px] text-[#767A82] block truncate mt-0.5">
+                      <span className={`font-mono text-[9.5px] block truncate mt-0.5 ${isDark ? 'text-[#8E929A]' : 'text-[#767A82]'}`}>
                         {social.handle}
                       </span>
                     </div>
@@ -402,45 +511,59 @@ export default function Footer() {
           </div>
 
           {/* ─── CARD 4: STUDIO TELEMETRY ─── */}
-          <div className="rounded-2xl border border-[#D4D7D1] bg-[#F8F8F6]/95 backdrop-blur-md p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col justify-between transition-all duration-300 hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]">
+          <div
+            className={`rounded-2xl backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 ${
+              isDark
+                ? 'border border-[#222730] bg-[#121418]/95 shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:border-[#384050]'
+                : 'border border-[#D4D7D1] bg-[#F8F8F6]/95 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:border-[#121316]/40 hover:shadow-[0_12px_36px_rgb(0,0,0,0.06)]'
+            }`}
+          >
             <div>
               {/* Header */}
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E0E2DE]/80">
-                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#121316] font-bold">
+              <div
+                className={`flex items-center justify-between pb-3 mb-4 border-b ${
+                  isDark ? 'border-[#222730]' : 'border-[#E0E2DE]/80'
+                }`}
+              >
+                <span className={`font-mono text-xs uppercase tracking-[0.18em] font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
                   STUDIO TELEMETRY
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[#767A82] font-semibold">
+                <span className={`font-mono text-[10px] uppercase tracking-wider font-semibold ${isDark ? 'text-[#8E929A]' : 'text-[#767A82]'}`}>
                   [ ISB ]
                 </span>
               </div>
 
               {/* Telemetry Data Box */}
-              <div className="rounded-lg border border-[#DCDFD9] bg-[#EFEFEA]/50 p-3 sm:p-3.5 space-y-2.5 mb-3.5">
+              <div
+                className={`rounded-lg border p-3 sm:p-3.5 space-y-2.5 mb-3.5 ${
+                  isDark ? 'border-[#2A2F3A] bg-[#181B20]/80' : 'border-[#DCDFD9] bg-[#EFEFEA]/50'
+                }`}
+              >
                 {/* Studio Time */}
                 <div className="flex items-center justify-between font-mono text-[10.5px]">
-                  <span className="flex items-center gap-1.5 text-[#555860] font-semibold">
-                    <Clock className="w-3.5 h-3.5 text-[#687D3B]" />
+                  <span className={`flex items-center gap-1.5 font-semibold ${isDark ? 'text-[#8E929A]' : 'text-[#555860]'}`}>
+                    <Clock className={`w-3.5 h-3.5 ${isDark ? 'text-[#c8f542]' : 'text-[#687D3B]'}`} />
                     STUDIO TIME:
                   </span>
-                  <StudioClock />
+                  <StudioClock isDark={isDark} />
                 </div>
 
                 {/* Location */}
                 <div className="flex items-center justify-between font-mono text-[10.5px]">
-                  <span className="flex items-center gap-1.5 text-[#555860] font-semibold">
-                    <MapPin className="w-3.5 h-3.5 text-[#555860]" />
+                  <span className={`flex items-center gap-1.5 font-semibold ${isDark ? 'text-[#8E929A]' : 'text-[#555860]'}`}>
+                    <MapPin className="w-3.5 h-3.5" />
                     LOCATION:
                   </span>
-                  <span className="text-[#121316] font-bold">Islamabad, PK</span>
+                  <span className={`font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>Islamabad, PK</span>
                 </div>
 
                 {/* IP Ownership */}
                 <div className="flex items-center justify-between font-mono text-[10.5px]">
-                  <span className="flex items-center gap-1.5 text-[#555860] font-semibold">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#555860]" />
+                  <span className={`flex items-center gap-1.5 font-semibold ${isDark ? 'text-[#8E929A]' : 'text-[#555860]'}`}>
+                    <ShieldCheck className="w-3.5 h-3.5" />
                     IP OWNERSHIP:
                   </span>
-                  <span className="text-[#121316] font-bold">100% CLIENT</span>
+                  <span className={`font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>100% CLIENT</span>
                 </div>
               </div>
             </div>
@@ -448,10 +571,16 @@ export default function Footer() {
             {/* Access Admin Portal Button */}
             <Link
               href="/admin/login"
-              className="w-full bg-[#26282B] hover:bg-[#121316] text-[#F4F4F2] px-4 py-3 rounded-lg flex items-center justify-between font-mono text-[11px] uppercase tracking-wider font-bold transition-all shadow-sm group"
+              className={`w-full px-4 py-3 rounded-lg flex items-center justify-between font-mono text-[11px] uppercase tracking-wider font-bold transition-all shadow-sm group ${
+                isDark
+                  ? 'bg-[#222730] hover:bg-[#2C323E] border border-[#333945] text-[#f0ede8]'
+                  : 'bg-[#26282B] hover:bg-[#121316] text-[#F4F4F2]'
+              }`}
             >
               <span>[ ACCESS ADMIN PORTAL ]</span>
-              <span className="text-[#A0A4AB] group-hover:text-white font-mono transition-colors">&gt;_</span>
+              <span className={`font-mono transition-colors ${isDark ? 'text-[#c8f542]' : 'text-[#A0A4AB] group-hover:text-white'}`}>
+                &gt;_
+              </span>
             </Link>
           </div>
         </div>
@@ -459,16 +588,20 @@ export default function Footer() {
         {/* ─────────────────────────────────────────────────────────────
             BOTTOM LEGAL & METRICS STRIP
         ───────────────────────────────────────────────────────────── */}
-        <div className="pt-8 mt-12 sm:mt-16 border-t border-[#D4D7D1] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[#555860]">
+        <div
+          className={`pt-8 mt-12 sm:mt-16 border-t flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs transition-colors ${
+            isDark ? 'border-[#222730] text-[#8E929A]' : 'border-[#D4D7D1] text-[#555860]'
+          }`}
+        >
           <p>© {currentYear} Four Front Lab. Engineered with Next.js 14.</p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-[#121316] transition-colors">
+            <Link href="/privacy" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-[#121316]'}`}>
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-[#121316] transition-colors">
+            <Link href="/terms" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-[#121316]'}`}>
               Terms of Service
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-[#121316] transition-colors">
+            <Link href="/sitemap.xml" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-[#121316]'}`}>
               Sitemap
             </Link>
           </div>

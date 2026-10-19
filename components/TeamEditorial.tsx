@@ -3,14 +3,13 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTheme } from './ThemeProvider'
 import {
   Github,
   Linkedin,
   LayoutGrid,
   Rows3,
   Sparkles,
-  Sun,
-  Moon,
   ExternalLink,
   Menu,
   Twitter,
@@ -61,11 +60,11 @@ const teamMembers: TeamMember[] = [
       'Designing resilient backend architectures and optimized data pipelines that scale reliably under pressure.',
     githubUrl: 'https://github.com/haseeb786-code',
     linkedinUrl: 'https://linkedin.com/in/abdul-haseeb',
-    officialAvatarUrl: 'https://avatars.githubusercontent.com/u/190996156?v=4',
+    officialAvatarUrl: '/images/team/haseeb-reference.webp',
     fallbackAvatarUrl: '/images/team/haseeb-reference.webp',
     initials: 'AH',
     specCode: 'CORE // 002',
-    staggerClass: 'lg:translate-y-10 xl:translate-y-12',
+    staggerClass: 'lg:translate-y-4 xl:translate-y-6',
   },
   {
     id: '03',
@@ -329,9 +328,9 @@ function LeftSideFloatingDock({ isDark }: { isDark: boolean }) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function TeamEditorial() {
-  const [isStaggered, setIsStaggered] = useState(true)
-  // Default to Light aesthetic matching image_15.png and the user's reference design
-  const [isDark, setIsDark] = useState(false)
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
+  const [isStaggered, setIsStaggered] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -341,24 +340,12 @@ export default function TeamEditorial() {
   return (
     <section
       id="team"
-      className={`relative w-full py-20 sm:py-28 lg:py-36 px-6 lg:px-14 xl:px-20 border-b transition-colors duration-700 overflow-hidden select-none ${
-        isDark
-          ? 'bg-[#0B0C0E] text-[#F5F5F0] border-[#1F2228]'
-          : 'bg-[#F4F4F1] text-[#121316] border-[#DFE2DC]'
-      }`}
+      className="relative w-full py-20 sm:py-28 lg:py-36 px-6 lg:px-14 xl:px-20 border-b border-[var(--dm-border)] bg-[var(--dm-bg)] text-[var(--dm-text)] transition-colors duration-300 overflow-hidden select-none"
     >
       {/* ─────────────────────────────────────────────────────────────────
           BACKGROUND LAYER 1: Subtle Blueprint Grid & Measurement Annotations
       ───────────────────────────────────────────────────────────────── */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-40 transition-opacity duration-700"
-        style={{
-          backgroundImage: isDark
-            ? 'linear-gradient(to right, #1F2228 1px, transparent 1px), linear-gradient(to bottom, #1F2228 1px, transparent 1px)'
-            : 'linear-gradient(to right, #E2E4DE 1px, transparent 1px), linear-gradient(to bottom, #E2E4DE 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
+      <div className="absolute inset-0 bg-blueprint-grid opacity-50 pointer-events-none z-0" />
 
       {/* ─────────────────────────────────────────────────────────────────
           BACKGROUND LAYER 2: Left Technical Circular Draft Sketch & "01" Watermark
@@ -450,35 +437,9 @@ export default function TeamEditorial() {
       </div>
 
       {/* ─────────────────────────────────────────────────────────────────
-          BACKGROUND LAYER 3: 3D Isometric Architectural Pavilion & Glass Structure
+          BACKGROUND LAYER 3: Ambient Golden Particle Accents
       ───────────────────────────────────────────────────────────────── */}
       <div className="absolute top-0 right-0 w-[55vw] max-w-[920px] h-full pointer-events-none select-none z-0 overflow-hidden">
-        {/* Architectural Artwork extracted from Reference Design */}
-        <div className={`relative w-full h-full opacity-65 sm:opacity-85 transition-opacity duration-700 ${isDark ? '' : 'mix-blend-multiply'}`}>
-          <Image
-            src="/images/architectural-antigravity-pure.webp"
-            alt="The Four Fronts Architectural Isometric Wireframe"
-            fill
-            priority={false}
-            className={`object-cover object-right-top ${
-              isDark
-                ? 'invert hue-rotate-180 brightness-[0.75] contrast-[1.4] opacity-50'
-                : 'contrast-[1.05] brightness-[1.02]'
-            }`}
-          />
-        </div>
-
-        {/* Soft Vignette Mask to blend with the canvas */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: isDark
-              ? 'linear-gradient(to right, #0B0C0E 5%, transparent 60%), linear-gradient(to bottom, transparent 60%, #0B0C0E 98%)'
-              : 'linear-gradient(to right, #F4F4F1 5%, transparent 55%), linear-gradient(to bottom, transparent 65%, #F4F4F1 98%)',
-          }}
-        />
-
-        {/* Floating Ambient Sparks / Golden Particle Accents */}
         <AmbientGoldenParticles />
       </div>
 
@@ -492,9 +453,9 @@ export default function TeamEditorial() {
       ───────────────────────────────────────────────────────────────── */}
       <div className="relative z-10 max-w-[1360px] mx-auto">
         {/* ─────────────────────────────────────────────────────────────
-            HEADER ROW: Left Typography + Right Interactive Mode Controls
+            HEADER ROW: Left Typography + Right View Toggle
         ───────────────────────────────────────────────────────────── */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-16 sm:mb-20">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-14 sm:mb-16">
           {/* LEFT COLUMN: Large High-Contrast Heading & Supporting Copy */}
           <div className="max-w-2xl">
             {/* Architectural Section Micro-Label */}
@@ -522,10 +483,10 @@ export default function TeamEditorial() {
               The Four Fronts.
             </h2>
 
-            {/* Supporting Copy (From Prompt Specification) */}
+            {/* Supporting Copy */}
             <div
               className={`space-y-4 text-base sm:text-lg leading-relaxed ${
-                isDark ? 'text-[#A0A4AC]' : 'text-[#373A42]'
+                isDark ? 'text-[#9DA1A8]' : 'text-[#4A4E57]'
               }`}
             >
               <p>
@@ -541,9 +502,8 @@ export default function TeamEditorial() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN CONTROLS: Stagger Toggle & Aesthetic Theme Switch */}
+          {/* RIGHT COLUMN CONTROLS: Stagger / Aligned View Toggle */}
           <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 self-start lg:mt-2">
-            {/* Stagger Stepped Layout Toggle */}
             <button
               type="button"
               onClick={() => setIsStaggered(!isStaggered)}
@@ -556,7 +516,7 @@ export default function TeamEditorial() {
                   ? 'bg-transparent text-[#777C85] border-[#2A2E36] hover:text-white'
                   : 'bg-transparent text-[#666A73] border-[#D4D7D1] hover:text-[#121316]'
               }`}
-              title="Toggle staggered stepped layout"
+              title="Toggle layout view"
             >
               {isStaggered ? (
                 <>
@@ -570,39 +530,15 @@ export default function TeamEditorial() {
                 </>
               )}
             </button>
-
-            {/* Aesthetic Theme Switch (Minimalist Light vs Obsidian Blueprint) */}
-            <button
-              type="button"
-              onClick={() => setIsDark(!isDark)}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-md font-mono text-[11px] tracking-wider uppercase border transition-all ${
-                isDark
-                  ? 'bg-[#181B20] text-white border-[#2A2E36] hover:border-[#c8f542]'
-                  : 'bg-white text-[#121316] border-[#D4D7D1] hover:border-[#121316]'
-              }`}
-              title="Toggle Blueprint Aesthetic"
-            >
-              {isDark ? (
-                <>
-                  <Sun className="w-3.5 h-3.5 text-[#c8f542]" />
-                  <span>Light Blueprint</span>
-                </>
-              ) : (
-                <>
-                  <Moon className="w-3.5 h-3.5 text-[#121316]" />
-                  <span>Dark Obsidian</span>
-                </>
-              )}
-            </button>
           </div>
         </div>
 
         {/* ─────────────────────────────────────────────────────────────
-            STAGGERED ROW LAYOUT (BOTTOM): 4 Stepped Architectural Cards
+            4 BALANCED & STRUCTURED ARCHITECTURAL CARDS
         ───────────────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-5 xl:gap-6 items-start pt-4 pb-32 sm:pb-36 lg:pb-44">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch pt-2 pb-16 sm:pb-20">
           {teamMembers.map((member, index) => {
-            const staggerStyle = isStaggered ? member.staggerClass : 'lg:translate-y-0'
+            const staggerStyle = isStaggered ? member.staggerClass : ''
 
             return (
               <motion.div
@@ -612,11 +548,11 @@ export default function TeamEditorial() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`group relative flex flex-col rounded-lg p-3.5 sm:p-4 border transition-all duration-500 ${staggerStyle} ${
+                className={`group relative flex flex-col justify-between rounded-xl p-4 sm:p-5 border transition-all duration-300 ${staggerStyle} ${
                   isDark
-                    ? 'bg-[#13161B]/90 border-[#2A2F3A] hover:border-[#c8f542]/60 shadow-[0_12px_36px_rgba(0,0,0,0.5)]'
-                    : 'bg-[#EAEAE6]/85 border-[#22252A] hover:border-[#121316] shadow-[0_8px_30px_rgba(0,0,0,0.06)]'
-                } backdrop-blur-md hover:-translate-y-1.5`}
+                    ? 'bg-[#14161B] border-[#252A34] hover:border-[#c8f542]/60 shadow-[0_12px_36px_rgba(0,0,0,0.5)]'
+                    : 'bg-white border-[#D4D7D1] hover:border-[#121316] shadow-[0_8px_30px_rgba(0,0,0,0.04)]'
+                } backdrop-blur-md hover:-translate-y-1`}
               >
                 {/* 1. Inset Portrait Frame with Thin Dark Border */}
                 <div

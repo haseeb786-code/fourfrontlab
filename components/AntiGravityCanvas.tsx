@@ -185,12 +185,30 @@ export default function AntiGravityCanvas() {
         }
       }
 
-      animFrameRef.current = requestAnimationFrame(render)
+      if (isVisible) {
+        animFrameRef.current = requestAnimationFrame(render)
+      }
     }
 
+    let isVisible = true
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting
+        if (isVisible) {
+          if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current)
+          animFrameRef.current = requestAnimationFrame(render)
+        } else if (animFrameRef.current) {
+          cancelAnimationFrame(animFrameRef.current)
+        }
+      },
+      { threshold: 0.05 }
+    )
+
+    observer.observe(canvas)
     render()
 
     return () => {
+      observer.disconnect()
       window.removeEventListener('resize', handleResize)
       if (parent) {
         parent.removeEventListener('mousemove', handleMouseMove)

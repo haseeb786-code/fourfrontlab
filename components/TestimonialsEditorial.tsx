@@ -15,8 +15,6 @@ import {
   Check,
   ExternalLink,
   ShieldCheck,
-  Sun,
-  Moon,
   Menu,
   Twitter,
   Search,
@@ -24,6 +22,7 @@ import {
   Activity,
   Terminal,
 } from 'lucide-react'
+import { useTheme } from './ThemeProvider'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA TYPES & TESTIMONIAL DEFINITIONS
@@ -641,9 +640,9 @@ function InfiniteTechTicker({ isDark }: { isDark: boolean }) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function TestimonialsEditorial() {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
   const [activeTab, setActiveTab] = useState<FilterTabType>('all')
-  // Default to Minimalist Light Blueprint matching image_22.png
-  const [isDark, setIsDark] = useState(false)
 
   const filtered =
     activeTab === 'all'
@@ -653,24 +652,12 @@ export default function TestimonialsEditorial() {
   return (
     <section
       id="testimonials"
-      className={`relative w-full py-20 sm:py-28 lg:py-36 px-6 lg:px-14 xl:px-20 border-b transition-colors duration-700 overflow-hidden select-none ${
-        isDark
-          ? 'bg-[#0B0C0E] text-[#F5F5F0] border-[#1F2228]'
-          : 'bg-[#F4F4F1] text-[#121316] border-[#DFE2DC]'
-      }`}
+      className="relative w-full py-20 sm:py-28 lg:py-36 px-6 lg:px-14 xl:px-20 border-b border-[var(--dm-border)] bg-[var(--dm-bg)] text-[var(--dm-text)] transition-colors duration-300 overflow-hidden select-none"
     >
       {/* ─────────────────────────────────────────────────────────────────
           BACKGROUND LAYER 1: Blueprint Technical Grid
       ───────────────────────────────────────────────────────────────── */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-40 transition-opacity duration-700"
-        style={{
-          backgroundImage: isDark
-            ? 'linear-gradient(to right, #1F2228 1px, transparent 1px), linear-gradient(to bottom, #1F2228 1px, transparent 1px)'
-            : 'linear-gradient(to right, #E2E4DE 1px, transparent 1px), linear-gradient(to bottom, #E2E4DE 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
+      <div className="absolute inset-0 bg-blueprint-grid opacity-50 pointer-events-none z-0" />
 
       {/* ─────────────────────────────────────────────────────────────────
           BACKGROUND LAYER 2: Kinetic Radar & Compass Blueprint Sketch
@@ -678,34 +665,9 @@ export default function TestimonialsEditorial() {
       <KineticBlueprintBackground isDark={isDark} />
 
       {/* ─────────────────────────────────────────────────────────────────
-          BACKGROUND LAYER 3: 3D Isometric Architectural Wireframe Pavilion
+          BACKGROUND LAYER 3: Ambient Golden Particle Accents
       ───────────────────────────────────────────────────────────────── */}
       <div className="absolute top-0 right-0 w-[55vw] max-w-[920px] h-full pointer-events-none select-none z-0 overflow-hidden">
-        <div className="relative w-full h-full opacity-60 sm:opacity-80 mix-blend-multiply transition-opacity duration-700">
-          <Image
-            src="/images/team/four-fronts-blueprint-art.webp"
-            alt="Architectural Wireframe Grid"
-            fill
-            priority={false}
-            className={`object-cover object-right-top ${
-              isDark
-                ? 'invert hue-rotate-180 brightness-[0.75] contrast-[1.4] opacity-50'
-                : 'contrast-[1.05] brightness-[1.02]'
-            }`}
-          />
-        </div>
-
-        {/* Soft Vignette Mask */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: isDark
-              ? 'linear-gradient(to right, #0B0C0E 5%, transparent 60%), linear-gradient(to bottom, transparent 60%, #0B0C0E 98%)'
-              : 'linear-gradient(to right, #F4F4F1 5%, transparent 55%), linear-gradient(to bottom, transparent 65%, #F4F4F1 98%)',
-          }}
-        />
-
-        {/* Floating Digital Particle Accents */}
         <AmbientGoldenParticles />
       </div>
 
@@ -802,31 +764,6 @@ export default function TestimonialsEditorial() {
                 })}
               </div>
 
-              {/* Aesthetic Light/Dark Mode Switch */}
-              <div className="flex items-center gap-3 pt-4 border-t border-[#DFE2DC]/60 dark:border-[#1F2228]">
-                <button
-                  type="button"
-                  onClick={() => setIsDark(!isDark)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md font-mono text-[10px] tracking-wider uppercase border transition-all ${
-                    isDark
-                      ? 'bg-[#181B20] text-white border-[#2A2E36] hover:border-[#c8f542]'
-                      : 'bg-white text-[#121316] border-[#D4D7D1] hover:border-[#121316]'
-                  }`}
-                  title="Toggle Blueprint Aesthetic"
-                >
-                  {isDark ? (
-                    <>
-                      <Sun className="w-3 h-3 text-[#c8f542]" />
-                      <span>Light Blueprint</span>
-                    </>
-                  ) : (
-                    <>
-                      <Moon className="w-3 h-3 text-[#121316]" />
-                      <span>Dark Obsidian</span>
-                    </>
-                  )}
-                </button>
-              </div>
             </div>
           </div>
 

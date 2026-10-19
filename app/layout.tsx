@@ -1,15 +1,14 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
-import CustomCursor from '@/components/CustomCursor'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/JsonLd'
 import { ThemeProvider } from '@/components/ThemeProvider'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
+  weight: ['400', '600', '700'],
+  style: ['normal'],
   variable: '--font-serif',
   display: 'swap',
 })
@@ -128,8 +127,6 @@ export default function RootLayout({
         <ThemeProvider>
           {/* Floating WhatsApp Hotline */}
           <WhatsAppButton />
-          {/* Editorial Inverting Difference Cursor */}
-          <CustomCursor />
           <div className="flex-1 flex flex-col">
             {children}
           </div>

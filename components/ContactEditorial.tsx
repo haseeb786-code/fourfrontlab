@@ -196,7 +196,7 @@ export default function ContactEditorial() {
           className="relative w-full h-[120%] -top-[10%]"
         >
           <Image
-            src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&q=85&auto=format"
+            src="/images/contact-hardware-bg.webp"
             alt="Four Front Lab Engineering Hardware & PC Workstation"
             fill
             sizes="100vw"

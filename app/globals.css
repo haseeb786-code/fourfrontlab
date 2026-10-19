@@ -41,28 +41,28 @@
 
 /* ─── Dark Mode Overrides ─────────────────────────────── */
 .dark {
-  --blueprint-bg: #0f0f0f;
-  --blueprint-surface: #181818;
-  --blueprint-border: #282828;
-  --blueprint-border-dark: #333333;
-  --blueprint-line: #222222;
-  --blueprint-text: #f0ede8;
-  --blueprint-text-muted: #9a9a9a;
-  --blueprint-text-dim: #555555;
-  --blueprint-accent: #a0c050;
+  --blueprint-bg: #0B0C0E;
+  --blueprint-surface: #121418;
+  --blueprint-border: #1F2228;
+  --blueprint-border-dark: #2A2F3A;
+  --blueprint-line: #1F2228;
+  --blueprint-text: #F0EDE8;
+  --blueprint-text-muted: #8E929A;
+  --blueprint-text-dim: #555E6D;
+  --blueprint-accent: #c8f542;
   --blueprint-gold: #e8b84b;
 
-  --dm-bg: #0f0f0f;
-  --dm-surface: #181818;
-  --dm-border: #282828;
-  --dm-border-strong: #333333;
-  --dm-text: #f0ede8;
-  --dm-text-muted: #9a9a9a;
-  --dm-text-dim: #555555;
-  --dm-accent: #a0c050;
-  --dm-navbar-bg: rgba(15, 15, 15, 0.97);
-  --dm-card-bg: #181818;
-  --dm-input-bg: #181818;
+  --dm-bg: #0B0C0E;
+  --dm-surface: #121418;
+  --dm-border: #1F2228;
+  --dm-border-strong: #2A2F3A;
+  --dm-text: #F0EDE8;
+  --dm-text-muted: #8E929A;
+  --dm-text-dim: #555E6D;
+  --dm-accent: #c8f542;
+  --dm-navbar-bg: rgba(11, 12, 14, 0.95);
+  --dm-card-bg: #121418;
+  --dm-input-bg: #121418;
 }
 
 
@@ -109,7 +109,7 @@ body {
 
 
 .bg-blueprint-grid-dense {
-  background-color: #F4F4F2;
+  background-color: var(--dm-bg);
   background-image:
     linear-gradient(to right, rgba(18, 19, 22, 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(18, 19, 22, 0.035) 1px, transparent 1px),
