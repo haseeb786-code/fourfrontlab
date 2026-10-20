@@ -7,56 +7,73 @@ type Theme = 'light' | 'dark'
 interface ThemeContextValue {
   theme: Theme
   toggleTheme: () => void
+  setTheme: (theme: Theme) => void
+  mounted: boolean
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
   theme: 'light',
   toggleTheme: () => {},
+  setTheme: () => {},
+  mounted: false,
 })
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light')
+  const [theme, setThemeState] = useState<Theme>('light')
   const [mounted, setMounted] = useState(false)
 
+  // Sync state on client mount without race conditions
   useEffect(() => {
-    // On mount, read saved preference or system preference
-    const saved = localStorage.getItem('ffl-theme') as Theme | null
-    if (saved === 'dark' || saved === 'light') {
-      setTheme(saved)
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark')
+    let resolvedTheme: Theme = 'light'
+    try {
+      const isDarkDom = document.documentElement.classList.contains('dark')
+      const saved = localStorage.getItem('ffl-theme') as Theme | null
+      if (saved === 'dark' || saved === 'light') {
+        resolvedTheme = saved
+      } else if (isDarkDom || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        resolvedTheme = 'dark'
+      }
+    } catch {
+      // fallback
+    }
+
+    setThemeState(resolvedTheme)
+    if (resolvedTheme === 'dark') {
+      document.documentElement.classList.add('dark')
     } else {
-      setTheme('light')
+      document.documentElement.classList.remove('dark')
     }
     setMounted(true)
   }, [])
 
-  useEffect(() => {
-    if (!mounted) return
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme)
     const root = document.documentElement
-    if (theme === 'dark') {
+    
+    // Add temporary class to animate transitions ONLY during user interaction
+    root.classList.add('theme-transitioning')
+    if (newTheme === 'dark') {
       root.classList.add('dark')
     } else {
       root.classList.remove('dark')
     }
-    localStorage.setItem('ffl-theme', theme)
-  }, [theme, mounted])
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
+    try {
+      localStorage.setItem('ffl-theme', newTheme)
+    } catch {
+      // localStorage might be unavailable in private browsing
+    }
+    
+    setTimeout(() => {
+      root.classList.remove('theme-transitioning')
+    }, 300)
   }
 
-  // Prevent flash of wrong theme on initial render
-  if (!mounted) {
-    return (
-      <ThemeContext.Provider value={{ theme: 'light', toggleTheme: () => {} }}>
-        {children}
-      </ThemeContext.Provider>
-    )
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
   )
