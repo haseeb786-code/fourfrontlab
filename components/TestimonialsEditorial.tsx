@@ -684,21 +684,6 @@ export default function TestimonialsEditorial() {
           ───────────────────────────────────────────────────────────── */}
           <div className="lg:col-span-5 flex flex-col justify-between h-full pt-2">
             <div>
-              {/* 01 / CLIENT FEEDBACK Tag */}
-              <div className="inline-flex items-center gap-2 mb-6">
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    isDark ? 'bg-[#c8f542]' : 'bg-[#687D3B]'
-                  }`}
-                />
-                <span
-                  className={`font-mono text-xs tracking-[0.2em] uppercase font-bold ${
-                    isDark ? 'text-[#8E929A]' : 'text-[#555860]'
-                  }`}
-                >
-                  01 / CLIENT FEEDBACK
-                </span>
-              </div>
 
               {/* Massive Prominent Headline: Typo corrected ("atoven scale" -> "at scale.") */}
               <h2

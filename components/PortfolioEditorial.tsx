@@ -47,21 +47,6 @@ export default function PortfolioEditorial() {
   return (
     <section id="work" className="w-full bg-[#080808] text-[#f5f5f0] py-28 sm:py-36 px-6 lg:px-10 border-b border-[#1f1f1f]">
       <div className="max-w-[1200px] mx-auto">
-        {/* Section Header */}
-        <div className="flex items-center justify-between mb-12 sm:mb-16">
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#c8f542]">
-              04
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#3a3a3a]">
-              / SELECTED WORKS
-            </span>
-          </div>
-
-          <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#6b6b6b] hidden sm:block">
-            4 PRODUCTION SHIPS
-          </div>
-        </div>
 
         {/* Section Headline */}
         <div className="max-w-3xl mb-16 sm:mb-20">

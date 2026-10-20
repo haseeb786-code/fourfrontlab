@@ -1113,20 +1113,6 @@ export default function ServicesEditorial() {
             - Subtitle: "We build production-ready systems..."
             (Notice: NO horizontal border divider separating the counter row and headline)
         ─────────────────────────────────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-12">
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.16em]">
-            <span className="text-[#c8f542] font-semibold">02 /</span>
-            <span className="text-[#c8f542] font-semibold">
-              CAPABILITIES &amp; ARCHITECTURE
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-[0.15em] text-[#6b6b6b]">
-              [ CLICK ANY SERVICE TO VIEW DETAILS ]
-            </span>
-          </div>
-        </div>
 
         {/* Section Intro Headline & Subtitle */}
         <div className="max-w-3xl mb-12 sm:mb-16">

@@ -7,8 +7,6 @@ import { useTheme } from './ThemeProvider'
 import {
   Github,
   Linkedin,
-  LayoutGrid,
-  Rows3,
   Sparkles,
   ExternalLink,
   Menu,
@@ -330,7 +328,7 @@ function LeftSideFloatingDock({ isDark }: { isDark: boolean }) {
 export default function TeamEditorial() {
   const { theme } = useTheme()
   const isDark = theme === 'dark'
-  const [isStaggered, setIsStaggered] = useState(false)
+  const isStaggered = false
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -453,83 +451,34 @@ export default function TeamEditorial() {
       ───────────────────────────────────────────────────────────────── */}
       <div className="relative z-10 max-w-[1360px] mx-auto">
         {/* ─────────────────────────────────────────────────────────────
-            HEADER ROW: Left Typography + Right View Toggle
+            HEADER ROW: Large Typography + Supporting Copy
         ───────────────────────────────────────────────────────────── */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-14 sm:mb-16">
-          {/* LEFT COLUMN: Large High-Contrast Heading & Supporting Copy */}
-          <div className="max-w-2xl">
-            {/* Architectural Section Micro-Label */}
-            <div className="flex items-center gap-3 mb-4">
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  isDark ? 'bg-[#c8f542]' : 'bg-[#687D3B]'
-                }`}
-              />
-              <span
-                className={`font-mono text-[11px] uppercase tracking-[0.22em] font-medium ${
-                  isDark ? 'text-[#8E929A]' : 'text-[#666A73]'
-                }`}
-              >
-                CORE LEADERSHIP // 04 FRONTS
-              </span>
-            </div>
+        <div className="max-w-2xl mb-14 sm:mb-16">
+          {/* Large High-Contrast Sans-Serif Type */}
+          <h2
+            className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] mb-6 ${
+              isDark ? 'text-[#F5F5F0]' : 'text-[#121316]'
+            }`}
+          >
+            The Four Fronts.
+          </h2>
 
-            {/* Large High-Contrast Sans-Serif Type */}
-            <h2
-              className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] mb-6 ${
-                isDark ? 'text-[#F5F5F0]' : 'text-[#121316]'
-              }`}
-            >
-              The Four Fronts.
-            </h2>
-
-            {/* Supporting Copy */}
-            <div
-              className={`space-y-4 text-base sm:text-lg leading-relaxed ${
-                isDark ? 'text-[#9DA1A8]' : 'text-[#4A4E57]'
-              }`}
-            >
-              <p>
-                FourFrontLab isn&apos;t a massive agency with layers of account
-                managers. We are four dedicated partners, each commanding a
-                specific technical front.
-              </p>
-              <p>
-                When you work with us, you work directly with the experts
-                building your product. We prioritize performance, clean
-                architecture, and delivering actual business value.
-              </p>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN CONTROLS: Stagger / Aligned View Toggle */}
-          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 self-start lg:mt-2">
-            <button
-              type="button"
-              onClick={() => setIsStaggered(!isStaggered)}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-md font-mono text-[11px] tracking-wider uppercase border transition-all ${
-                isStaggered
-                  ? isDark
-                    ? 'bg-[#181B20] text-[#c8f542] border-[#c8f542]/40 shadow-sm'
-                    : 'bg-white text-[#121316] border-[#121316] shadow-sm'
-                  : isDark
-                  ? 'bg-transparent text-[#777C85] border-[#2A2E36] hover:text-white'
-                  : 'bg-transparent text-[#666A73] border-[#D4D7D1] hover:text-[#121316]'
-              }`}
-              title="Toggle layout view"
-            >
-              {isStaggered ? (
-                <>
-                  <Rows3 className="w-3.5 h-3.5" />
-                  <span>Staggered</span>
-                </>
-              ) : (
-                <>
-                  <LayoutGrid className="w-3.5 h-3.5" />
-                  <span>Aligned</span>
-                </>
-              )}
-            </button>
+          {/* Supporting Copy */}
+          <div
+            className={`space-y-4 text-base sm:text-lg leading-relaxed ${
+              isDark ? 'text-[#9DA1A8]' : 'text-[#4A4E57]'
+            }`}
+          >
+            <p>
+              FourFrontLab isn&apos;t a massive agency with layers of account
+              managers. We are four dedicated partners, each commanding a
+              specific technical front.
+            </p>
+            <p>
+              When you work with us, you work directly with the experts
+              building your product. We prioritize performance, clean
+              architecture, and delivering actual business value.
+            </p>
           </div>
         </div>
 
