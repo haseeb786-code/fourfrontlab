@@ -229,93 +229,88 @@ export default function ContactEditorial() {
 
       <div className="relative z-10">
         {/* ─────────────────────────────────────────────────────────────
-            1. ETHEREAL GOLDEN WAVE CTA HERO BANNER (8K Luxury HD + Bold Animated Typography)
+            1. PROFESSIONAL HIGH-TECH WORKSTATION CTA HERO BANNER
+            - Architectural CAD drafting & dark titanium wireframe chassis
+            - Unobstructed, high-contrast, crystal-clear center stage
+            - Clean bold typography with engineering precision
         ───────────────────────────────────────────────────────────── */}
-        <div className="relative w-full border-b border-[#D8CEBF] dark:border-[#2A2318] overflow-hidden bg-[#ECE3DA] dark:bg-[#120F0B]">
-          {/* Panoramic Container with Golden Mesh Wave and Radar Schematics */}
-          <div className="relative w-full min-h-[380px] sm:min-h-[440px] md:min-h-[500px] lg:min-h-[540px] flex flex-col items-center justify-center px-6 py-14 sm:py-16 select-none overflow-hidden">
-            {/* Pristine 8K Luxury Golden Mesh Wave Image */}
+        <div className="relative w-full border-b border-[#E0E2DE] dark:border-[#1F2228] overflow-hidden bg-[#F4F4F2] dark:bg-[#0B0C0E]">
+          {/* Panoramic Container */}
+          <div className="relative w-full min-h-[360px] sm:min-h-[420px] md:min-h-[460px] lg:min-h-[500px] flex flex-col items-center justify-center px-6 py-14 sm:py-16 select-none overflow-hidden">
+            {/* Dark Mode High-Tech Titanium Wireframe Chassis */}
             <Image
-              src="/images/contact-cta-gold-luxury-hd.webp"
-              alt="Four Front Lab Architectural Luxury Golden Mesh Wave"
+              src="/images/contact-cta-tech-dark.webp"
+              alt="Four Front Lab Architectural High-Tech Engineering Chassis"
               fill
               priority
               sizes="100vw"
-              className={`object-cover object-center pointer-events-none transition-all duration-700 ${
-                isDark ? 'brightness-[0.72] contrast-[1.22] saturate-[1.15]' : 'brightness-[0.98] contrast-[1.04]'
-              }`}
+              className="hidden dark:block object-cover object-center pointer-events-none transition-opacity duration-700 brightness-[0.88] contrast-[1.12]"
             />
 
-            {/* Subtle Vignette & Contrast Depth Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#ECE3DA]/50 via-transparent to-[#ECE3DA]/40 dark:from-[#120F0B]/80 dark:via-transparent dark:to-[#120F0B]/60 pointer-events-none" />
+            {/* Light Mode Architectural Blueprint Drafting Schematics */}
+            <Image
+              src="/images/contact-cta-tech-light.webp"
+              alt="Four Front Lab Architectural Engineering Blueprint Drafting"
+              fill
+              priority
+              sizes="100vw"
+              className="block dark:hidden object-cover object-center pointer-events-none transition-opacity duration-700 opacity-80"
+            />
 
-            {/* Animated Ambient Light Sweep */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.08] dark:via-white/[0.04] to-transparent pointer-events-none animate-[light-sweep_9s_ease-in-out_infinite]" />
+            {/* Subtle Gradient Veil for Perfect Contrast */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#F4F4F2]/30 via-transparent to-[#F4F4F2]/20 dark:from-[#0B0C0E]/50 dark:via-transparent dark:to-[#0B0C0E]/40 pointer-events-none" />
 
-            {/* Floating Golden Dust Particles (CSS Keyframe Animated) */}
-            <div className="absolute top-[20%] left-[15%] w-2 h-2 rounded-full bg-[#D4AF37] blur-[1px] pointer-events-none animate-[gold-drift_6s_ease-in-out_infinite]" />
-            <div className="absolute top-[35%] right-[18%] w-2.5 h-2.5 rounded-full bg-[#FFEAA7] blur-[1px] pointer-events-none animate-[gold-drift-alt_8s_ease-in-out_infinite]" />
-            <div className="absolute bottom-[25%] left-[22%] w-1.5 h-1.5 rounded-full bg-[#E2B755] pointer-events-none animate-[gold-drift_7s_ease-in-out_infinite]" />
-            <div className="absolute top-[65%] right-[25%] w-2 h-2 rounded-full bg-[#F8DE7E] blur-[1px] pointer-events-none animate-[gold-drift-alt_6.5s_ease-in-out_infinite]" />
-
-            {/* Corner HUD Telemetry - Crisp Glass Capsules */}
-            <div className="absolute top-4 sm:top-6 left-5 sm:left-8 md:left-12 flex items-center gap-2 px-3 py-1 rounded-full border border-[#BFA885]/40 dark:border-[#D4AF37]/30 bg-[#FAF5EE]/80 dark:bg-[#15120E]/80 backdrop-blur-md shadow-xs z-10">
-              <span className="text-[#8C6D3B] dark:text-[#E2C79E] font-bold text-xs">&gt;_</span>
-              <span className="font-mono text-[9px] sm:text-[10px] md:text-[11px] font-semibold tracking-wider text-[#3E3426] dark:text-[#E5D0AD]">
+            {/* Corner HUD Telemetry - Crisp Technical Brackets */}
+            <div className="absolute top-4 sm:top-6 left-5 sm:left-8 md:left-12 flex items-center gap-2 px-3 py-1 rounded-md border border-[#D4D7D1] dark:border-[#2A2F3A] bg-[#FFFFFF]/85 dark:bg-[#13161B]/85 backdrop-blur-md shadow-xs z-10">
+              <span className="text-[#687D3B] dark:text-[#c8f542] font-mono font-bold text-xs">&gt;_</span>
+              <span className="font-mono text-[9px] sm:text-[10px] md:text-[11px] font-semibold tracking-wider text-[#121316] dark:text-[#F5F5F0]">
                 SYS_WORKBENCH://FOUR_FRONT_STATION_04
               </span>
             </div>
 
-            <div className="absolute top-4 sm:top-6 right-5 sm:right-8 md:right-12 hidden xs:flex items-center gap-2 px-3 py-1 rounded-full border border-[#BFA885]/40 dark:border-[#D4AF37]/30 bg-[#FAF5EE]/80 dark:bg-[#15120E]/80 backdrop-blur-md shadow-xs z-10">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-mono text-[9px] sm:text-[10px] md:text-[11px] font-semibold tracking-wider text-[#3E3426] dark:text-[#E5D0AD]">
+            <div className="absolute top-4 sm:top-6 right-5 sm:right-8 md:right-12 hidden xs:flex items-center gap-2 px-3 py-1 rounded-md border border-[#D4D7D1] dark:border-[#2A2F3A] bg-[#FFFFFF]/85 dark:bg-[#13161B]/85 backdrop-blur-md shadow-xs z-10">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+              <span className="font-mono text-[9px] sm:text-[10px] md:text-[11px] font-semibold tracking-wider text-[#121316] dark:text-[#F5F5F0]">
                 ENCRYPTED_PIPELINE • 12H_DISPATCH_SLA
               </span>
             </div>
 
-            {/* Center Content Stack: Bold, Sculptural & Animated */}
+            {/* Center Content Stack: Unobstructed, Professional & Bold */}
             <div className="relative z-10 flex flex-col items-center text-center max-w-[850px] mx-auto mt-6 sm:mt-4">
               {/* Ready Badge with Live Ping Beacon */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#C5A059]/70 dark:border-[#D4AF37]/60 bg-[#FAF5EE]/90 dark:bg-[#18140F]/90 backdrop-blur-md shadow-[0_4px_20px_rgba(197,160,89,0.25)] dark:shadow-[0_4px_25px_rgba(212,175,55,0.2)] mb-5 sm:mb-6">
+              <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full border border-[#D4D7D1] dark:border-[#2A2F3A] bg-[#FFFFFF]/90 dark:bg-[#13161B]/90 backdrop-blur-md shadow-xs mb-5 sm:mb-6">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]" />
                 </span>
-                <span className="font-mono font-bold text-[10px] sm:text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-[#3A2D1C] dark:text-[#F3DFBD]">
+                <span className="font-mono font-bold text-[10px] sm:text-[11px] md:text-[12px] tracking-[0.2em] uppercase text-[#121316] dark:text-[#F5F5F0]">
                   READY TO DEPLOY • WORKSTATION ACTIVE
                 </span>
               </div>
 
-              {/* Main Headline: Bold Weight + Animated Metallic Gold Shimmer */}
-              <h2 className="font-serif font-bold sm:font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] leading-[1.08] tracking-tight text-[#140F08] dark:text-[#FFFFFF] mb-6 sm:mb-8 drop-shadow-[0_2px_14px_rgba(180,140,80,0.25)] dark:drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]">
+              {/* Main Headline: Bold, High-Contrast & Authoritative */}
+              <h2 className="font-serif font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[74px] leading-[1.06] tracking-tight text-[#121316] dark:text-[#FFFFFF] mb-6 sm:mb-8">
                 <span>Have an </span>
-                <span className="relative inline-block">
-                  <em className="italic font-serif font-black bg-gradient-to-r from-[#9A6F29] via-[#E2B755] via-[#F8DE7E] to-[#9A6F29] dark:from-[#FFEAA7] dark:via-[#FFD700] dark:via-[#FFF3B0] dark:to-[#FFEAA7] bg-[length:200%_auto] bg-clip-text text-transparent animate-[text-shimmer_4.5s_ease-in-out_infinite] pr-1">
-                    ambitious
-                  </em>
+                <span className="relative inline-block text-[#121316] dark:text-[#FFFFFF]">
+                  ambitious
+                  <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-[#687D3B] dark:bg-[#c8f542] rounded-full" />
                 </span>
                 <span> project</span>
-                <span className="block mt-1 sm:mt-2 text-[#1E1810] dark:text-[#FAF6F0]">
+                <span className="block mt-1 sm:mt-2 text-[#555A64] dark:text-[#D1D5DB]">
                   in mind?
                 </span>
               </h2>
 
-              {/* High-Impact Interactive Luxury Button */}
+              {/* High-Impact Professional Action Button */}
               <div className="relative group/btn inline-block">
-                {/* Golden Aurora Glow behind button */}
-                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#C5A059] via-[#F3D7A4] to-[#C5A059] opacity-70 blur-md group-hover/btn:opacity-100 group-hover/btn:blur-lg transition-all duration-500 animate-pulse" />
-
                 <a
                   href="mailto:fourfrontlab@gmail.com"
-                  className="relative inline-flex items-center gap-3.5 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full border border-[#D4AF37] dark:border-[#F3D7A4] bg-gradient-to-r from-[#1B150E] via-[#2A2116] to-[#1B150E] dark:from-[#FAF5EE] dark:via-[#FFFFFF] dark:to-[#FAF5EE] text-[#FAF5EE] dark:text-[#18130C] font-serif font-bold text-base sm:text-lg md:text-xl shadow-[0_12px_36px_rgba(180,130,60,0.4)] dark:shadow-[0_12px_40px_rgba(212,175,55,0.45)] hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 overflow-hidden"
+                  className="relative inline-flex items-center gap-3.5 px-8 sm:px-10 py-3.5 sm:py-4 rounded-md font-mono font-bold text-xs sm:text-sm uppercase tracking-[0.14em] transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 border border-[#121316] bg-[#121316] text-[#FFFFFF] hover:bg-[#22252B] dark:border-[#c8f542] dark:bg-[#c8f542] dark:text-[#0B0C0E] dark:hover:bg-[#d4fb52] dark:hover:shadow-[0_0_30px_rgba(200,245,66,0.35)]"
                 >
-                  {/* Sweeping Light Glint on Button */}
-                  <div className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover/btn:animate-[btn-sweep_0.9s_ease-in-out_forwards]" />
+                  <span className="tracking-wider">Start a direct conversation</span>
 
-                  <span className="tracking-wide">Start a direct conversation</span>
-
-                  {/* Arrow circle */}
-                  <span className="inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D4AF37]/25 dark:bg-[#18130C]/10 text-base sm:text-lg font-sans transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1">
+                  {/* Directional Arrow */}
+                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-white/20 dark:bg-black/15 text-sm transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-0.5">
                     ↗
                   </span>
                 </a>
