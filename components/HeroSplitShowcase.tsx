@@ -119,8 +119,8 @@ export default function HeroSplitShowcase({ isDark }: HeroSplitShowcaseProps) {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Base Wireframe Image (High contrast monochrome blueprint) */}
           <Image
-            src="/images/architectural-antigravity-pure.webp"
-            alt="Architectural Blueprint Draft"
+            src="/images/antigravity_hero_concept.jpg"
+            alt="Architectural Anti-Gravity Workspace Draft"
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
@@ -188,8 +188,8 @@ export default function HeroSplitShowcase({ isDark }: HeroSplitShowcaseProps) {
         >
           {/* Full Color Vibrant Render */}
           <Image
-            src="/images/architectural-antigravity-pure.webp"
-            alt="Elite Production 3D Engine"
+            src="/images/antigravity_hero_concept.jpg"
+            alt="Elite Anti-Gravity Production Workspace"
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
