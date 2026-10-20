@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { useTheme } from './ThemeProvider'
 import {
   ArrowUpRight,
   Copy,
@@ -60,6 +61,8 @@ function PhoneLineIcon() {
 }
 
 export default function ContactEditorial() {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     name: '',
@@ -222,41 +225,42 @@ export default function ContactEditorial() {
 
         {/* Subtle Tactile Dot Grid Texture */}
         <div className="absolute inset-0 bg-dot-grid opacity-25" />
-
-        {/* Ambient Corner Monospace HUD Telemetry */}
-        <div className="absolute top-8 left-8 hidden lg:flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-[#444444]">
-          <Terminal className="w-3 h-3 text-[#c8f542]" />
-          <span>SYS_WORKBENCH://FOUR_FRONT_STATION_04</span>
-        </div>
-
-        <div className="absolute top-8 right-8 hidden lg:flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-[#444444]">
-          <ShieldCheck className="w-3 h-3 text-[#6b6b6b]" />
-          <span>ENCRYPTED_PIPELINE • 12H_DISPATCH_SLA</span>
-        </div>
       </div>
 
       <div className="relative z-10">
         {/* ─────────────────────────────────────────────────────────────
-            1. COLD MINIMALIST FULL-WIDTH CTA HERO BANNER
+            1. ETHEREAL GOLDEN WAVE CTA HERO BANNER (Uploaded Design Specification)
         ───────────────────────────────────────────────────────────── */}
-        <div className="py-28 sm:py-36 px-6 lg:px-10 border-b border-[#1f1f1f] text-center relative group">
-          <div className="max-w-[1200px] mx-auto relative z-10">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#3a3a3a] mb-6 px-3.5 py-1.5 border border-[#1f1f1f] bg-[#0c0c0c]/80 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c8f542] animate-pulse" />
-              <span>READY TO DEPLOY • WORKSTATION ACTIVE</span>
-            </div>
+        <div className="relative w-full border-b border-[#E0E2DE] dark:border-[#222730] overflow-hidden select-none bg-[#EFE9E2] dark:bg-[#14161B]">
+          <div className="relative w-full aspect-[1024/243] min-h-[220px] sm:min-h-[260px] md:min-h-[300px] lg:min-h-[340px] xl:min-h-[380px] flex items-center justify-center">
+            {/* The exact visual background banner */}
+            <Image
+              src="/images/contact-cta-gold-banner.png"
+              alt="Have an ambitious project in mind? Start a direct conversation"
+              fill
+              priority
+              sizes="100vw"
+              className={`object-cover object-center transition-all duration-700 ${
+                isDark ? 'brightness-[0.88] contrast-[1.08]' : 'brightness-100'
+              }`}
+            />
 
-            <h2 className="font-editorial text-[clamp(40px,7vw,98px)] font-light leading-[0.98] tracking-[-0.03em] text-[#f5f5f0] mb-8 select-none">
-              Have an ambitious project in mind?
-            </h2>
-
-            <div>
+            {/* Clickable Action Anchor precisely aligned over "Start a direct conversation" */}
+            <div className="absolute inset-0 flex flex-col items-center justify-end pb-[7%] sm:pb-[6.2%] md:pb-[5.6%] z-20 pointer-events-none">
               <a
                 href="mailto:fourfrontlab@gmail.com"
-                className="font-editorial text-2xl sm:text-4xl text-[#f5f5f0] hover:text-[#c8f542] underline underline-offset-8 transition-colors inline-flex items-center gap-2 group/link"
+                aria-label="Start a direct conversation with Four Front Lab"
+                className="pointer-events-auto cursor-pointer flex items-center justify-center text-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D3B] rounded-sm transition-opacity hover:opacity-75"
+                style={{
+                  width: '32%',
+                  minWidth: '240px',
+                  maxWidth: '440px',
+                  height: '24%',
+                  minHeight: '36px',
+                  maxHeight: '52px',
+                }}
               >
-                <span>Start a direct conversation</span>
-                <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1 text-[#c8f542]" />
+                <span className="sr-only">Start a direct conversation</span>
               </a>
             </div>
           </div>
