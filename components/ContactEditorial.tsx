@@ -229,39 +229,59 @@ export default function ContactEditorial() {
 
       <div className="relative z-10">
         {/* ─────────────────────────────────────────────────────────────
-            1. ETHEREAL GOLDEN WAVE CTA HERO BANNER (Uploaded Design Specification)
+            1. ETHEREAL GOLDEN WAVE CTA HERO BANNER (Razor-Sharp Vector Typography)
         ───────────────────────────────────────────────────────────── */}
-        <div className="relative w-full border-b border-[#E0E2DE] dark:border-[#222730] overflow-hidden select-none bg-[#EFE9E2] dark:bg-[#14161B]">
-          <div className="relative w-full aspect-[1024/243] min-h-[220px] sm:min-h-[260px] md:min-h-[300px] lg:min-h-[340px] xl:min-h-[380px] flex items-center justify-center">
-            {/* The exact visual background banner */}
+        <div className="relative w-full border-b border-[#DCD3C7] dark:border-[#26211A] overflow-hidden bg-[#ECE3DA] dark:bg-[#15120E]">
+          {/* Panoramic Background with Golden Mesh Wave and Radar Schematics */}
+          <div className="relative w-full aspect-[1024/280] min-h-[270px] sm:min-h-[310px] md:min-h-[350px] lg:min-h-[390px] xl:min-h-[420px] flex flex-col items-center justify-center px-6 py-10 sm:py-12 select-none">
             <Image
-              src="/images/contact-cta-gold-banner.png"
-              alt="Have an ambitious project in mind? Start a direct conversation"
+              src="/images/contact-cta-gold-clean.png"
+              alt="Ethereal Golden Wave Architectural Blueprint"
               fill
               priority
               sizes="100vw"
-              className={`object-cover object-center transition-all duration-700 ${
-                isDark ? 'brightness-[0.88] contrast-[1.08]' : 'brightness-100'
+              className={`object-cover object-center pointer-events-none transition-all duration-700 ${
+                isDark ? 'brightness-[0.85] contrast-[1.1]' : 'brightness-100'
               }`}
             />
 
-            {/* Clickable Action Anchor precisely aligned over "Start a direct conversation" */}
-            <div className="absolute inset-0 flex flex-col items-center justify-end pb-[7%] sm:pb-[6.2%] md:pb-[5.6%] z-20 pointer-events-none">
-              <a
-                href="mailto:fourfrontlab@gmail.com"
-                aria-label="Start a direct conversation with Four Front Lab"
-                className="pointer-events-auto cursor-pointer flex items-center justify-center text-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D3B] rounded-sm transition-opacity hover:opacity-75"
-                style={{
-                  width: '32%',
-                  minWidth: '240px',
-                  maxWidth: '440px',
-                  height: '24%',
-                  minHeight: '36px',
-                  maxHeight: '52px',
-                }}
-              >
-                <span className="sr-only">Start a direct conversation</span>
-              </a>
+            {/* Corner HUD Telemetry - Crisp Vector Monospace */}
+            <div className="absolute top-4 sm:top-5 md:top-6 left-6 sm:left-8 md:left-12 flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider text-[#6B5E4B] dark:text-[#C5B396] font-medium z-10">
+              <span className="text-[#3E3426] dark:text-[#E5D0AD] font-bold">&gt;_</span>
+              <span>SYS_WORKBENCH://FOUR_FRONT_STATION_04</span>
+            </div>
+
+            <div className="absolute top-4 sm:top-5 md:top-6 right-6 sm:right-8 md:right-12 hidden xs:flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider text-[#6B5E4B] dark:text-[#C5B396] font-medium z-10">
+              <span className="text-[#3E3426] dark:text-[#E5D0AD] font-bold">@</span>
+              <span>ENCRYPTED_PIPELINE • 12H_DISPATCH_SLA</span>
+            </div>
+
+            {/* Center Content Stack */}
+            <div className="relative z-10 flex flex-col items-center text-center max-w-[800px] mx-auto mt-3 sm:mt-1">
+              {/* Ready Badge */}
+              <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 rounded-md border border-[#BFA885]/70 bg-[#E8DDD1]/85 dark:bg-[#1E1810]/85 backdrop-blur-sm text-[9.5px] sm:text-[10.5px] font-mono tracking-[0.16em] uppercase text-[#4A3E2F] dark:text-[#E2C79E] font-semibold mb-3 sm:mb-4 md:mb-5 shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse shrink-0" />
+                <span>READY TO DEPLOY • WORKSTATION ACTIVE</span>
+              </div>
+
+              {/* Main Headline with Serif + Italic Emphasis */}
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] font-normal leading-[1.12] sm:leading-[1.14] tracking-[-0.02em] text-[#171410] dark:text-[#FAF6F0] mb-3 sm:mb-4 md:mb-5 subpixel-antialiased">
+                Have an <em className="italic font-serif font-normal text-[#171410] dark:text-[#FAF6F0]">ambitious</em> project
+                <span className="block mt-0.5 sm:mt-1">in mind?</span>
+              </h2>
+
+              {/* Interactive Direct Conversation Link */}
+              <div>
+                <a
+                  href="mailto:fourfrontlab@gmail.com"
+                  className="group inline-flex items-center gap-1.5 font-serif text-sm sm:text-base md:text-lg text-[#1A1612] dark:text-[#FAF6F0] underline underline-offset-4 decoration-1 decoration-[#1A1612]/60 dark:decoration-[#FAF6F0]/60 hover:decoration-[#1A1612] dark:hover:decoration-[#FAF6F0] hover:opacity-85 transition-all"
+                >
+                  <span>Start a direct conversation</span>
+                  <span className="text-base sm:text-lg font-sans transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    ↗
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -33,7 +33,7 @@ const teamMembers: TeamMember[] = [
     description:
       'Architecting responsive, highly interactive frontend experiences that fuse robust engineering with premium aesthetics.',
     githubUrl: 'https://github.com/MTahaNadeem',
-    linkedinUrl: 'https://linkedin.com/in/mtahanadeem',
+    linkedinUrl: 'https://www.linkedin.com/in/mtahanadeem/',
     officialAvatarUrl: 'https://avatars.githubusercontent.com/u/184400188?v=4',
     fallbackAvatarUrl: '/images/team/taha-reference.webp',
     initials: 'TN',
@@ -47,7 +47,7 @@ const teamMembers: TeamMember[] = [
     description:
       'Designing resilient backend architectures and optimized data pipelines that scale reliably under pressure.',
     githubUrl: 'https://github.com/haseeb786-code',
-    linkedinUrl: 'https://linkedin.com/in/abdul-haseeb',
+    linkedinUrl: 'https://www.linkedin.com/in/abdul-haseeb-asim/',
     officialAvatarUrl: '/images/team/abdul-haseeb.webp',
     fallbackAvatarUrl: '/images/team/abdul-haseeb.png',
     initials: 'AH',
@@ -61,7 +61,7 @@ const teamMembers: TeamMember[] = [
     description:
       'Crafting intuitive user interfaces and cohesive design systems that elevate brand identity and user engagement.',
     githubUrl: 'https://github.com/syed-haseeb-badshah',
-    linkedinUrl: 'https://linkedin.com/in/syed-haseeb-badshah',
+    linkedinUrl: 'https://www.linkedin.com/in/syed-haseeb-badshah/',
     officialAvatarUrl: 'https://avatars.githubusercontent.com/u/286664773?v=4',
     fallbackAvatarUrl: '/images/team/syed-reference.webp',
     initials: 'SB',
@@ -75,7 +75,7 @@ const teamMembers: TeamMember[] = [
     description:
       'Driving business growth through data-driven strategy and targeted product positioning for long-term impact.',
     githubUrl: 'https://github.com/MustafaArfat',
-    linkedinUrl: 'https://linkedin.com/in/mustafa-arfat',
+    linkedinUrl: 'https://www.linkedin.com/in/mustafa-arfat/',
     officialAvatarUrl: '/images/team/mustafa-arfat.webp',
     fallbackAvatarUrl: '/images/team/mustafa.webp',
     initials: 'RM',
