@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   Clock,
   MapPin,
+  Globe,
 } from 'lucide-react'
 import { useTheme } from './ThemeProvider'
 
@@ -535,7 +536,7 @@ export default function Footer() {
 
               {/* Telemetry Data Box */}
               <div
-                className={`rounded-lg border p-3 sm:p-3.5 space-y-2.5 mb-3.5 ${
+                className={`rounded-lg border p-3 sm:p-3.5 space-y-2.5 ${
                   isDark ? 'border-[#2A2F3A] bg-[#181B20]/80' : 'border-[#DCDFD9] bg-[#EFEFEA]/50'
                 }`}
               >
@@ -565,23 +566,17 @@ export default function Footer() {
                   </span>
                   <span className={`font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>100% CLIENT</span>
                 </div>
+
+                {/* Pipeline */}
+                <div className="flex items-center justify-between font-mono text-[10.5px]">
+                  <span className={`flex items-center gap-1.5 font-semibold ${isDark ? 'text-[#8E929A]' : 'text-[#555860]'}`}>
+                    <Globe className="w-3.5 h-3.5" />
+                    PIPELINE:
+                  </span>
+                  <span className={`font-bold ${isDark ? 'text-[#c8f542]' : 'text-[#687D3B]'}`}>OPEN FOR Q4</span>
+                </div>
               </div>
             </div>
-
-            {/* Access Admin Portal Button */}
-            <Link
-              href="/admin/login"
-              className={`w-full px-4 py-3 rounded-lg flex items-center justify-between font-mono text-[11px] uppercase tracking-wider font-bold transition-all shadow-sm group ${
-                isDark
-                  ? 'bg-[#222730] hover:bg-[#2C323E] border border-[#333945] text-[#f0ede8]'
-                  : 'bg-[#26282B] hover:bg-[#121316] text-[#F4F4F2]'
-              }`}
-            >
-              <span>[ ACCESS ADMIN PORTAL ]</span>
-              <span className={`font-mono transition-colors ${isDark ? 'text-[#c8f542]' : 'text-[#A0A4AB] group-hover:text-white'}`}>
-                &gt;_
-              </span>
-            </Link>
           </div>
         </div>
 
