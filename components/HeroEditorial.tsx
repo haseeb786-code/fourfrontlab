@@ -103,10 +103,24 @@ export default function HeroEditorial() {
       }`}
     >
       {/* ─────────────────────────────────────────────────────────────
-          ARCHITECTURAL BLUEPRINT GRID & DRAFTING GUIDE LINES
+          ORGANIC WAVE & PARTICLES THEME BACKGROUND (Uploaded Theme Image)
       ───────────────────────────────────────────────────────────── */}
-      {/* Main architectural grid background */}
-      <div className="absolute inset-0 bg-blueprint-grid opacity-60 pointer-events-none z-0" />
+      <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
+        <Image
+          src="/images/hero-bg-theme.png"
+          alt="Ethereal Anti-Gravity Wave & Bokeh Theme"
+          fill
+          priority
+          sizes="100vw"
+          className={`object-cover object-center transition-opacity duration-700 ${
+            isDark
+              ? 'opacity-25 invert-[0.9] hue-rotate-180 brightness-[0.7] contrast-[1.2]'
+              : 'opacity-95'
+          }`}
+        />
+        {/* Subtle grid texture overlay */}
+        <div className="absolute inset-0 bg-blueprint-grid opacity-25 pointer-events-none" />
+      </div>
 
       {/* Crosshair guide lines across canvas */}
       <div
