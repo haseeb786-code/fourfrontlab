@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -11,6 +11,7 @@ import {
   useMotionTemplate,
 } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import { useTheme } from './ThemeProvider'
 
 interface Project {
   num: string
@@ -27,47 +28,47 @@ interface Project {
 const projects: Project[] = [
   {
     num: '01',
-    title: 'Nexus Operations OS',
+    title: 'Nexus Enterprise OS',
     slug: 'nexus-enterprise-os',
-    client: 'Nexus Enterprise Solutions',
-    scope: 'Cloud ERP & Live Asset Telemetry Architecture',
+    client: 'NEXUS LOGISTICS GLOBAL',
+    scope: 'Cloud ERP & Telemetry Architecture',
     year: '2026',
     image: '/projects/nexus_main.jpg',
     telemetry: '99.99% SLA // SUB-200MS',
-    tags: ['Next.js 14', 'PostgreSQL', 'Docker', 'Prisma'],
+    tags: ['NEXT.JS 14', 'POSTGRESQL', 'DOCKER', 'PRISMA'],
   },
   {
     num: '02',
-    title: 'RoamEase Kinetic Booking',
-    slug: 'roamease-booking',
-    client: 'RoamEase Experiences',
-    scope: 'Interactive Geospatial Routing & Travel Platform',
+    title: 'Aetheris AI Intelligence',
+    slug: 'aetheris-ai-intelligence',
+    client: 'AETHERIS AUTONOMOUS SYSTEMS',
+    scope: 'Domain LLM Orchestration & RAG Pipeline',
     year: '2026',
-    image: '/projects/roamease_main.webp',
-    telemetry: '+185% BOOKINGS // MAPBOX GL',
-    tags: ['Next.js 14', 'Framer Motion', 'Stripe API', 'Mapbox GL'],
+    image: '/images/portfolio-fourfrontlab-card.jpg',
+    telemetry: 'LLM RAG // VECTOR EMBEDDING',
+    tags: ['PYTHON', 'FASTAPI', 'VECTOR EMBEDDING', 'NEXT.JS'],
   },
   {
     num: '03',
-    title: 'Hanaz Luxury Skincare',
+    title: 'Hanaz Luxury Commerce',
     slug: 'hanaz-luxury-skincare',
-    client: 'Hanaz Atelier London',
-    scope: 'Kinetic WebGL Storefront & Headless Checkout Engine',
-    year: '2025',
+    client: 'HANAZ ATELIER LONDON',
+    scope: 'Kinetic WebGL Storefront & Checkout Engine',
+    year: '2021',
     image: '/projects/hanaz_main.webp',
     telemetry: '840MS LCP // +240% CONV',
-    tags: ['Next.js 14', 'Tailwind CSS', 'Shopify API', 'Edge CDN'],
+    tags: ['NEXT.JS 14', 'TAILWIND CSS', 'SHOPIFY API', 'EDGE CDN'],
   },
   {
     num: '04',
-    title: 'EduTrack Global Learning',
-    slug: 'edutrack-learning-hub',
-    client: 'EduTrack International',
-    scope: 'Cloud-Scale Synchronous Classroom & AI Platform',
-    year: '2025',
-    image: '/projects/edutrack_main.webp',
-    telemetry: '50K ACTIVE // ZERO-LAG STREAM',
-    tags: ['React 18', 'WebSockets', 'Serverless', 'PostgreSQL'],
+    title: 'OmniFlow Automation Core',
+    slug: 'omniflow-automation-core',
+    client: 'OMNIFLOW INFRASTRUCTURE',
+    scope: 'Event-Driven Webhook Queues & CRM Bridge',
+    year: '2021',
+    image: '/images/portfolio-fourfrontlab-card.jpg',
+    telemetry: '50K ACTIVE // ZERO-LAG QUEUE',
+    tags: ['REACT 18', 'WEBSOCKETS', 'POSTGRESQL', 'SERVERLESS'],
   },
 ]
 
@@ -75,7 +76,7 @@ const projects: Project[] = [
 // 3D MAGNETIC PARALLAX CARD WITH SPOTLIGHT & LASER SCANLINE
 // ─────────────────────────────────────────────────────────────────────────────
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, isDark }: { project: Project; isDark: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null)
 
   // 3D tilt motion values
@@ -108,7 +109,11 @@ function ProjectCard({ project }: { project: Project }) {
     y.set(0)
   }
 
-  const spotlightBg = useMotionTemplate`radial-gradient(420px circle at ${spotlightX}px ${spotlightY}px, rgba(200, 245, 66, 0.12), transparent 75%)`
+  const spotlightBg = useMotionTemplate`radial-gradient(420px circle at ${spotlightX}px ${spotlightY}px, ${
+    isDark ? 'rgba(200, 245, 66, 0.12)' : 'rgba(140, 122, 91, 0.12)'
+  }, transparent 75%)`
+
+  const isBrandedGraphic = project.image.includes('portfolio-fourfrontlab')
 
   return (
     <Link href={`/portfolio/${project.slug}`} className="block group">
@@ -121,91 +126,184 @@ function ProjectCard({ project }: { project: Project }) {
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="relative flex flex-col justify-between border border-[#1f1f1f] bg-[#0d0e12] rounded-xl overflow-hidden group-hover:border-[#c8f542]/70 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.65)] transition-colors duration-400 select-none cursor-pointer"
+        className={`relative flex flex-col justify-between border rounded-2xl overflow-hidden transition-all duration-400 select-none cursor-pointer ${
+          isDark
+            ? 'border-[#1f1f1f] bg-[#0d0e12] group-hover:border-[#c8f542]/70 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.65)]'
+            : 'border-[#D9D3C7] bg-[#FAF8F4] shadow-[0_12px_32px_rgba(0,0,0,0.06)] group-hover:border-[#8C7A5B] group-hover:shadow-[0_24px_48px_rgba(140,122,91,0.18)]'
+        }`}
       >
         {/* Dynamic Cursor Spotlight Overlay */}
         <motion.div
-          className="pointer-events-none absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 z-20"
+          className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 z-20"
           style={{ background: spotlightBg }}
         />
 
         {/* ─── IMAGE SHOWCASE AREA ─── */}
-        <div className="relative w-full h-[300px] sm:h-[380px] bg-[#080808] overflow-hidden">
-          {/* Main Screenshot: Editorial Grayscale by default -> Vivid Color & Zoom on Hover */}
+        <div
+          className={`relative w-full h-[280px] sm:h-[340px] overflow-hidden ${
+            isDark ? 'bg-[#080808]' : 'bg-[#F4EFE6]'
+          }`}
+        >
+          {/* Main Showcase Image */}
           <Image
             src={project.image}
             alt={project.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover object-top filter grayscale contrast-[1.15] brightness-[0.92] transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 group-hover:scale-[1.04]"
+            className={`transition-all duration-700 ease-out group-hover:scale-[1.03] ${
+              isBrandedGraphic
+                ? 'object-cover object-center brightness-100'
+                : isDark
+                ? 'object-cover object-top filter grayscale contrast-[1.15] brightness-[0.92] group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100'
+                : 'object-cover object-top filter brightness-[0.98] contrast-[1.02]'
+            }`}
           />
 
-          {/* Vignette Overlay for Seamless Dark Integration */}
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0d0e12] via-transparent to-black/30" />
+          {/* Vignette Overlay for Dark Integration */}
+          {isDark && !isBrandedGraphic && (
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0d0e12] via-transparent to-black/30" />
+          )}
 
           {/* Laser Scanline Sweep on Card Hover */}
-          <div className="absolute inset-x-0 h-24 pointer-events-none bg-gradient-to-b from-transparent via-[#c8f542]/25 to-transparent -translate-y-full group-hover:translate-y-[450px] transition-transform duration-1000 ease-in-out opacity-0 group-hover:opacity-100" />
+          <div
+            className={`absolute inset-x-0 h-24 pointer-events-none -translate-y-full group-hover:translate-y-[450px] transition-transform duration-1000 ease-in-out opacity-0 group-hover:opacity-100 ${
+              isDark
+                ? 'bg-gradient-to-b from-transparent via-[#c8f542]/25 to-transparent'
+                : 'bg-gradient-to-b from-transparent via-[#8C7A5B]/20 to-transparent'
+            }`}
+          />
 
           {/* Top-Left Telemetry Tag with Live Beacon */}
-          <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#1f1f1f] bg-[#0c0d10]/90 backdrop-blur-md group-hover:border-[#c8f542]/40 transition-colors">
+          <div
+            className={`absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-md transition-colors ${
+              isDark
+                ? 'border border-[#1f1f1f] bg-[#0c0d10]/90 group-hover:border-[#c8f542]/40'
+                : 'border border-[#D9D3C7] bg-[#FAF8F4]/90 group-hover:border-[#8C7A5B]/60 shadow-sm'
+            }`}
+          >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c8f542] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c8f542]" />
+              <span
+                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                  isDark ? 'bg-[#c8f542]' : 'bg-[#8C7A5B]'
+                }`}
+              />
+              <span
+                className={`relative inline-flex rounded-full h-2 w-2 ${
+                  isDark ? 'bg-[#c8f542]' : 'bg-[#8C7A5B]'
+                }`}
+              />
             </span>
-            <span className="font-mono text-[9px] uppercase tracking-wider text-[#9DA1A8] group-hover:text-[#f5f5f0] transition-colors font-semibold">
+            <span
+              className={`font-mono text-[9px] uppercase tracking-wider transition-colors font-semibold ${
+                isDark
+                  ? 'text-[#9DA1A8] group-hover:text-[#f5f5f0]'
+                  : 'text-[#666A73] group-hover:text-[#121316]'
+              }`}
+            >
               {project.telemetry}
             </span>
           </div>
 
-          {/* Top-Right Expanding Magnetic CTA Button */}
+          {/* Top-Right CTA Square Button matching blueprint mockup */}
           <div className="absolute top-4 right-4 z-10">
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-[#0c0d10]/90 border border-[#1f1f1f] text-[#6b6b6b] group-hover:border-[#c8f542] group-hover:text-[#c8f542] group-hover:shadow-[0_0_12px_rgba(200,245,66,0.35)] backdrop-blur-md transition-all duration-300">
-              <span className="hidden sm:inline-block font-mono text-[10px] uppercase tracking-widest font-semibold max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap">
-                EXPLORE
-              </span>
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-current" />
+            <div
+              className={`flex items-center justify-center w-8 h-8 rounded-md transition-all duration-300 ${
+                isDark
+                  ? 'bg-[#0c0d10]/90 border border-[#1f1f1f] text-[#c8f542] group-hover:border-[#c8f542] group-hover:shadow-[0_0_12px_rgba(200,245,66,0.35)]'
+                  : 'bg-[#2B2621]/80 hover:bg-[#121316] text-[#FAF8F5] shadow-sm'
+              }`}
+            >
+              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </div>
           </div>
 
           {/* Corner Precision Drafting Crosshairs */}
-          <div className="absolute bottom-3 left-3 text-[10px] font-mono text-[#3a3a3a] group-hover:text-[#c8f542]/60 transition-colors pointer-events-none">
+          <div
+            className={`absolute bottom-3 left-3 text-[10px] font-mono transition-colors pointer-events-none ${
+              isDark
+                ? 'text-[#3a3a3a] group-hover:text-[#c8f542]/60'
+                : 'text-[#8C7A5B]/40 group-hover:text-[#8C7A5B]'
+            }`}
+          >
             +
           </div>
-          <div className="absolute bottom-3 right-3 text-[10px] font-mono text-[#3a3a3a] group-hover:text-[#c8f542]/60 transition-colors pointer-events-none">
+          <div
+            className={`absolute bottom-3 right-3 text-[10px] font-mono transition-colors pointer-events-none ${
+              isDark
+                ? 'text-[#3a3a3a] group-hover:text-[#c8f542]/60'
+                : 'text-[#8C7A5B]/40 group-hover:text-[#8C7A5B]'
+            }`}
+          >
             +
           </div>
         </div>
 
         {/* ─── METADATA CONTAINER ─── */}
-        <div className="p-6 sm:p-8 flex flex-col justify-between flex-1 bg-[#0d0e12] border-t border-[#1a1b20]">
+        <div
+          className={`p-6 sm:p-8 flex flex-col justify-between flex-1 border-t transition-colors ${
+            isDark
+              ? 'bg-[#0d0e12] border-[#1a1b20]'
+              : 'bg-[#FAF8F4] border-[#E8E2D8]'
+          }`}
+        >
           <div>
             {/* Top Index & Year Row */}
-            <div className="flex items-center justify-between font-mono text-[11px] tracking-widest uppercase text-[#555A64] mb-3">
-              <span className="group-hover:text-[#8E929A] transition-colors">
+            <div
+              className={`flex items-center justify-between font-mono text-[11px] tracking-widest uppercase mb-3 ${
+                isDark ? 'text-[#555A64]' : 'text-[#777C85]'
+              }`}
+            >
+              <span className={isDark ? 'group-hover:text-[#8E929A]' : 'group-hover:text-[#121316]'}>
                 [{project.num}] {project.client}
               </span>
-              <span className="text-[#3a3a3a] group-hover:text-[#c8f542] transition-colors">
+              <span
+                className={`transition-colors font-medium ${
+                  isDark
+                    ? 'text-[#3a3a3a] group-hover:text-[#c8f542]'
+                    : 'text-[#8C7A5B]'
+                }`}
+              >
                 {project.year}
               </span>
             </div>
 
             {/* Project Title */}
-            <h3 className="font-editorial text-2xl sm:text-3xl font-normal text-[#f5f5f0] mb-2.5 group-hover:text-white transition-colors">
+            <h3
+              className={`font-editorial text-2xl sm:text-3xl font-normal mb-2.5 transition-colors ${
+                isDark
+                  ? 'text-[#f5f5f0] group-hover:text-white'
+                  : 'text-[#121316] group-hover:text-black'
+              }`}
+            >
               {project.title}
             </h3>
 
             {/* Scope of Work Description */}
-            <p className="text-xs leading-relaxed text-[#767A82] group-hover:text-[#9DA1A8] transition-colors mb-6">
+            <p
+              className={`text-xs leading-relaxed mb-6 transition-colors ${
+                isDark
+                  ? 'text-[#767A82] group-hover:text-[#9DA1A8]'
+                  : 'text-[#555860] group-hover:text-[#2A2E36]'
+              }`}
+            >
               {project.scope}
             </p>
           </div>
 
           {/* Tech Stack Chips */}
-          <div className="pt-4 border-t border-[#1a1b20] flex flex-wrap gap-2">
+          <div
+            className={`pt-4 border-t flex flex-wrap gap-2 ${
+              isDark ? 'border-[#1a1b20]' : 'border-[#E8E2D8]'
+            }`}
+          >
             {project.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border border-[#1a1b20] text-[#666A73] group-hover:border-[#2A2F3A] group-hover:text-[#A0A4AC] transition-colors"
+                className={`font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border transition-colors ${
+                  isDark
+                    ? 'border-[#1a1b20] text-[#666A73] group-hover:border-[#2A2F3A] group-hover:text-[#A0A4AC]'
+                    : 'border-[#D9D3C7] text-[#666A73] bg-white/70 group-hover:border-[#8C7A5B] group-hover:text-[#121316]'
+                }`}
               >
                 {tag}
               </span>
@@ -218,36 +316,71 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// MAIN SECTION: PortfolioEditorial ("Selected Works")
+// MAIN SECTION: PortfolioEditorial ("Proven platforms. Built to scale.")
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function PortfolioEditorial() {
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = !mounted || theme === 'dark'
+
   return (
-    <section id="work" className="w-full bg-[#080808] text-[#f5f5f0] py-28 sm:py-36 px-6 lg:px-10 border-b border-[#1f1f1f] select-none">
-      <div className="max-w-[1240px] mx-auto">
-        {/* Section Header Micro-Label */}
-        <div className="flex items-center justify-between mb-12 sm:mb-16">
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#c8f542] font-semibold">
-              04
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#444852] font-semibold">
-              / SELECTED WORKS &amp; SYSTEMS
-            </span>
-          </div>
-
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#6b6b6b] hidden sm:flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c8f542] animate-pulse" />
-            <span>4 PRODUCTION SHIPS</span>
-          </div>
+    <section
+      id="work"
+      className={`relative w-full py-28 sm:py-36 px-6 lg:px-10 border-b select-none transition-colors duration-300 overflow-hidden ${
+        isDark
+          ? 'bg-[#080808] text-[#f5f5f0] border-[#1f1f1f]'
+          : 'bg-[#ECE8DF] text-[#121316] border-[#D6D0C4]'
+      }`}
+    >
+      {/* ─────────────────────────────────────────────────────────────────────
+          BACKGROUND: In light mode, renders the uploaded flowing golden particle wave
+          with blueprint schematics. In dark mode, renders midnight blueprint styling.
+      ───────────────────────────────────────────────────────────────────── */}
+      {!isDark && (
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+          <Image
+            src="/images/portfolio-scale-bg.jpg"
+            alt="Proven platforms built to scale theme background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-top opacity-100"
+          />
+          {/* Subtle warm wash around bottom edge for seamless section blending */}
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#ECE8DF] to-transparent pointer-events-none" />
         </div>
+      )}
 
-        {/* Section Headline */}
+      {isDark && (
+        <div className="absolute inset-0 pointer-events-none z-0 bg-[#080808]">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(200,245,66,0.04),rgba(255,255,255,0))]" />
+        </div>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────────────
+          CONTENT CONTAINER
+      ───────────────────────────────────────────────────────────────────── */}
+      <div className="relative z-10 max-w-[1240px] mx-auto">
+        {/* Section Headline & Description (Clean minimalist styling without clutter tags) */}
         <div className="max-w-3xl mb-16 sm:mb-20">
-          <h2 className="font-editorial text-[clamp(32px,5vw,72px)] font-normal leading-[1.05] tracking-[-0.02em] text-[#f5f5f0] mb-6">
+          <h2
+            className={`font-editorial text-[clamp(32px,5vw,72px)] font-normal leading-[1.05] tracking-[-0.02em] mb-6 transition-colors ${
+              isDark ? 'text-[#f5f5f0]' : 'text-[#121316]'
+            }`}
+          >
             Proven platforms. Built to scale.
           </h2>
-          <p className="text-base leading-[1.8] text-[#767A82]">
+          <p
+            className={`text-base leading-[1.8] transition-colors ${
+              isDark ? 'text-[#767A82]' : 'text-[#555860]'
+            }`}
+          >
             A curated index of production systems engineered with obsessive attention to latency, typography, and clean code.
           </p>
         </div>
@@ -255,7 +388,7 @@ export default function PortfolioEditorial() {
         {/* 2x2 Interactive 3D Portfolio Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {projects.map((project) => (
-            <ProjectCard key={project.num} project={project} />
+            <ProjectCard key={project.num} project={project} isDark={isDark} />
           ))}
         </div>
       </div>

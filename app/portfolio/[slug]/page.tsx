@@ -90,6 +90,40 @@ const fallbackCaseStudies: Record<string, any> = {
     }),
     category: { name: 'Web Apps & SaaS' },
   },
+  'aetheris-ai-intelligence': {
+    title: 'Aetheris AI Intelligence',
+    slug: 'aetheris-ai-intelligence',
+    client: 'Aetheris Autonomous Systems',
+    industry: 'Artificial Intelligence / LLM & RAG',
+    overview: 'Domain-specific LLM orchestration pipeline with hybrid vector search, autonomous workflow triggers, and enterprise telemetry.',
+    problem: 'Enterprises required instant, citation-backed answers over thousands of private technical documents without data leaking or hallucination.',
+    solution: 'Engineered a real-time semantic retrieval pipeline using Python, FastAPI, pgvector, and Next.js, cutting response times to under 300ms.',
+    techStack: JSON.stringify(['Python', 'FastAPI', 'pgvector', 'Next.js 14', 'TypeScript']),
+    results: JSON.stringify({
+      'Accuracy': '99.4% factual precision',
+      'Query Latency': 'Sub-300ms average',
+      'Data Security': 'SOC-2 compliant RAG',
+      'Scale': '1M+ documents indexed',
+    }),
+    category: { name: 'AI & Automation' },
+  },
+  'omniflow-automation-core': {
+    title: 'OmniFlow Automation Core',
+    slug: 'omniflow-automation-core',
+    client: 'OmniFlow Infrastructure',
+    industry: 'Infrastructure / Workflow Automation',
+    overview: 'High-throughput event-driven automation backbone bridging webhook queues, CRM systems, and real-time operational telemetry.',
+    problem: 'Disparate SaaS tools and unhandled rate limits caused dropped webhooks, out-of-order execution, and costly data synchronization failures.',
+    solution: 'Developed an automated resilient event queue architecture with guaranteed at-least-once delivery, automatic exponential retry backoff, and live telemetry.',
+    techStack: JSON.stringify(['React 18', 'WebSockets', 'PostgreSQL', 'Serverless', 'TypeScript']),
+    results: JSON.stringify({
+      'Throughput': '100K+ events/min peak',
+      'Delivery Rate': '99.999% guaranteed delivery',
+      'Latency': '< 45ms median dispatch',
+      'Failure Recovery': '100% automated retry recovery',
+    }),
+    category: { name: 'Web Apps & SaaS' },
+  },
 }
 
 const getProject = cache(async (slug: string) => {
