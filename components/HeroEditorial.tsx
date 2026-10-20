@@ -20,10 +20,10 @@ function ScrollWord({
   range: [number, number]
   isDark: boolean
 }) {
-  const opacity = useTransform(progress, range, [0.4, 1])
+  const opacity = useTransform(progress, range, [0.55, 1])
   const fontWeight = useTransform(progress, range, [400, 700])
   const color = useTransform(progress, range, [
-    isDark ? '#6b7280' : '#787C86',
+    isDark ? '#8E929A' : '#6B6E76',
     isDark ? '#f0ede8' : '#121316',
   ])
 
@@ -60,7 +60,7 @@ function ScrollBoldParagraph({
     <p className={className}>
       {words.map((word, i) => {
         const start = startRange + i * step
-        const end = Math.min(start + step * 1.5, endRange)
+        const end = Math.min(start + step * 1.2, endRange)
         return (
           <ScrollWord
             key={`${word}-${i}`}
@@ -255,22 +255,22 @@ export default function HeroEditorial() {
               </h1>
 
               {/* Body Copy with Interactive Scroll-to-Bold Illumination */}
-              <div className="max-w-xl space-y-4">
+              <div className="max-w-2xl space-y-4">
                 <ScrollBoldParagraph
                   text={paragraphOne}
                   progress={scrollYProgress}
-                  startRange={0.02}
-                  endRange={0.42}
-                  className="text-[15px] sm:text-[16.5px] leading-[1.75]"
+                  startRange={0.01}
+                  endRange={0.16}
+                  className="text-[17px] sm:text-[18.5px] lg:text-[19.5px] leading-[1.68]"
                   isDark={isDark}
                 />
 
                 <ScrollBoldParagraph
                   text={paragraphTwo}
                   progress={scrollYProgress}
-                  startRange={0.32}
-                  endRange={0.78}
-                  className="text-[14px] sm:text-[15px] leading-[1.75]"
+                  startRange={0.11}
+                  endRange={0.28}
+                  className="text-[16px] sm:text-[17.5px] lg:text-[18px] leading-[1.68]"
                   isDark={isDark}
                 />
               </div>
