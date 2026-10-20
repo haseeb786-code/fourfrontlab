@@ -327,7 +327,7 @@ export default function PortfolioEditorial() {
     setMounted(true)
   }, [])
 
-  const isDark = !mounted || theme === 'dark'
+  const isDark = mounted ? theme === 'dark' : false
 
   return (
     <section
