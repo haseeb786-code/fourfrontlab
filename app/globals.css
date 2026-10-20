@@ -263,6 +263,65 @@ body {
     0 0 15px -2px rgba(74, 222, 128, 0.2);
 }
 
+/* ─── Golden Luxury Mesh Banner Animations ────────────────────── */
+@keyframes text-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes btn-sweep {
+  0% {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-12deg);
+  }
+}
+
+@keyframes gold-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-10px, -18px) scale(1.25);
+    opacity: 0.95;
+  }
+}
+
+@keyframes gold-drift-alt {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(12px, -15px) scale(1.2);
+    opacity: 0.85;
+  }
+}
+
+@keyframes light-sweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+}
+
+
 /* ─── Targeted Dark Mode Compatibility Classes ────────────────
    Only target elements in sections designed to invert with theme.
    Never target globally or on intrinsically dark sections.
