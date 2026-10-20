@@ -3,9 +3,10 @@
 import React, { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, useMotionValue, useSpring, type MotionValue } from 'framer-motion'
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import AntiGravityCanvas from './AntiGravityCanvas'
+import HeroSplitShowcase from './HeroSplitShowcase'
 import { useTheme } from './ThemeProvider'
 
 function ScrollWord({
@@ -79,34 +80,11 @@ export default function HeroEditorial() {
   const isDark = theme === 'dark'
   const heroRef = useRef<HTMLDivElement>(null)
 
-  // 3D Parallax Tilt for the zero-gravity tablet showcase
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  const springConfig = { damping: 25, stiffness: 120 }
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), springConfig)
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig)
-
-  const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width - 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5
-    mouseX.set(x)
-    mouseY.set(y)
-  }
-
-  const handleCardMouseLeave = () => {
-    mouseX.set(0)
-    mouseY.set(0)
-  }
-
   // Scroll scrub bound to hero container: illuminates & bolds words sequentially on scroll
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   })
-
-  const progressBarWidth = useTransform(scrollYProgress, [0, 0.75], ['0%', '100%'])
 
   const paragraphOne =
     'We are a team of four passionate Software Engineering students turning ideas into powerful digital experiences. From stunning web designs to full-scale business solutions — we build, we launch, we maintain.'
@@ -246,39 +224,6 @@ export default function HeroEditorial() {
           MAIN CONTENT CONTAINER
       ───────────────────────────────────────────────────────────── */}
       <div className="max-w-[1320px] mx-auto relative z-10">
-        {/* Top Section Metadata Label & Status Indicator */}
-        <div
-          className={`flex items-center justify-between mb-8 sm:mb-10 pb-4 border-b ${
-            isDark ? 'border-[#222730]' : 'border-[#E0E2DE]/80'
-          }`}
-        >
-          <div className="flex items-center gap-2.5">
-            <span className={`font-mono text-xs uppercase tracking-[0.2em] font-bold ${isDark ? 'text-[#c8f542]' : 'text-[#687D3B]'}`}>
-              01
-            </span>
-            <span className={`font-mono text-xs uppercase tracking-[0.2em] font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
-              / COLLECTIVE SPECIFICATION
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3 sm:gap-5">
-            <div className="flex items-center gap-2">
-              <span className={`font-mono text-[10px] sm:text-[11px] uppercase tracking-widest font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
-                [ SCROLL TO ILLUMINATE ]
-              </span>
-              <div className={`w-10 sm:w-14 h-[3px] rounded-full overflow-hidden ${isDark ? 'bg-[#2A2F3A]' : 'bg-[#D4D7D1]'}`}>
-                <motion.div
-                  style={{ width: progressBarWidth }}
-                  className={`h-full rounded-full ${isDark ? 'bg-[#c8f542]' : 'bg-[#687D3B]'}`}
-                />
-              </div>
-            </div>
-            <span className={`w-4 sm:w-6 h-[1px] hidden sm:inline-block ${isDark ? 'bg-[#2A2F3A]' : 'bg-[#D4D7D1]'}`} />
-            <div className={`font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.16em] hidden md:block font-bold ${isDark ? 'text-[#f0ede8]' : 'text-[#121316]'}`}>
-              EST. 2026 • GLOBALLY DISTRIBUTED
-            </div>
-          </div>
-        </div>
 
         {/* Hero Split Layout: Left Typography & Copy / Right Floating Tablet Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -348,78 +293,9 @@ export default function HeroEditorial() {
             </div>
           </div>
 
-          {/* Right Column (6 cols): Floating Isometric Tablet Showcase with Zero-Gravity Code */}
-          <div className="lg:col-span-6 relative w-full perspective-[1200px]">
-            <motion.div
-              style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-              onMouseMove={handleCardMouseMove}
-              onMouseLeave={handleCardMouseLeave}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className={`relative w-full aspect-[509/456] rounded-xl overflow-hidden group cursor-crosshair transition-all ${
-                isDark
-                  ? 'border border-[#2A2F3A] bg-[#121418]/60 shadow-[0_20px_50px_rgba(0,0,0,0.6)]'
-                  : 'border border-[#E0E2DE]/80 bg-[#EFEFEA]/30 shadow-xl'
-              }`}
-            >
-              <Image
-                src="/images/architectural-antigravity-pure.webp"
-                alt="Architectural Wireframe & Zero-Gravity 3D Code IDE Tablet"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.015]"
-              />
-
-              {/* Ambient Golden Rim Light on the Tablet Edge */}
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-transparent to-[#E5A93C]/10 mix-blend-screen" />
-
-              {/* Interactive Zero-Gravity HTML5 Canvas Particle Overlay */}
-              <AntiGravityCanvas />
-
-              {/* Floating Zero-Gravity Code Tags with CSS Keyframes */}
-              {/* <div/> Tag (Top Right) */}
-              <div className="absolute top-[32%] right-[20%] z-20 pointer-events-none animate-float-slow">
-                <span className="font-mono text-[9px] sm:text-[10px] tracking-wide text-[#E5A93C] font-semibold px-2 py-0.5 rounded code-tag-antigravity shadow-sm">
-                  &lt;div/&gt;
-                </span>
-              </div>
-
-              {/* <div/> & js Tags (Left side) */}
-              <div className="absolute top-[48%] left-[4%] z-20 pointer-events-none animate-float-medium flex items-center gap-1.5">
-                <span className="font-mono text-[9px] sm:text-[10px] tracking-wide text-[#4ADE80] font-semibold px-2 py-0.5 rounded code-tag-antigravity shadow-sm">
-                  &lt;div/&gt;
-                </span>
-                <span className="font-mono text-[9px] sm:text-[10px] tracking-wide text-[#A3E635] font-semibold px-1.5 py-0.5 rounded code-tag-antigravity shadow-sm">
-                  js
-                </span>
-              </div>
-
-              {/* {} Brackets Tag (Bottom Left) */}
-              <div className="absolute bottom-[24%] left-[17%] z-20 pointer-events-none animate-float-fast">
-                <span className="font-mono text-[10px] sm:text-[11px] tracking-wide text-[#F59E0B] font-bold px-2 py-0.5 rounded code-tag-antigravity shadow-sm">
-                  &#123;&#125;
-                </span>
-              </div>
-
-              {/* fn() Function Tag (Bottom Right) */}
-              <div className="absolute bottom-[28%] right-[22%] z-20 pointer-events-none animate-float-medium">
-                <span className="font-mono text-[9px] sm:text-[10px] tracking-wide text-[#38BDF8] font-semibold px-2 py-0.5 rounded code-tag-antigravity shadow-sm">
-                  fn()
-                </span>
-              </div>
-
-              {/* Razor-Sharp Monospace Labels on Tablet Bottom Bezel */}
-              <div className="absolute top-[60.2%] left-[12%] w-[44.5%] flex items-center justify-between pointer-events-none px-2 select-none z-20">
-                <span className="font-mono text-[7px] sm:text-[8.5px] lg:text-[9.5px] uppercase tracking-[0.16em] text-[#C2C6CF] font-semibold drop-shadow-sm">
-                  SYS_ARCHITECTS
-                </span>
-                <span className="font-mono text-[7px] sm:text-[8.5px] lg:text-[9.5px] uppercase tracking-[0.16em] text-[#C2C6CF] font-semibold drop-shadow-sm">
-                  NEXT.JS &amp; FULL-STACK ENG
-                </span>
-              </div>
-            </motion.div>
+          {/* Right Column (6 cols): Interactive Split Before/After Showcase (Pic 2) */}
+          <div className="lg:col-span-6 relative w-full">
+            <HeroSplitShowcase isDark={isDark} />
           </div>
         </div>
       </div>
