@@ -3,25 +3,11 @@
 import React, { useEffect, useState } from 'react'
 
 export default function IntroSplash() {
-  const [mounted, setMounted] = useState(false)
+  // Always start mounted so the intro is immediately visible in frame 0 (no flash of content)
+  const [mounted, setMounted] = useState(true)
   const [isExiting, setIsExiting] = useState(false)
 
   useEffect(() => {
-    // Check if user already saw the intro in this browser session
-    try {
-      if (typeof window !== 'undefined') {
-        const hasSeenIntro = sessionStorage.getItem('fourfront_intro_seen')
-        if (hasSeenIntro) {
-          return // Skip completely for returning subpage navigation
-        }
-        sessionStorage.setItem('fourfront_intro_seen', '1')
-      }
-    } catch {
-      // sessionStorage unavailable
-    }
-
-    setMounted(true)
-
     // Lock body scroll while intro is playing
     const originalOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
