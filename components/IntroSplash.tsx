@@ -12,10 +12,10 @@ export default function IntroSplash() {
     const originalOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
 
-    // Initiate smooth curtain slide up at 1.55s
+    // Initiate smooth cinematic fade out (NO curtain slide) at 1.50s
     const exitTimer = setTimeout(() => {
       setIsExiting(true)
-    }, 1550)
+    }, 1500)
 
     // Completely unmount component from DOM at 2.05s
     const unmountTimer = setTimeout(() => {
@@ -37,63 +37,43 @@ export default function IntroSplash() {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-[99999] bg-[#080808] flex flex-col items-center justify-center overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] ${
-        isExiting ? '-translate-y-full pointer-events-none' : 'translate-y-0 pointer-events-auto'
+      className={`fixed inset-0 z-[99999] bg-[#080808] flex items-center justify-center overflow-hidden transition-all duration-600 ease-out ${
+        isExiting ? 'opacity-0 blur-sm pointer-events-none' : 'opacity-100 blur-0 pointer-events-auto'
       }`}
     >
-      {/* 32px Dot Grid Texture */}
+      {/* 32px Dot Grid Texture matching Homepage */}
       <div
-        className="absolute inset-0 opacity-40 pointer-events-none"
+        className="absolute inset-0 opacity-30 pointer-events-none"
         style={{
           backgroundImage: 'radial-gradient(circle, #1f1f1f 1px, transparent 1px)',
           backgroundSize: '32px 32px',
         }}
       />
 
-      {/* Editorial Crosshairs */}
-      <div className="absolute top-6 left-6 w-3 h-3 border-t border-l border-[#333] pointer-events-none" />
-      <div className="absolute top-6 right-6 w-3 h-3 border-t border-r border-[#333] pointer-events-none" />
-      <div className="absolute bottom-6 left-6 w-3 h-3 border-b border-l border-[#333] pointer-events-none" />
-      <div className="absolute bottom-6 right-6 w-3 h-3 border-b border-r border-[#333] pointer-events-none" />
+      {/* Ambient Neon Aura */}
+      <div className="absolute w-[450px] h-[350px] bg-[#c8f542]/[0.035] rounded-full blur-3xl pointer-events-none" />
 
-      {/* Corner Telemetry */}
-      <div className="absolute top-7 left-12 font-mono text-[11px] uppercase tracking-[0.18em] text-[#555] hidden sm:block">
-        FOUR FRONT LAB // SEQUENCE_01
-      </div>
-      <div className="absolute top-7 right-12 font-mono text-[11px] uppercase tracking-[0.18em] text-[#777] flex items-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#f5f5f0] opacity-80" />
-        <span>EST. 2026</span>
-      </div>
+      {/* ONLY "FOUR FRONT LAB" with Animations, Colors & Effects */}
+      <div className="relative z-10 flex items-center gap-3.5 select-none animate-float-life">
+        {/* Glowing Active Beacon Dot */}
+        <span className="w-3.5 h-3.5 rounded-full bg-[#c8f542] shadow-[0_0_16px_#c8f542,0_0_32px_rgba(200,245,66,0.6)] animate-pulse shrink-0" />
 
-      {/* Main Kinetic Typography Group */}
-      <div
-        className={`relative z-10 flex flex-col items-center text-center px-4 transition-all duration-300 ${
-          isExiting ? 'opacity-0 -translate-y-4 blur-[2px]' : 'opacity-100'
-        }`}
-      >
-        {/* Top Monospace Pill */}
-        <div className="animate-intro-slide-down flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-[#888888] mb-4">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#888888]" />
-          <span>DIGITAL ARCHITECTURE &bull; AI WORKFLOWS</span>
-        </div>
+        {/* Brand Words with Staggered Spring Bounce & Glow Effects */}
+        <div className="flex items-baseline gap-3 text-5xl sm:text-7xl md:text-8xl font-black uppercase tracking-tight">
+          {/* FOUR: Crisp Off-White */}
+          <span className="animate-spring-bounce-1 inline-block text-[#f5f5f0] drop-shadow-[0_0_20px_rgba(245,245,240,0.2)]">
+            FOUR
+          </span>
 
-        {/* Staggered Spring Bounce Title */}
-        <div className="flex items-baseline gap-3 text-5xl sm:text-7xl font-extrabold uppercase text-[#f5f5f0] tracking-tight mb-4 select-none">
-          <span className="animate-spring-bounce-1 inline-block">FOUR</span>
-          <span className="animate-spring-bounce-2 inline-block">FRONT</span>
-          <span className="animate-spring-bounce-3 inline-block font-serif italic font-normal text-[#fafaf8] lowercase tracking-normal">
+          {/* FRONT: Pure White */}
+          <span className="animate-spring-bounce-2 inline-block text-[#fafaf8] drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+            FRONT
+          </span>
+
+          {/* LAB: Vibrant Electric Lime with Neon Glow */}
+          <span className="animate-spring-bounce-3 animate-glow-pulse inline-block text-[#c8f542] font-serif italic font-normal lowercase tracking-normal">
             lab
           </span>
-        </div>
-
-        {/* Editorial Razor Divider Line Drawing Across */}
-        <div className="w-64 sm:w-96 h-[1px] bg-[#1f1f1f] relative mb-4 overflow-hidden">
-          <div className="animate-draw-line-expand absolute inset-0 bg-gradient-to-r from-transparent via-[#f5f5f0] to-transparent" />
-        </div>
-
-        {/* Bottom Subtitle Sliding in */}
-        <div className="animate-intro-slide-up font-mono text-xs uppercase tracking-[0.25em] text-[#888888]">
-          SOFTWARE ENGINEERING &bull; ISLAMABAD
         </div>
       </div>
     </div>
