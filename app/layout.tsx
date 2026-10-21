@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+import IntroSplash from '@/components/IntroSplash'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/JsonLd'
 import { ThemeProvider } from '@/components/ThemeProvider'
@@ -124,6 +125,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="bg-[var(--dm-bg)] text-[var(--dm-text)] font-sans antialiased min-h-screen flex flex-col"
       >
+        <IntroSplash />
         <ThemeProvider>
           {/* Floating WhatsApp Hotline */}
           <WhatsAppButton />
