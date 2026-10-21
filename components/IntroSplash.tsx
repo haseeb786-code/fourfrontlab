@@ -71,8 +71,10 @@ export default function IntroSplash() {
           </span>
 
           {/* LAB: Vibrant Electric Lime with Neon Glow */}
-          <span className="animate-spring-bounce-3 animate-glow-pulse inline-block text-[#c8f542] font-serif italic font-normal lowercase tracking-normal">
-            lab
+          <span className="animate-spring-bounce-3 inline-block">
+            <span className="animate-glow-pulse inline-block text-[#c8f542] font-serif italic font-normal lowercase tracking-normal">
+              lab
+            </span>
           </span>
         </div>
       </div>
