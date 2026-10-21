@@ -54,14 +54,14 @@ export default function IntroSplash() {
       <div className="absolute w-[450px] h-[350px] bg-[#c8f542]/[0.035] rounded-full blur-3xl pointer-events-none" />
 
       {/* Main Kinetic Typography Group + Client Hook Line */}
-      <div className="relative z-10 flex flex-col items-center select-none animate-float-life text-center px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center select-none animate-float-life text-center px-4 w-full max-w-xl mx-auto">
         {/* Brand Words with Glowing Active Beacon Dot */}
-        <div className="flex items-center gap-3.5 mb-3 sm:mb-4">
+        <div className="flex items-center justify-center gap-2 sm:gap-3.5 mb-2.5 sm:mb-4">
           {/* Glowing Active Beacon Dot */}
-          <span className="w-3.5 h-3.5 rounded-full bg-[#c8f542] shadow-[0_0_16px_#c8f542,0_0_32px_rgba(200,245,66,0.6)] animate-pulse shrink-0" />
+          <span className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#c8f542] shadow-[0_0_12px_#c8f542,0_0_24px_rgba(200,245,66,0.6)] animate-pulse shrink-0" />
 
           {/* Staggered Spring Bounce Brand Title */}
-          <div className="flex items-baseline gap-3 text-5xl sm:text-7xl md:text-8xl font-black uppercase tracking-tight">
+          <div className="flex items-baseline gap-1.5 sm:gap-3 text-[28px] xs:text-[32px] sm:text-7xl md:text-8xl font-black uppercase tracking-tight">
             {/* FOUR: Crisp Off-White */}
             <span className="animate-spring-bounce-1 inline-block text-[#f5f5f0] drop-shadow-[0_0_20px_rgba(245,245,240,0.2)]">
               FOUR
@@ -81,11 +81,11 @@ export default function IntroSplash() {
           </div>
         </div>
 
-        {/* Client-Attracting Hook Line for Web Development */}
-        <div className="animate-intro-slide-up flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 font-mono text-[11px] sm:text-xs tracking-[0.24em] uppercase">
-          <span className="text-[#8e939e]">High-Performance Web Development</span>
-          <span className="text-[#c8f542] font-bold select-none">&bull;</span>
-          <span className="text-[#f5f5f0] font-semibold">Engineered To Convert</span>
+        {/* Client-Attracting Hook Line for Web Development - Responsive Structure */}
+        <div className="animate-intro-slide-up flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2.5 font-mono text-[9.5px] xs:text-[10.5px] sm:text-xs tracking-[0.16em] sm:tracking-[0.24em] uppercase text-center mt-1 sm:mt-2">
+          <span className="text-[#8e939e] whitespace-nowrap">High-Performance Web Development</span>
+          <span className="hidden sm:inline text-[#c8f542] font-bold select-none">&bull;</span>
+          <span className="text-[#f5f5f0] font-semibold whitespace-nowrap">Engineered To Convert</span>
         </div>
       </div>
     </div>
