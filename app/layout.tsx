@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono, Newsreader } from 'next/font/google'
 import './globals.css'
 import CustomCursor from '@/components/CustomCursor'
+import IntroSplash from '@/components/IntroSplash'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/JsonLd'
 
@@ -104,6 +105,8 @@ export default function RootLayout({
         <WebSiteJsonLd />
       </head>
       <body className="bg-[#080808] text-[#f5f5f0] font-sans antialiased min-h-screen flex flex-col selection:bg-[#f5f5f0] selection:text-[#080808]">
+        {/* Kinetic Editorial Intro Splash Screen */}
+        <IntroSplash />
         {/* Floating WhatsApp Hotline */}
         <WhatsAppButton />
         {/* Editorial Inverting Difference Cursor */}

@@ -8,14 +8,21 @@ import { Menu, X, ArrowUpRight } from 'lucide-react'
 const navLinks = [
   { name: 'Work', href: '#work' },
   { name: 'Services', href: '#services' },
-  { name: 'Team', href: '#team' },
   { name: 'About', href: '#about' },
+  { name: 'Team', href: '#team' },
   { name: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
+
+  const getHref = (href: string) => {
+    if (href.startsWith('#') && pathname !== '/') {
+      return `/${href}`
+    }
+    return href
+  }
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -60,7 +67,7 @@ export default function Navbar() {
             return (
               <Link
                 key={link.name}
-                href={link.href}
+                href={getHref(link.href)}
                 className="font-mono text-xs uppercase tracking-[0.15em] text-[#888888] hover:text-[#f5f5f0] transition-colors relative py-1"
               >
                 {isActive && (
@@ -75,7 +82,7 @@ export default function Navbar() {
         {/* Right CTA */}
         <div className="hidden md:flex items-center gap-4">
           <Link
-            href="#contact"
+            href={getHref('#contact')}
             className="font-mono text-xs uppercase tracking-[0.15em] text-[#f5f5f0] px-4 py-2 border border-[#1f1f1f] hover:border-[#c8f542] bg-[#111111] hover:bg-black transition-colors flex items-center gap-2 group"
           >
             <span>Let&apos;s Talk</span>
@@ -104,7 +111,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link
               key={link.name}
-              href={link.href}
+              href={getHref(link.href)}
               onClick={() => setMobileOpen(false)}
               className="font-mono text-sm uppercase tracking-[0.15em] text-[#888888] hover:text-[#f5f5f0] py-2 border-b border-[#1f1f1f]/50"
             >
@@ -112,7 +119,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="#contact"
+            href={getHref('#contact')}
             onClick={() => setMobileOpen(false)}
             className="font-mono text-xs uppercase tracking-[0.15em] text-[#080808] bg-[#f5f5f0] hover:bg-[#c8f542] px-4 py-3 text-center font-medium mt-2 transition-colors"
           >

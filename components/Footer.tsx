@@ -340,7 +340,7 @@ export default function Footer({
                   SITE NAVIGATION
                 </span>
                 <span className="font-mono text-[10px] text-[#a1a1aa]">
-                  [ 04 ROUTES ]
+                  [ 05 ROUTES ]
                 </span>
               </div>
 
@@ -349,7 +349,8 @@ export default function Footer({
                   { num: '01', name: 'Selected Work', href: '#work', tag: 'CASES' },
                   { num: '02', name: 'Capabilities & Stack', href: '#services', tag: 'SPEC' },
                   { num: '03', name: 'Collective Spec', href: '#about', tag: 'ABOUT' },
-                  { num: '04', name: 'Start a Project', href: '#contact', tag: 'DISPATCH' },
+                  { num: '04', name: 'Engineering Squad', href: '#team', tag: 'TEAM' },
+                  { num: '05', name: 'Start a Project', href: '#contact', tag: 'DISPATCH' },
                 ].map((route) => (
                   <Link
                     key={route.num}
