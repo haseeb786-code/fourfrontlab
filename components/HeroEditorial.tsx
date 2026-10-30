@@ -98,7 +98,7 @@ export default function HeroEditorial() {
       ref={heroRef}
       className={`relative w-full transition-colors duration-300 pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-20 px-6 lg:px-12 border-b overflow-hidden select-none ${
         isDark
-          ? 'bg-[var(--dm-bg)] text-[var(--dm-text)] border-[var(--dm-border)]'
+          ? 'bg-transparent text-[var(--dm-text)] border-[var(--dm-border)]'
           : 'bg-[#F4F4F2] text-[#121316] border-[#E0E2DE]'
       }`}
     >

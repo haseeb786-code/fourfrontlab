@@ -6,6 +6,7 @@ import ServicesEditorial from '@/components/ServicesEditorial'
 import PortfolioEditorial from '@/components/PortfolioEditorial'
 import TeamEditorial from '@/components/TeamEditorial'
 import TestimonialsEditorial from '@/components/TestimonialsEditorial'
+import NetworkTelemetryBackground from '@/components/NetworkTelemetryBackground'
 import dynamic from 'next/dynamic'
 
 const ContactEditorial = dynamic(() => import('@/components/ContactEditorial'), {
@@ -41,6 +42,9 @@ export default function HomePage() {
       <ServiceJsonLd />
       <FaqJsonLd />
       <BreadcrumbJsonLd items={[{ name: 'Home', url: '/' }]} />
+      {/* 00. Interactive Data Packet & Telemetry Stream Canvas (Active in Start & Middle, fades out at End) */}
+      <NetworkTelemetryBackground />
+
       {/* 01. Architectural Blueprint Navigation */}
       <Navbar />
 

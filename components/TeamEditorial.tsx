@@ -285,7 +285,7 @@ export default function TeamEditorial() {
       id="team"
       className={`relative w-full py-24 sm:py-32 lg:py-36 px-6 lg:px-12 border-b select-none transition-colors duration-300 overflow-hidden ${
         isDark
-          ? 'bg-[#080808] text-[#F5F5F0] border-[#1F2228]'
+          ? 'bg-transparent text-[#F5F5F0] border-[#1F2228]'
           : 'bg-[#ECE8DE] text-[#121316] border-[#D6D0C4]'
       }`}
     >

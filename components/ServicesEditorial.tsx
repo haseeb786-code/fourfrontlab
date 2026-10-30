@@ -589,14 +589,14 @@ export default function ServicesEditorial() {
     <section
       ref={sectionRef}
       id="services"
-      className="relative z-10 w-full min-h-screen bg-[#050608] text-[#f8fafc] py-16 sm:py-24 px-4 sm:px-8 border-b border-white/[0.08] overflow-hidden"
+      className="relative z-10 w-full min-h-screen bg-transparent text-[#f8fafc] py-16 sm:py-24 px-4 sm:px-8 border-b border-white/[0.08] overflow-hidden"
     >
       {/* ─────────────────────────────────────────────────────────────────────────
           0. PROFESSIONAL & PREMIUM ARCHITECTURAL MULTI-LAYER BACKGROUND
           ───────────────────────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">
         {/* Base Gradient Surface */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050608] via-[#090b10] to-[#040507]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050608]/40 via-transparent to-[#040507]/40" />
 
         {/* CAD/Blueprint Technical Drafting Wireframe on Left Flank */}
         <div
