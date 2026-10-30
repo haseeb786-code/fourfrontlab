@@ -39,3 +39,5 @@ prisma/*-journal
 # Uploaded test media
 public/uploads/*
 !public/uploads/.gitkeep
+# Video render scratch
+render-video/

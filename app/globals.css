@@ -480,3 +480,212 @@ body {
 .animate-float-life {
   animation: textFloatLife 2s ease-in-out infinite 0.6s;
 }
+
+
+/* =========================================================================
+   TRUE 3D SPATIAL ARCHITECTURE & UNIFIED ENGINEERING INTERFACE ENGINE
+   ========================================================================= */
+.editorial-heading {
+  font-family: var(--font-serif), 'Newsreader', 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.026em;
+  line-height: 1.03;
+}
+
+.card-serif-title {
+  font-family: var(--font-serif), 'Newsreader', 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.scene-3d-wrapper {
+  perspective: 2000px;
+  transform-style: preserve-3d;
+}
+
+/* Isometric Deck Mode Transformation */
+.grid-isometric-mode {
+  transform: rotateX(11deg) rotateY(-4deg) rotateZ(1deg) scale(0.98);
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grid-standard-mode {
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3D Service Card Chassis */
+.card-3d-chassis {
+  position: relative;
+  border-radius: 18px;
+  background: linear-gradient(165deg, rgba(22, 25, 34, 0.88) 0%, rgba(10, 12, 17, 0.96) 60%, rgba(7, 8, 12, 0.99) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transform-style: preserve-3d;
+  transition: transform 0.22s cubic-bezier(0.2, 0.85, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+  box-shadow:
+    0 28px 60px -15px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 1px 0 0 rgba(255, 255, 255, 0.12) inset;
+  will-change: transform;
+}
+
+/* Dynamic Mouse-Tracking Specular Spotlight Overlay */
+.card-3d-chassis::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 18px;
+  padding: 1px;
+  background: radial-gradient(
+    520px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+    var(--spotlight-color, rgba(163, 230, 53, 0.55)),
+    transparent 45%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+}
+
+/* Ambient Inner Surface Glare */
+.card-3d-chassis::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+    var(--glare-color, rgba(163, 230, 53, 0.055)),
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Card Active Glow Signatures */
+.card-3d-chassis.active-lime {
+  --spotlight-color: rgba(163, 230, 53, 0.85);
+  --glare-color: rgba(163, 230, 53, 0.08);
+  border-color: rgba(163, 230, 53, 0.48);
+  box-shadow:
+    0 30px 70px -15px rgba(0, 0, 0, 0.9),
+    0 0 50px -12px rgba(163, 230, 53, 0.24),
+    0 1px 0 0 rgba(163, 230, 53, 0.35) inset;
+}
+
+.card-3d-chassis.active-cyan {
+  --spotlight-color: rgba(56, 189, 248, 0.85);
+  --glare-color: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.48);
+  box-shadow:
+    0 30px 70px -15px rgba(0, 0, 0, 0.9),
+    0 0 50px -12px rgba(56, 189, 248, 0.24),
+    0 1px 0 0 rgba(56, 189, 248, 0.35) inset;
+}
+
+.card-3d-chassis.active-violet {
+  --spotlight-color: rgba(168, 85, 247, 0.85);
+  --glare-color: rgba(168, 85, 247, 0.08);
+  border-color: rgba(168, 85, 247, 0.48);
+  box-shadow:
+    0 30px 70px -15px rgba(0, 0, 0, 0.9),
+    0 0 50px -12px rgba(168, 85, 247, 0.24),
+    0 1px 0 0 rgba(168, 85, 247, 0.35) inset;
+}
+
+/* 3D Z-Axis Elevation Layers Inside Cards */
+.layer-z-10 {
+  transform: translateZ(12px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.layer-z-20 {
+  transform: translateZ(24px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.layer-z-30 {
+  transform: translateZ(36px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Exploded Z-Axis Inspection Mode */
+.exploded-3d .layer-z-10,
+body.exploded-3d .layer-z-10 {
+  transform: translateZ(26px);
+}
+.exploded-3d .layer-z-20,
+body.exploded-3d .layer-z-20 {
+  transform: translateZ(52px) translateY(-4px);
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.85);
+}
+.exploded-3d .layer-z-30,
+body.exploded-3d .layer-z-30 {
+  transform: translateZ(74px) translateY(-6px);
+}
+
+/* Recessed 3D Telemetry Chamber */
+.telemetry-chamber-3d {
+  background-color: #040508;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.035) 0%, transparent 70%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 16px 16px, 16px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  box-shadow:
+    inset 0 6px 20px rgba(0, 0, 0, 0.95),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Isometric Perspective Floor Grid inside Telemetry Chambers */
+.chamber-floor-grid {
+  position: absolute;
+  inset: 30% -20% -35% -20%;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  transform: perspective(360px) rotateX(68deg);
+  transform-origin: center top;
+  pointer-events: none;
+  opacity: 0.65;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+/* Animated Data Flow & Synaptic Keyframes */
+@keyframes dashStream {
+  to { stroke-dashoffset: -28; }
+}
+.animate-stream {
+  animation: dashStream 1.4s linear infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotateX(0deg); }
+  50% { transform: translateY(-5px) rotateX(3deg); }
+}
+.float-3d {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+@keyframes pulseHalo {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.18); }
+}
+.pulse-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulseHalo 2.2s ease-in-out infinite;
+}

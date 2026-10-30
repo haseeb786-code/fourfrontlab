@@ -17,6 +17,13 @@ const config: Config = {
         'text-muted': '#6b6b6b',
         'text-dim': '#3a3a3a',
         accent: '#c8f542', // Acid green
+        limeAccent: '#a3e635',
+        cyanAccent: '#38bdf8',
+        violetAccent: '#a855f7',
+        obsidian: '#050608',
+        carbon: '#0a0c10',
+        panel: '#0e1117',
+        viewport: '#040507',
         white: '#fafaf8',
         blueprint: {
           bg: '#F4F4F2',
@@ -33,7 +40,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['var(--font-serif)', '"Editorial New"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+        serif: ['var(--font-serif)', '"Newsreader"', '"Instrument Serif"', '"Editorial New"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
         sans: ['var(--font-sans)', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         mono: ['var(--font-mono)', '"JetBrains Mono"', 'monospace'],
       },

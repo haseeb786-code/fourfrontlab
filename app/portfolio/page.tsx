@@ -50,6 +50,26 @@ const initialProjects: ProjectItem[] = [
     },
   },
   {
+    id: 'p-reflection',
+    title: 'Reflection Elite Atelier',
+    slug: 'reflection-elite',
+    client: 'Reflection Elite Luxury Mirrors',
+    industry: 'Luxury E-Commerce / Handcrafted Mirrors',
+    overview: 'Bespoke digital atelier and high-conversion e-commerce platform engineered for artisan Italian Venetian and Murano decorative mirrors with made-to-measure quotation flows.',
+    coverImage: '/projects/reflectionelite_main.jpg',
+    liveUrl: 'https://reflectionelite.com',
+    results: {
+      'Catalog Inquiries': '+210% custom requests',
+      'LCP Speed': 'Sub-800ms high-res glass',
+      'Fragile Logistics': '100% secure zero-loss transit',
+    },
+    techStack: ['Next.js 14', 'WooCommerce API', 'Tailwind CSS', 'Vercel Edge'],
+    category: {
+      name: 'E-Commerce',
+      slug: 'ecommerce',
+    },
+  },
+  {
     id: 'p2',
     title: 'Nexus Operations OS',
     slug: 'nexus-enterprise-os',
